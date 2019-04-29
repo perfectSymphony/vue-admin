@@ -1,0 +1,102 @@
+html {
+    //此处也设置成高度等于100%，呼应body的高度等于100%，只是为了兼容IE6、firefox
+    height: 100%;
+    // border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的
+    box-sizing: border-box;
+}
+
+body {
+    // 设置body高度100%自适应屏幕 即高度自适应
+    height: 100%;
+    // 设置grayscale对于图标字体表现更清晰
+    -mos-osx-font-smoothing: grayscale;
+    // 对字体进行抗锯齿渲染可以使字体看起来会更清晰舒服。在图标字体成为一种趋势的今天，抗锯齿渲染使用也越来越多。
+    // antialiased ------抗锯齿很好
+    /*chrome、safari*/
+    -webkit-font-smoothing: antialiased;
+    // 文本渲染 当绘制文本时，浏览器会侧重文本的可读性（清晰度），而不是渲染速度和几何 精度
+    // 该属性值可以用于字距调整和连字
+    text-rendering: optimizeLegibility;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+}
+
+label {
+    font-weight: 700;
+}
+
+#app {
+    height: 100%;
+}
+
+*,
+*:before,
+*:after {
+    //从父元素继承
+    box-sizing: inherit;
+}
+
+a,
+a:focus,
+a:hover {
+    cursor: pointer;
+    //应该从父元素继承颜色
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+}
+
+div:focus {
+    outline: none;
+}
+
+a:active {
+    outline: none;
+}
+
+.fr {
+    float: right;
+}
+
+.fl {
+    float: left;
+}
+
+.pr-5 {
+    padding-right: 5px;
+}
+
+.pl-5 {
+    padding-left: 5px;
+}
+
+.block {
+    display: block;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.clearfix {
+    &:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+}
+
+// 全局样式
+.app-main {
+    min-height: 100%;
+}
+
+.app-container {
+    padding: 20px;
+}
