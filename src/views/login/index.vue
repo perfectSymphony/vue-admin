@@ -1,19 +1,39 @@
 <template>
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="密码" prop="pass">
-      <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="确认密码" prop="checkPass">
-      <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="年龄" prop="age">
-      <el-input v-model.number="ruleForm.age"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
-    </el-form-item>
-  </el-form>
+  <div class="login-container">
+    <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="login-form" auto-complete="on" label-position="left">
+      
+      <div class="title-container">
+        <h3 class="title">
+          perfectSymphony
+        </h3>
+      </div>
+
+      <el-form-item prop="username">
+        <el-input 
+            ref="username"
+            type="text"
+            name="username"
+            tabindex="1" 
+            v-model="loginForm.username" 
+            auto-complete="on" 
+        />
+      </el-form-item>
+
+      <el-tooltip content="Caps lock is On" placement="right">
+        <el-form-item prop="password">
+          <el-input 
+             ref="password"
+             name="paddword"
+             tabindex="2"
+             v-model.number="loginForm.password"
+             auto-complete="on"
+          />
+        </el-form-item>
+      </el-tooltip>
+
+      <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -39,33 +59,20 @@
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
+          if (this.loginForm.checkPass !== '') {
+            this.$refs.loginForm.validateField('checkPass');
           }
           callback();
         }
       };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
       return {
-        ruleForm: {
-          pass: '',
-          checkPass: '',
+        loginForm: {
+          username: '',
           age: ''
         },
         rules: {
-          pass: [
+          username: [
             { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
           ],
           age: [
             { validator: checkAge, trigger: 'blur' }
@@ -90,3 +97,79 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  /* 更改input 背景不协调 和光标变色 */
+  // https://github.com/PanJiaChen/vue-element-admin/pull/927
+
+
+  $bg:#283443;
+  $light_gray:#fff;
+  $cursor: #fff;
+
+  @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+    .login-container .el-input input {
+      color: $cursor;
+    }
+  }
+
+  // 重置element-ui样式
+  .login-container {
+    .el-input {
+      display: inline-block;
+      height: 47px;
+      width:85%;
+
+      input {
+        background:transparent;
+        border:0;
+        -webkit-appearance: none;
+        border-radius: 0;
+        padding:12px 5px 12px 15px;
+        color:$light_gray;
+        height: 47px;
+        caret-color: $cursor;
+
+        &:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px $bg inset !important;
+          -webkit-text-fill-color: $cursor !important;
+        }       
+      }
+    }
+  }
+</style>
+
+
+<style lang="scss" scoped>
+  $bg: #2d3a4b;
+  $dark_gray:#889aa4;
+  $light_gray: #eee;
+  
+  .login-container {
+    min-height:100%;
+    width:100%;
+    background-color: $bg;
+    overflow:hidden;
+
+    .login-form {
+      position: relative;
+      width: 520px;
+      min-width: 100%;
+      padding:160px 35px 0;
+      margin: 0 auto;
+      overflow: hidden; 
+    }
+
+    .title-container {
+      position: relative;
+      .title {
+        font-size: 26px;
+        color: $light_gray;
+        margin: 0 auto 40px auto;
+        text-align: center;
+        font-weight: bolder;
+      }
+    }
+    
+  }
+</style>

@@ -5,6 +5,9 @@ import 'normalize.css/normalize.css'
 
 // element-ui
 import Element from 'element-ui'
+//单独引入element-ui样式
+import 'element-ui/lib/theme-chalk/index.css'
+
 import './styles/element-variables.scss'
 
 // 全局样式
