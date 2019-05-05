@@ -10,10 +10,12 @@
     },
     "dependencies": {
         "core-js": "^2.6.5",
+        "element-ui": "^2.8.2",
+        "mockjs": "1.0.1-beta3",
+        "normalize.css": "^8.0.1",
         "vue": "^2.6.10",
         "vue-router": "3.0.2",
-        "vuex": "^3.0.1",
-        "mockjs": "1.0.1-beta3"
+        "vuex": "^3.0.1"
     },
     "devDependencies": {
         "@babel/register": "^7.4.4",

@@ -1,4 +1,4 @@
-import vue from 'vue'
+import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
@@ -30,9 +30,23 @@ Vue.use(Router)
  * all roles can be accessed
  */
 
-export const constantRoutes = [{
+const constantRoutes = [{
     path: '/login',
     component: () =>
         import ('@/views/login/index'),
     hidden: true
 }]
+
+const createRouter = () => new Router({
+    mode: 'history',
+    routes: constantRoutes
+})
+
+const router = createRouter()
+
+// https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+    const newRouter = createRouter()
+}
+
+export default router
