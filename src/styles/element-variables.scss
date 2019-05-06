@@ -1,0 +1,17 @@
+//element-ui 提供了自定义主题，
+// 如果认为element-ui提供的默认的样式不满意，可以自定义
+// https://element.eleme.cn/#/zh-CN/component/custom-theme
+
+/* 改变主题色变量 */
+
+$--color-primary: #1890ff;
+
+/* 改变 icon 字体路径变量，必需 */
+
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+    theme: $--color-primary;
+}

@@ -13,25 +13,27 @@
             ref="username"
             type="text"
             name="username"
-            tabindex="1" 
+            tabindex="1"
+            placeholder="账号" 
             v-model="loginForm.username" 
             auto-complete="on" 
         />
       </el-form-item>
 
-      <el-tooltip content="Caps lock is On" placement="right">
+      <el-tooltip content="Caps lock is On" placement="right" manual>
         <el-form-item prop="password">
           <el-input 
              ref="password"
              name="paddword"
              tabindex="2"
+             placeholder="密码"
              v-model.number="loginForm.password"
              auto-complete="on"
           />
         </el-form-item>
       </el-tooltip>
 
-      <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
+      <el-button type="primary" style="width: 100%; margin-bottom: 30px;" @click="submitForm('loginForm')">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -41,11 +43,11 @@
     data() {
       var checkAge = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('年龄不能为空'));
+          return callback(new Error('密码不能为空'));
         }
         setTimeout(() => {
           if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
+            callback(new Error('请输入密码'));
           } else {
             if (value < 18) {
               callback(new Error('必须年满18岁'));
@@ -57,7 +59,7 @@
       };
       var validatePass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请输入密码'));
+          callback(new Error('请输入账号'));
         } else {
           if (this.loginForm.checkPass !== '') {
             this.$refs.loginForm.validateField('checkPass');
@@ -68,13 +70,13 @@
       return {
         loginForm: {
           username: '',
-          age: ''
+          password: ''
         },
         rules: {
           username: [
             { validator: validatePass, trigger: 'blur' }
           ],
-          age: [
+          password: [
             { validator: checkAge, trigger: 'blur' }
           ]
         }
@@ -98,7 +100,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   /* 更改input 背景不协调 和光标变色 */
   // https://github.com/PanJiaChen/vue-element-admin/pull/927
 
@@ -118,23 +120,34 @@
     .el-input {
       display: inline-block;
       height: 47px;
-      width:85%;
+      width: 85%;
 
       input {
-        background:transparent;
-        border:0;
+        background: transparent !important;
+        border: 0px;
         -webkit-appearance: none;
-        border-radius: 0;
-        padding:12px 5px 12px 15px;
-        color:$light_gray;
+        border-radius: 0px;
+        padding: 12px 5px 12px 15px;
+        color: $light_gray;
         height: 47px;
         caret-color: $cursor;
 
         &:-webkit-autofill {
           box-shadow: 0 0 0px 1000px $bg inset !important;
           -webkit-text-fill-color: $cursor !important;
-        }       
+        }
       }
+    }
+
+    .el-form-item {
+      border:1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+    }
+
+    .el-form-item__content {
+      margin-left: 0px !important;
     }
   }
 </style>
@@ -154,7 +167,7 @@
     .login-form {
       position: relative;
       width: 520px;
-      min-width: 100%;
+      max-width: 100%;
       padding:160px 35px 0;
       margin: 0 auto;
       overflow: hidden; 
