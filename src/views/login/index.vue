@@ -9,6 +9,9 @@
       </div>
 
       <el-form-item prop="username">
+        <span class="svg-container">
+          <svg-icon icon-class="user" />
+        </span>
         <el-input 
             ref="username"
             type="text"
@@ -22,14 +25,21 @@
 
       <el-tooltip content="Caps lock is On" placement="right" manual>
         <el-form-item prop="password">
+          <span class="svg-container">
+            <svg-icon icon-class="password" />
+          </span>
           <el-input 
              ref="password"
+             type="password"
              name="paddword"
              tabindex="2"
              placeholder="密码"
              v-model.number="loginForm.password"
              auto-complete="on"
           />
+          <span class="show-pwd">
+            <svg-icon icon-class="eye" />
+          </span>
         </el-form-item>
       </el-tooltip>
 
@@ -69,8 +79,8 @@
       };
       return {
         loginForm: {
-          username: '',
-          password: ''
+          username: 'admin',
+          password: 'perfectSymphony'
         },
         rules: {
           username: [
@@ -171,6 +181,26 @@
       padding:160px 35px 0;
       margin: 0 auto;
       overflow: hidden; 
+    }
+
+    .tips {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 10px;
+
+      span {
+        &:first-of-type {
+          margin-right: 16px;
+        }
+      }
+    }
+
+    .svg-container {
+      padding: 6px 5px 6px 15px;
+      color: $dark_gray;
+      vertical-align: middle;
+      width: 30px;
+      display: inline-block;
     }
 
     .title-container {
