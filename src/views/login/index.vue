@@ -37,9 +37,9 @@
              v-model.number="loginForm.password"
              auto-complete="on"
           />
-          <span class="show-pwd">
+          <!-- <span class="show-pwd">
             <svg-icon icon-class="eye" />
-          </span>
+          </span> -->
         </el-form-item>
       </el-tooltip>
 
@@ -181,18 +181,6 @@
       padding:160px 35px 0;
       margin: 0 auto;
       overflow: hidden; 
-    }
-
-    .tips {
-      font-size: 14px;
-      color: #fff;
-      margin-bottom: 10px;
-
-      span {
-        &:first-of-type {
-          margin-right: 16px;
-        }
-      }
     }
 
     .svg-container {

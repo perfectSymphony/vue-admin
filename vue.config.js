@@ -54,11 +54,11 @@ module.exports = {
             .end()
         config.module
             .rule('icons')
-            .test('/\.svg/')
+            .test(/\.svg$/)
             .include.add(resolve('src/icons'))
             .end()
-            .use('svg-splite-loader')
-            .loader('svg-splite-loader')
+            .use('svg-sprite-loader')
+            .loader('svg-sprite-loader')
             .options({
                 symbolId: 'icon-[name]'
             })

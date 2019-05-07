@@ -15,7 +15,7 @@ import router from './router'
 import store from './store'
 
 // 引入icons
-import './icons'  
+import './icons'
 
 Vue.config.productionTip = false
 
