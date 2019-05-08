@@ -43,7 +43,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px;" @click="submitForm('loginForm')">登录</el-button>
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="submitForm('loginForm')">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -95,11 +95,35 @@
           ]
         },
         passwordType: 'password',
-        capsTooltip: false
+        capsTooltip: false,
+        loading: false,
+        redirect: undefined
       };
     },
+    watch: {
+      $route: {
+        handler: function(route){
+          console.log(route)
+          this.redirect = route.query && route.query.redirect
+        },
+        immediate: true
+      }
+    },
+    created(){
+
+    },
+    mounted(){
+      if(this.loginForm.username === ''){
+        this.$refs.username.focus()
+      } else if(this.loginForm.password === ''){
+        this.$refs.password.focus()
+      }
+    },
+    destroyed(){
+
+    },
     methods: {
-      showPwd:  function(){
+      showPwd: function(){
         if(this.passwordType === 'password') {
           this.passwordType = ''
         } else {
