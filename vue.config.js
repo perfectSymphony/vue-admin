@@ -48,6 +48,8 @@ module.exports = {
         config.plugins.delete('prefetch')
 
         //设置 svg-sprite-loader
+        // 可以将多个svg打包成svg-sprite
+        // https://github.com/kisenka/svg-sprite-loader
         config.module
             .rule('svg')
             .exclude.add(resolve('src/icons'))

@@ -37,9 +37,9 @@
              v-model.number="loginForm.password"
              auto-complete="on"
           />
-          <!-- <span class="show-pwd">
+          <span class="show-pwd" onselectstart="return false;" unselectable="on">
             <svg-icon icon-class="eye" />
-          </span> -->
+          </span>
         </el-form-item>
       </el-tooltip>
 
@@ -202,5 +202,17 @@
       }
     }
     
+    .show-pwd {
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      font-size: 16px;
+      color: $dark_gray;
+      cursor: pointer;
+      // 设置或检索是否允许用户选中文本
+      // https://www.html.cn/book/css/properties/user-interface/user-select.htm
+      user-select: none;
+    }
+
   }
 </style>
