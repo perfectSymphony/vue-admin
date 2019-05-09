@@ -43,7 +43,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="submitForm('loginForm')">登录</el-button>
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -135,9 +135,10 @@
           this.$refs.password.focus()
         })
       },
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+      handleLogin: function() {
+        this.$refs.loginForm.validate((valid) => {
           if (valid) {
+            this.loading = true
             alert('submit!');
           } else {
             console.log('error submit!!');
