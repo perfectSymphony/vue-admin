@@ -17,6 +17,9 @@ import store from './store'
 // 引入icons
 import './icons'
 
+// 引入权限控制文件
+import './permission'
+
 Vue.config.productionTip = false
 
 
