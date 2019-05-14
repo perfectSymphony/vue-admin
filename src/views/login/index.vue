@@ -144,7 +144,9 @@
                 this.$router.push({ path: this.redirect || '/' })
                 this.loading = false
               })
-            alert('submit!');
+              .catch(() => {
+                this.loading = false
+              })
           } else {
             console.log('error submit!!');
             return false;

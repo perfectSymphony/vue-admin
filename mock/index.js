@@ -1,7 +1,11 @@
 import Mock from 'mockjs'
 import param2Obj from '../src/utils'
 
-const mocks = []
+import user from './user'
+
+const mocks = [
+    ...user
+]
 
 
 //前端模拟数据
