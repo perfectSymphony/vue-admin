@@ -33,6 +33,7 @@ router.beforeEach(async(to, from, next) => {
         } else {
             //通过用户信息来判断是否获取相应的权限角色
             const hasRoles = store.getters.roles && store.getters.roles.length > 0
+            console.log(store.getters)
             if (hasRoles) {
                 next()
             } else {
