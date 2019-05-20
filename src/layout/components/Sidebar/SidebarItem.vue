@@ -1,25 +1,33 @@
 <template>
     <div v-if="!item.hidden" class="menu-wrapper">
         <!-- 只有一级菜单的菜单 -->
-        <template>
-            <app-link>
-                <el-menu-item>
-                    <item />    
+        <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+            <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+                <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+                    <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" />    
                 </el-menu-item>   
             </app-link>
         </template>
          <!--拥有二级菜单的菜单  -->
-        <el-submenu>
+        <el-submenu v-else ref="suMenu" :index="resolvePath(item.path)" popper-append-to-body>
             <!-- 拥有二级子菜单的一级菜单的标题和icon -->
             <template slot="title">
-                <item />    
+                <item v-if="item.meta" :icon="item.meta && item.meta.icon" />    
             </template>
             <!-- 二级子菜单 -->          
-            <sidebar-item />
+            <sidebar-item 
+              v-for="child in item.children"
+              :key="child.path"
+              :is-nest="true"
+              :item="child"
+              :base-path="resolvePath(child.path)"
+              class="nest-menu"
+            />
         </el-submenu>      
     </div>
 </template>
 <script>
+import path from 'path'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
 import AppLink from './Link'
@@ -31,6 +39,7 @@ export default {
        AppLink 
     },
     props:{
+      // 路由对象
       item: {
         type: Object,
         required: true
@@ -85,17 +94,10 @@ export default {
           return this.basePath
         }
         return path.resolve(this.basePath, routePath)
-      },
+      }
 
-      generateTitle
     }    
 }
 </script>
 
-<style>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
-</style>
 
