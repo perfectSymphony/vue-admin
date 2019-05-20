@@ -16,6 +16,11 @@ import { mapState } from 'vuex'
       Navbar,
       Sidebar
     },
+    computed: {
+      ...mapState({
+        sidebar: state => state.app.sidebar
+      })
+    },
     data() {
       return {
         isCollapse: true
@@ -33,7 +38,7 @@ import { mapState } from 'vuex'
 </script>
 <style lang="scss" scoped>
    @import "~@/styles/mixin.scss";
-
+   @import "~@/styles/variables.scss";
    .app-wrapper {
        @include clearfix;
        position: relative;
