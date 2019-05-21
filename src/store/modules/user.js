@@ -1,5 +1,6 @@
 import { login, getInfo, logout } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import router, { resetRouter } from '@/router'
 
 const state = {
     token: getToken(),
@@ -71,12 +72,14 @@ const actions = {
         })
     },
 
+    //用户登出
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
             logout(state.token).then(() => {
                 commit('SET_TOKEN', '')
                 commit('SET_ROLES', [])
                 removeToken()
+                resetRouter()
                 resolve()
             }).catch(eror => {
                 reject(error)
@@ -92,7 +95,30 @@ const actions = {
             removeToken()
             resolve()
         })
+    },
+
+    //动态修改权限
+    changeRoles({ commit, dispatch }, role) {
+        return new Promise(async resolve => {
+            const token = role + '-token'
+
+            commit('SET_TOKEN', token)
+            setToken(token)
+
+            const { roles } = await dispatch('getInfo')
+
+            resetRouter()
+
+            // 根据角色生成可访问的路由表
+            const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+
+            // 动态添加路由
+            router.addRoutes(accessRoutes)
+
+            resolve()
+        })
     }
+
 }
 
 export default {

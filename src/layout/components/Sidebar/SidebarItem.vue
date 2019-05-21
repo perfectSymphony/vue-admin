@@ -28,6 +28,7 @@
 </template>
 <script>
 import path from 'path'
+import { generateTitle } from '@/utils/i18n'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
 import AppLink from './Link'
@@ -55,7 +56,7 @@ export default {
     },
     data() {
       // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
-      this.onlyOnechild = null
+      this.onlyOneChild = null
       return {
 
       }
@@ -66,7 +67,7 @@ export default {
           if(item.hidden){
             return false
           } else {
-            this.onlyOnechild = item
+            this.onlyOneChild = item
             return true
           }
         })
@@ -77,7 +78,7 @@ export default {
         }
         // Show parent if there are no child router to display
         if(showingChildren.length === 0){
-          this.onlyOnechild = {
+          this.onlyOneChild = {
             ...parent,
             path: '',
             noShowingChildren: true

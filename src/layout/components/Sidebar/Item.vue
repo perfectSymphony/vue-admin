@@ -20,7 +20,7 @@ export default {
         // children: VNode 子节点的数组
         const { icon, title } = context.props
         const VNode = []
-
+        
         if(icon){
             VNode.push(<svg-icon icon-class={icon} />)
         }
@@ -28,7 +28,7 @@ export default {
         if(title){
             VNode.push(<span slot="title">{(title)}</span>)
         }
-
+        return VNode
     }
 }
 </script>

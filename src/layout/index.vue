@@ -21,10 +21,13 @@ import { mapState } from 'vuex'
         sidebar: state => state.app.sidebar
       })
     },
-    data() {
-      return {
-        isCollapse: true
-      };
+    computed: {
+      classObj() {
+        return {
+          hideSidebar: !this.sidebar.opened,
+          openSidebar: this.sidebar.opened
+        }
+      }
     },
     methods: {
       handleOpen(key, keyPath) {
@@ -44,5 +47,8 @@ import { mapState } from 'vuex'
        position: relative;
        width: 100%;
        height:100%;
+   }
+   .hideSidebar .fixed-header {
+     width: calc(100% - 54px)
    }
 </style>

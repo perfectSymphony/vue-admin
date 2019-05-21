@@ -33,7 +33,7 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 
-const constantRoutes = [
+export const constantRoutes = [
     // {
     //     path: '/redirect',
     //     component: Layout,
@@ -67,6 +67,13 @@ const constantRoutes = [
     }
 ]
 
+/**
+ * asyncRoutes
+ * 根据用户角色动态加载路由
+ */
+
+export const asyncRoutes = []
+
 const createRouter = () => new Router({
     mode: 'history',
     routes: constantRoutes
@@ -77,7 +84,7 @@ const router = createRouter()
 // https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
     const newRouter = createRouter()
-    //重置路由
+        //重置路由
     router.matcher = newRouter.matcher
 }
 
