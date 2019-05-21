@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import Cookies from 'js-cookie'
+
 // css初始化样式
 import 'normalize.css/normalize.css'
 
@@ -14,6 +16,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+//i18n
+import i18n from './lang'
 // 引入icons
 import './icons'
 
@@ -23,11 +27,14 @@ import './permission'
 Vue.config.productionTip = false
 
 
-Vue.use(Element)
+Vue.use(Element, {
+    i18n: (key, value) => i18n.t(key, value)
+})
 
 new Vue({
     el: '#app',
     router,
     store,
+    i18n, //挂载到vue根实例上面
     render: h => h(App)
 })
