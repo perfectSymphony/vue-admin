@@ -73,7 +73,7 @@ export default {
     size: 'Global Size'
   },
   login: {
-    title: 'Login Form',
+    title: 'perfectSymphony',
     logIn: 'Login',
     username: 'Username',
     password: 'Password',

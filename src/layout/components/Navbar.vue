@@ -6,6 +6,10 @@
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
         <!-- 右侧菜单 -->
         <div class="right-menu">
+            <template>
+                <!-- 国际化 -->
+                <lang-select class="right-menu-item hover-effect" />
+            </template>
             <!-- 下拉菜单 -->
             <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
             <span class="avatar-wrapper">
@@ -36,13 +40,14 @@
 import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
-
+import LangSelect from '@/components/LangSelect'
 
 export default {
     name: 'Navbar',
     components: {
         Hamburger,
-        Breadcrumb
+        Breadcrumb,
+        LangSelect
     },
     computed: {
         ...mapGetters([

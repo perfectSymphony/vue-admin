@@ -4,8 +4,9 @@
       
       <div class="title-container">
         <h3 class="title">
-          perfectSymphony
+          {{ $t('login.title') }}
         </h3>
+        <lang-select class="set-language" />
       </div>
 
       <el-form-item prop="username">
@@ -43,14 +44,14 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn')}}</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
   import { validUsername } from '@/utils/validate'
- 
+  import LangSelect from '@/components/LangSelect'
 
   export default {
   // 此处name有以下3点作用：
@@ -58,6 +59,9 @@
   // 2、dom树递归使用， 递归组件是指组件自身调用自身
   // 3、当你用vue-tools时，vue-devtools调试工具里显示的组见名称是由vue中组件name决定的
     name: 'Login',
+    components: {
+      LangSelect
+    },
     data() {
       const validateUsername = (rule, value, callback) => {
         if (!validUsername(value)) {
@@ -246,6 +250,15 @@
         margin: 0 auto 40px auto;
         text-align: center;
         font-weight: bolder;
+      }
+
+      .set-language {
+        color: #fff;
+        position:absolute;
+        top:3px;
+        font-size: 18px;
+        right: 0;
+        cursor: pointer;
       }
     }
     
