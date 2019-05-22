@@ -30,7 +30,6 @@ export default {
     },
     methods: {
         toggleClick(){
-            alert(2)
             // 触发当前实例上的事件, 附加参数都会传给监听器回调。
             // 配合额外的参数使用 $emit
             this.$emit('toggleClick')
