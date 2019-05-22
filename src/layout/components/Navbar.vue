@@ -42,6 +42,11 @@ export default {
             background: rgba(0, 0, 0, .025);
         } 
     }
+
+    // 面包屑
+    .breadcrumb-container {
+        float: left;
+    }
 }
 </style>
 

@@ -29,6 +29,9 @@ export default {
             this.getBreadcrumb()
         }
     },
+    created(){
+        this.getBreadcrumb()
+    },
     methods: {
         generateTitle,
         getBreadcrumb(){
@@ -50,7 +53,9 @@ export default {
             return name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()   
         },
         pathCompile(path){
-            
+            const { params } = this.$route
+            var toPath = pathToRegexp.compile(path)
+            return toPath(params)
         },
         handleLink(item){
             const { redirect, path } = item
@@ -64,7 +69,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.app-breadcrumb.el-breadcrumb {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 50px;
+    margin-left: 8px;
+
+    .no-redirect{
+        color: #97a8be;
+        cursor: text;
+    }
+}
 
 </style>
 
