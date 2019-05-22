@@ -1,11 +1,39 @@
 <template>
     <div class="navbar">
+        <!-- 汉堡 -->
         <hamburger id="hamburger-container" class="hamburger-container"   />
         <!-- 面包屑 -->
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+        <!-- 右侧菜单 -->
+        <div class="right-menu">
+            <!-- 下拉菜单 -->
+            <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+            <span class="avatar-wrapper">
+                <img :src="avatar + '?imageView2/1/w/80/h/80'" alt="" class="user-avatar">
+                <i class="el-icon-caret-bottom"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>狮子头</el-dropdown-item>
+                <router-link to="/">
+                    <el-dropdown-item>
+                        {{ $t('navbar.dashboard') }}
+                    </el-dropdown-item>
+                </router-link>
+                <a target="_blank" href="https://github.com/perfectSymphony/vue-admin">
+                    <el-dropdown-item>
+                        {{ $t('navbar.github') }}
+                    </el-dropdown-item>                    
+                </a>
+                <el-dropdown-item divided>
+                    <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
+                </el-dropdown-item>
+            </el-dropdown-menu>
+            </el-dropdown>
+        </div>
     </div>     
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 
@@ -15,8 +43,18 @@ export default {
     components: {
         Hamburger,
         Breadcrumb
+    },
+    computed: {
+        ...mapGetters([
+            'avatar'
+        ])
+    },
+    methods: {
+        async logout() {
+            await this.$store.dispatch('user/logout')
+            this.$router.push(`login?redirect=${this.$route.fullPath}`)
+        }
     }
-    
 }
 </script>
 
@@ -46,6 +84,59 @@ export default {
     // 面包屑
     .breadcrumb-container {
         float: left;
+    }
+
+    // 右侧菜单
+    .right-menu {
+        float: right;
+        height: 100%;
+        line-height: 50px;
+        
+        &:focus {
+            outline: none;
+        }
+
+        .right-menu-item {
+            display: inline-block;
+            padding: 0 8px;
+            height: 100%;
+            font-size: 18px;
+            color: #5a5e66;
+            vertical-align: text-bottom;  //把元素的底端与父元素字体的底端对齐。
+
+            &.hover-effect {
+                cursor: pointer;
+                transition: background .3s;
+
+                &:hover {
+                    background: rgba(0, 0, 0, .025);
+                }
+            }
+        }
+
+        .avatar-container {
+            margin-right: 30px;
+            
+            .avatar-wrapper {
+                margin-top: 5px;
+                position: relative;
+
+                .user-avatar {
+                    cursor: pointer;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 10px;
+                }
+
+                .el-icon-caret-bottom {
+                    cursor: pointer;
+                    position:absolute;
+                    right: -15px;
+                    top: -10px;
+                    font-size: 12px;
+                }
+            }
+        }
     }
 }
 </style>

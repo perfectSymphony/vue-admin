@@ -78,7 +78,7 @@ export default {
 
     .no-redirect{
         color: #97a8be;
-        cursor: text;
+        cursor: text;  //此光标指示文本
     }
 }
 
