@@ -1,5 +1,5 @@
 <template>
-    <div class="app-wrapper">
+    <div :class="classObj" class="app-wrapper">
       <sidebar class="sidebar-container" />
       <div class="main-container">
         <navbar />  
@@ -19,13 +19,13 @@ import { mapState } from 'vuex'
     computed: {
       ...mapState({
         sidebar: state => state.app.sidebar
-      })
-    },
-    computed: {
+      }),
       classObj() {
+        console.log(this.sidebar)
         return {
           hideSidebar: !this.sidebar.opened,
-          openSidebar: this.sidebar.opened
+          openSidebar: this.sidebar.opened,
+          withoutAnimation: this.sidebar.withoutAnimation
         }
       }
     },

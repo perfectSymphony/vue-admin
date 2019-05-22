@@ -1,6 +1,6 @@
 <template>
 
-    <div style="padding: 0 15px;">
+    <div style="padding: 0 15px;" @click="toggleClick">
         <!-- svg中viewBox (0 0 200 200) :0 0 表示x轴和y有的其实位置，后面200, 200 表示长和宽但是只是一个数量，不会有具体的长度
         那么如何让这样一个svg在长宽为100*100px的div中显示全呢？
         viewBox就是干这个的
@@ -26,6 +26,14 @@ export default {
         isActive: {
             type: Boolean,
             default: false
+        }
+    },
+    methods: {
+        toggleClick(){
+            alert(2)
+            // 触发当前实例上的事件, 附加参数都会传给监听器回调。
+            // 配合额外的参数使用 $emit
+            this.$emit('toggleClick')
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <!-- 汉堡 -->
-        <hamburger id="hamburger-container" class="hamburger-container"   />
+        <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
         <!-- 面包屑 -->
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
         <!-- 右侧菜单 -->
@@ -46,12 +46,22 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'sidebar',
             'avatar'
         ])
     },
     methods: {
+        toggleSideBar(){
+            alert(1)
+            this.$store.dispatch('app/toggleSideBar')
+        },
         async logout() {
-            await this.$store.dispatch('user/logout')
+            try{
+                await this.$store.dispatch('user/logout')
+            }catch(err){
+                console.log(err)
+            }  
+            // location.reload()          
             this.$router.push(`login?redirect=${this.$route.fullPath}`)
         }
     }
