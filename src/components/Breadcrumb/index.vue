@@ -12,7 +12,6 @@
 </template>
 <script>
 import { generateTitle } from '@/utils/i18n'
-import pathToRegexp from 'path-to-regexp'
 
 // 处理 url 中地址与参数，能够很方便得到我们想要的数据
 // path-to-regexp 可以看成是 url 字符串的正则表达式
