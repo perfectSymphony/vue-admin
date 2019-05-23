@@ -7,6 +7,8 @@
         <!-- 右侧菜单 -->
         <div class="right-menu">
             <template>
+                <!-- 全屏设置 -->
+                <screenfull id="screenfull" class="right-menu-item hover-effect" />
                 <!-- 国际化 -->
                 <lang-select class="right-menu-item hover-effect" />
             </template>
@@ -41,13 +43,15 @@ import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
+import Screenfull from '@/components/Screenfull'
 
 export default {
     name: 'Navbar',
     components: {
         Hamburger,
         Breadcrumb,
-        LangSelect
+        LangSelect,
+        Screenfull
     },
     computed: {
         ...mapGetters([
