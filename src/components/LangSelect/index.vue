@@ -1,4 +1,6 @@
 <template>
+<!--  element-ui提供的@command(指令) ======  详情请查看下面链接对应的指令事件的API-->
+<!-- https://element.eleme.cn/2.0/#/zh-CN/component/dropdown#dropdown-menu-item-attributes -->
 	<el-dropdown trigger="click" class="international" @command="handleSetLanguage">
 	    <div>
 	      <svg-icon class-name="international-icon" icon-class="language" />

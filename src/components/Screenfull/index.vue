@@ -39,7 +39,7 @@ export default {
         },
         init(){
             if(screenfull.enabled){
-                console.log(screenfull)
+                // console.log(screenfull)
                 // 添加侦听器，以便在浏览器进出全屏或出现错误时执行相应的事件
                 screenfull.on('change',this.change)
             }

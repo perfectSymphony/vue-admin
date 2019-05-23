@@ -7,6 +7,10 @@
         <!-- 右侧菜单 -->
         <div class="right-menu">
             <template>
+                <!-- 设置网站整体字体大小 -->
+                <el-tooltip effect="dark" :content="$t('navbar.size')" placement="bottom">
+                    <size-select id="size-select" class="right-menu-item hover-effect" />
+                </el-tooltip>                
                 <!-- 全屏设置 -->
                 <screenfull id="screenfull" class="right-menu-item hover-effect" />
                 <!-- 国际化 -->
@@ -44,6 +48,7 @@ import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
 import Screenfull from '@/components/Screenfull'
+import SizeSelect from '@/components/SizeSelect'
 
 export default {
     name: 'Navbar',
@@ -51,7 +56,8 @@ export default {
         Hamburger,
         Breadcrumb,
         LangSelect,
-        Screenfull
+        Screenfull,
+        SizeSelect
     },
     computed: {
         ...mapGetters([
