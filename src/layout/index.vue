@@ -3,18 +3,21 @@
       <sidebar class="sidebar-container" />
       <div class="main-container">
         <navbar />  
+        <!-- 主体内容部分 -->
+        <app-main />
       </div>     
     </div>
 </template>
 <script>
-import { Navbar, Sidebar } from './components'
+import { AppMain, Navbar, Sidebar } from './components'
 import { mapState } from 'vuex'
 
   export default {
     name: 'Layout',
     components: {
       Navbar,
-      Sidebar
+      Sidebar,
+      AppMain
     },
     computed: {
       ...mapState({
