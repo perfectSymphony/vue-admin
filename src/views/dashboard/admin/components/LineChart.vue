@@ -1,7 +1,6 @@
 <template>
-    <div :class="className" :style="{heght:height, width:width}">
+    <div :class="className" :style="{height:height, width:width}" />
 
-    </div>
 </template>
 <script>
 import echarts from 'echarts'
@@ -21,7 +20,7 @@ export default {
         },
         height: {
             type: String,
-            default: '100%'
+            default: '350px'
         },
         autoResize: {
             type: Boolean,
@@ -35,22 +34,52 @@ export default {
     data(){
         return {
             chart: null,
-            sidebarElm: null
+           // sidebarElm: null
         }
     },
     watch: {
         chartData: {
-            deep: true,
             handler(val){
                 this.setOptions(val)
-            }
+            },
+            deep: true
         }
     },
     mounted(){
         this.initChart()
+        if(this.autoResize){
+          this.__resizeHandler = debounce(() => {
+            if(this.chart){
+              this.chart.resize();
+            }
+          }, 100)
+          window.addEventListener('resize', this.__resizeHandler)
+        }
+
+    // 监听侧边栏的变化.  ----->. 不知道为什么
+    //this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+    //this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)        
+    },
+    beforeDestroy(){
+      if(!this.chart){
+        return
+      }
+      if (this.autoResize) {
+        window.removeEventListener('resize', this.__resizeHandler)
+      }
+
+      //this.sidebarElm && this.sidebarElm.removeEventListener('transitionend', this.sidebarResizeHandler)
+
+      this.chart.dispose()
+      this.chart = null
     },
     methods: {
-       setOptions({expectedData, } = {}){
+      //sidebarResizeHandler(e){
+      //  if(e.propertyName === 'width' ){
+      //    this.__resizeHandler()
+      //  }
+      //},
+       setOptions({ expectedData, actualData } = {}){
            this.chart.setOption({
                xAxis:{
                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -67,7 +96,7 @@ export default {
                    containLabel: true
                },
                tooltip: {
-                   trigger: 'xAxis',
+                   trigger: 'axis',
                    axisPointer: {
                        type: 'shadow'
                    },

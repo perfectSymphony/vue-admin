@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard-editor-container">
         <!-- 数据总量展示 -->
-        <panel-group />
+        <panel-group @handleSetLineChartData = "handleSetLineChartData" />
         <!-- 联动数据图表 -->
         <el-row style="background:#fff;padding:16px 16px 0; margin-bottom:32px;">
             <line-chart :chart-data="lineChartData" />
@@ -42,12 +42,17 @@ export default {
             lineChartData: lineChartData.newVisitis
         }
     },
+    methods: {
+      handleSetLineChartData(type){
+        this.lineChartData = lineChartData[type]
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>
 .dashboard-editor-container {
     padding: 32px;
     background-color: rgb(240, 242, 245);
-    // position: relative;
+    position: relative;
 }
 </style>

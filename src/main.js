@@ -28,6 +28,7 @@ Vue.config.productionTip = false
 
 
 Vue.use(Element, {
+	size: Cookies.get('size') || 'medium',   //设置element-ui默认字体大小
     i18n: (key, value) => i18n.t(key, value)
 })
 

@@ -27,6 +27,7 @@ export function param2Obj(url) {
  * @param {number} wait
  * @param {boolean} immediate
  * @return {*}
+ * 该函数是为了房子抖动
  */
 
 export function debounce(func, wait, immediate) {
