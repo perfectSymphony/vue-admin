@@ -56,7 +56,7 @@ export default {
           window.addEventListener('resize', this.__resizeHandler)
         }
 
-    // 监听侧边栏的变化.  ----->. 不知道为什么
+    // 监听侧边栏的变化.  ----->. 没看明白为什么要监听侧边栏变化
     //this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
     //this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)        
     },
