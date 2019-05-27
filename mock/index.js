@@ -2,9 +2,11 @@ import Mock from 'mockjs'
 import param2Obj from '../src/utils'
 
 import user from './user'
+import search from './remote-search'
 
 const mocks = [
-    ...user
+    ...user,
+    ...search
 ]
 
 
