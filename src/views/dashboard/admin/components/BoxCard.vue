@@ -4,7 +4,9 @@
          <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png" class="image">  
       </div>
     <div style="position:relative;">
-        <div class="progress-item">
+        <liu-thumb :image="avatar" class="liuThumb" />
+        <mallki class-name="mallki-text" text="vue-element-admin" />
+        <div style="padding-top:35px;" class="progress-item">
             <span>Vue</span>
             <el-progress :percentage="80"></el-progress>
         </div>
@@ -25,13 +27,24 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import liuThumb from '@/components/liuThumb'
+import Mallki from '@/components/TextHoverEffect/Mallki'
 
 export default {
     name:'BoxCard',
     data() {
         return {
         currentDate: new Date()
-        };
+        }
+    },
+    components: {
+      liuThumb,
+      Mallki
+    },
+    computed: {
+      ...mapGetters([
+          'avatar'
+        ])
     }
 }	
 </script>
@@ -58,6 +71,19 @@ export default {
                   filter: contrast(150%);   
               }
           }
+      }
+      .liuThumb {
+        z-index: 100;
+        width: 70px!important;
+        height: 70px!important;
+        position: absolute!important;
+        top: -45px;
+        left: 0px;
+        border: 5px solid #fff;
+        background-color: #fff;
+        margin: auto;
+        box-shadow: none!important;
+        
       }
       .progress-item {
           margin-bottom: 10px;

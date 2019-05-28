@@ -37,8 +37,8 @@ import { transactionList } from '@/api/remote-search'
   			return stateMap[status]
       },
       orderNoFilter(str){
-        // return str.substring(0, 30)
-        return str
+        return str.substring(0, 30)
+        // return str
       }
   	},
     data() {
