@@ -59,7 +59,7 @@ export default {
   .box-card-component{
       .box-card-header {
           position: relative;
-          height: 240px;
+          height: 215px;
           img {
               width: 100%;
               height: 100%;

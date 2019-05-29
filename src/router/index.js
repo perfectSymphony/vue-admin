@@ -64,6 +64,21 @@ export const constantRoutes = [
                 icon: 'dashboard'
             }
         }]
+    },
+    {
+        path: '/documentation',
+        component: Layout,
+        children: [
+         {
+            path: 'index',
+            component: () => import('@/views/documentation/index'),
+            name: 'Documentation',
+            meta: {
+                title: 'documentation',
+                icon: 'documentation'
+            }
+         }
+        ]
     }
 ]
 
