@@ -1,7 +1,7 @@
 <template>
 	<a :class="className" class="link--mallki" href="https://github.com/perfectSymphony/vue-admin">
 		{{ text }}	
-    <span :data-letters="hello" />
+    <span :data-letters="text" />
     <span :data-letters="text" />
 	</a>
 </template>
