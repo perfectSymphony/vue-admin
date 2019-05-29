@@ -79,6 +79,9 @@ module.exports = {
             })
             .end()
 
+        // https://webpack.js.org/configuration/devtool/#development
+        config.when(process.env.NODE_ENV === 'development', consfig => config.devtool('cheap-source-map'))
+
         // 参数when(condition, whenTruthy, whenFalsy)
         config
             .when(process.env.NODE_ENV !== 'development',
@@ -94,20 +97,20 @@ module.exports = {
                         .end()
                         //webpack 分包工具
                     config
-                        .optimization.spliteChunks({
+                        .optimization.splitChunks({
                             // include all types of chunks
                             //https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunks-chunks
                             chunks: 'all',
                             cacheGroups: {
                                 libs: {
                                     name: 'chunk-libs',
-                                    test: /[\\/]node_module[\\/]/,
+                                    test: /[\\/]node_modules[\\/]/,
                                     priority: 10,
                                     chunks: 'initial' // only package third parties that are initially dependent
                                 },
                                 elementUI: {
                                     name: 'chunk-elementUI', //拆分element-ui成为单独的包
-                                    test: /[\\/]node_modules[\\/]_?element-ui(*)/, //为了适应于cnpm
+                                    test: /[\\/]node_modules[\\/]_?element-ui(.*)/, //为了适应于cnpm
                                     priority: 20
                                 },
                                 commons: {
