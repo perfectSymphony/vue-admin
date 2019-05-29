@@ -5,7 +5,7 @@
       </div>
     <div style="position:relative;">
         <liu-thumb :image="avatar" class="liuThumb" />
-        <mallki class-name="mallki-text" text="vue-element-admin" />
+        <mallki class-name="mallki-text" text="vue-admin" />
         <div style="padding-top:35px;" class="progress-item">
             <span>Vue</span>
             <el-progress :percentage="80"></el-progress>
@@ -72,6 +72,13 @@ export default {
               }
           }
       }
+      .mallki-text {
+        position: absolute;
+        top: 0px;
+        right: 30px;
+        font-size: 20px;
+        font-weight: bold;
+      }      
       .liuThumb {
         z-index: 100;
         width: 70px!important;
@@ -83,12 +90,16 @@ export default {
         background-color: #fff;
         margin: auto;
         box-shadow: none!important;
-        
       }
       .progress-item {
           margin-bottom: 10px;
           font-size: 14px;
       }
+    @media only screen and (max-width: 1510px){
+        .mallki-text{
+        display: none;
+        }
+    }
   }
 
 </style>
