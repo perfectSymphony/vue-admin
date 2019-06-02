@@ -4,12 +4,13 @@
       <div class="main-container">
         <navbar />  
         <!-- 主体内容部分 -->
+        <tags-views /> 
         <app-main />
       </div>     
     </div>
 </template>
 <script>
-import { AppMain, Navbar, Sidebar } from './components'
+import { AppMain, Navbar, Sidebar, TagsView } from './components'
 import { mapState } from 'vuex'
 
   export default {
@@ -17,14 +18,15 @@ import { mapState } from 'vuex'
     components: {
       Navbar,
       Sidebar,
-      AppMain
+      AppMain,
+      TagsView
     },
     computed: {
       ...mapState({
         sidebar: state => state.app.sidebar
       }),
       classObj() {
-        console.log(this.sidebar)
+        // console.log(this.sidebar)
         return {
           hideSidebar: !this.sidebar.opened,
           openSidebar: this.sidebar.opened,
