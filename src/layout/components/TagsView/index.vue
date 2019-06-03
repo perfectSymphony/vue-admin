@@ -4,6 +4,11 @@
 			<router-link
 			  v-for="tag in visitedViews"
 			  ref="tag"
+			  :key="tag.path"
+			  :class = "isActive(tag)?'active' : ''"
+			  :to="{ path: tag.path, query: tag.query, fullpath: tag.fullPath}"
+			  tag ="span"
+			  class="tags-view-item"
 			>
 
 			</router-link>	
@@ -12,6 +17,8 @@
 </template>
 <script>
 import ScrollPane from './ScrollPane'
+import { generateTitle } from '@/utils/i18n'
+import path from 'path'
 
 export default {
 	name: 'TagsView',
@@ -20,7 +27,7 @@ export default {
 	},
 	data(){
 		return {
-			visible: false,
+			// visible: false,
 			affixTags: []
 		}
 	},
@@ -38,23 +45,28 @@ watch: {
 		this.addTags(),
 		this.moveToCurrentTag()
 	},
-	visible(value){
-		if(value){
-			document.body.addEventListener('click', this.closeMenu)
-		} else {
-			document.body.removeEventListener('click', this.closeMenu)
-		}
-	}
+	// visible(value){
+	// 	if(value){
+	// 		document.body.addEventListener('click', this.closeMenu)
+	// 	} else {
+	// 		document.body.removeEventListener('click', this.closeMenu)
+	// 	}
+	// }
 },
 mounted(){
 	this.initTags()
 	this.addTags()
 },
 methods: {
+	generateTitle,
+	isActive(route){
+		return route.path = this.$route.path
+	},
 	filterAffixTags(routes, basePath = '/'){
 		let tags = []
 		routes.forEach(route => {
 			if(route.meta && route.meta.affix){
+				// path.resolve()将路径或者路径序列转换成绝对路径
 				const tagPath = path.resolve(basePath, route.path)
 				const tags.push({
 					fullPath: tagPath,
