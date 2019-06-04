@@ -25,7 +25,7 @@ router.beforeEach(async(to, from, next) => {
     const hasToken = getToken()
 
     if (hasToken) {
-        console.log(to.path)
+        //console.log(to.path)
         if (to.path === '/login') {
             //如果已经登录，则重定向到登录之后的主页面
             next({ path: '/' })
@@ -33,7 +33,7 @@ router.beforeEach(async(to, from, next) => {
         } else {
             //通过用户信息来判断是否获取相应的权限角色
             const hasRoles = store.getters.roles && store.getters.roles.length > 0
-            console.log(store.getters)
+            //console.log(store.getters)
             if (hasRoles) {
                 next()
             } else {

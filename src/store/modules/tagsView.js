@@ -15,7 +15,7 @@ const mutations = {
     ADD_CACHED_VIEW: (state, view) => {
         if (state.cachedViews.includes(view.name)) return
         if (!view.meta.noCache) {
-            state.meta.push(view.name)
+            state.cachedViews.push(view.name)
         }
     },
     DEL_VISITED_VIEW: (state, view) => {
@@ -55,7 +55,7 @@ const mutations = {
         state.visitedViews = affixTags
     },
     DEL_ALL_CACHED_VIEWS: state => {
-        satte.cachedViews = []
+        state.cachedViews = []
     },
 
     UPDATE_VISITED_VIEW: (state, view) => {

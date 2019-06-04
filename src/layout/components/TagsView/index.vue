@@ -1,6 +1,6 @@
 <template>
 	<div id="tags-view-container" class="tags-view-container">
-		<scroll-pane ref = "scrollPane" class="tags-view-wrapper">
+		<!-- <scroll-pane ref = "scrollPane" class="tags-view-wrapper"> -->
 			<!-- https://vuejs.org/v2/guide/events.html#Mouse-Button-Modifiers -->
 			<!-- https://vuejs.org/v2/guide/components-custom-events.html#Binding-Native-Events-to-Components -->
 			<router-link
@@ -14,9 +14,9 @@
 			  @click.middle.native="closeSelectedTag(tag)"
 			>
 			  {{ generateTitle(tag.title) }}
-			  <span class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
+			  <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
 			</router-link>	
-		</scroll-pane>	
+		<!-- </scroll-pane>	 -->
 	</div>
 </template>
 <script>
@@ -63,12 +63,13 @@ export default {
     methods: {
 		generateTitle,
 		isActive(route){
-			return route.path = this.$route.path
+			return route.path === this.$route.path
 		},
 		filterAffixTags(routes, basePath = '/'){
 			let tags = []
 			routes.forEach(route => {
 				if(route.meta && route.meta.affix){
+					console.log(route)
 					// path.resolve()将路径或者路径序列转换成绝对路径
 					const tagPath = path.resolve(basePath, route.path)
 					tags.push({
@@ -119,7 +120,7 @@ export default {
 			})
 		},
 		closeSelectedTag(view){
-			this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+			this.$store.dispatch('tagsView/delAllViews', view).then(({ visitedViews }) => {
 				if(this.isActive(view)){
 					this.toLastView(visitedViews, view)
 				}
