@@ -61,24 +61,26 @@ export const constantRoutes = [
             name: 'Dashboard',
             meta: {
                 title: 'dashboard',
-                icon: 'dashboard'
+                icon: 'dashboard',
+                onCache: true,
+                affix: true
             }
         }]
     },
     {
         path: '/documentation',
         component: Layout,
-        children: [
-         {
+        children: [{
             path: 'index',
-            component: () => import('@/views/documentation/index'),
+            component: () =>
+                import ('@/views/documentation/index'),
             name: 'Documentation',
             meta: {
                 title: 'documentation',
-                icon: 'documentation'
+                icon: 'documentation',
+                affix: true
             }
-         }
-        ]
+        }]
     }
 ]
 

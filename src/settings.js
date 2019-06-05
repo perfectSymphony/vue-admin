@@ -1,4 +1,3 @@
-
 module.exports = {
     title: 'perfectSymphony Admin',
 
@@ -27,5 +26,5 @@ module.exports = {
      * 默认是仅仅用在生产环境
      * 如果想要使用在开发环境，可以通过设置 ['production', 'development']
      */
-    errorLog: 'production'
+    errorLog: 'development'
 }

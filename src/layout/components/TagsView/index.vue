@@ -1,8 +1,9 @@
 <template>
 	<div id="tags-view-container" class="tags-view-container">
-		<!-- <scroll-pane ref = "scrollPane" class="tags-view-wrapper"> -->
+		<scroll-pane ref = "scrollPane" class="tags-view-wrapper">
 			<!-- https://vuejs.org/v2/guide/events.html#Mouse-Button-Modifiers -->
 			<!-- https://vuejs.org/v2/guide/components-custom-events.html#Binding-Native-Events-to-Components -->
+			<!-- https://vuejs.org/v2/guide/events.html -->
 			<router-link
 			  v-for="tag in visitedViews"
 			  ref="tag"
@@ -12,11 +13,12 @@
 			  tag ="span"
 			  class="tags-view-item"
 			  @click.middle.native="closeSelectedTag(tag)"
+				@contextmenu.prevent.native = "openMenu(tag, $event)"
 			>
 			  {{ generateTitle(tag.title) }}
 			  <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
 			</router-link>	
-		<!-- </scroll-pane>	 -->
+		</scroll-pane>	
 	</div>
 </template>
 <script>
@@ -35,19 +37,19 @@ export default {
 			affixTags: []
 		}
 	},
-	computed: {
-		visitedViews(){
-			return this.$store.state.tagsView.visitedViews
-		},
-		routes(){
-			return this.$store.state.permission.routes
-		}	
-	},
+  computed: {
+    visitedViews() {
+      return this.$store.state.tagsView.visitedViews
+    },
+    routes() {
+      return this.$store.state.permission.routes
+    }
+  },
 	watch: {
-		$route(){
-			this.addTags(),
-			this.moveToCurrentTag()
-		},
+    $route() {
+      this.addTags()
+      this.moveToCurrentTag()
+    },
 		// visible(value){
 		// 	if(value){
 		// 		document.body.addEventListener('click', this.closeMenu)
@@ -56,91 +58,102 @@ export default {
 		// 	}
 		// }	
 	},
-	mounted(){
-		this.initTags()
-		this.addTags()
-	},	
+		mounted(){
+			this.initTags()
+			this.addTags()
+		},	
     methods: {
-		generateTitle,
-		isActive(route){
-			return route.path === this.$route.path
-		},
-		filterAffixTags(routes, basePath = '/'){
-			let tags = []
-			routes.forEach(route => {
-				if(route.meta && route.meta.affix){
-					console.log(route)
-					// path.resolve()将路径或者路径序列转换成绝对路径
-					const tagPath = path.resolve(basePath, route.path)
-					tags.push({
-						fullPath: tagPath,
-						path: tagPath,
-						name: route.name,
-						meta: { ...route.meta }
-					})
-				}
-				if(route.children){
-					const tempTags = this.filterAffixTags(route.children, route.path)
-					if(tempTags.length >= 1){
-						tags = [...tags, ...tempTags]
+			generateTitle,
+			isActive(route){
+				return route.path === this.$route.path
+			},
+			filterAffixTags(routes, basePath = '/'){
+				let tags = []
+				routes.forEach(route => {
+					if(route.meta && route.meta.affix){
+						// path.resolve()将路径或者路径序列转换成绝对路径
+						const tagPath = path.resolve(basePath, route.path)
+						tags.push({
+							fullPath: tagPath,
+							path: tagPath,
+							name: route.name,
+							meta: { ...route.meta }
+						})
 					}
-				}
-			})
-			return tags
-		},
-		initTags(){
-			const affixTags = this.affixTags = this.filterAffixTags(this.routes)
-			for(const tag of affixTags){
-				// Must have tag name
-				if(tag.name){
-					this.$store.dispatch('tagsView/addVisitedView', tag)
-				}
-			}
-		},
-		addTags(){
-			const { name } = this.$route
-			if(name){
-				this.$store.dispatch('tagsView/addView', this.$route)
-			}
-			return false
-		},
-		moveToCurrentTag(){
-			const tags = this.$refs.tag
-			this.$nextTick(() => {
-				for(const tag of tags){
-					if(tag.to.path === this.$route.path){
-						this.$refs.scrollPane.moveToTarget(tag)
-						// when query is different then update
-						if(tag.to.fullPath !== this.$route.fullPath){
-							this.$store.dispatch('tagsView/updateVisitedView',this.$route)
+					if(route.children){
+						const tempTags = this.filterAffixTags(route.children, route.path)
+						if(tempTags.length >= 1){
+							tags = [...tags, ...tempTags]
 						}
-						break
+					}
+				})
+				return tags
+			},
+			initTags(){
+				const affixTags = this.affixTags = this.filterAffixTags(this.routes)
+				for(const tag of affixTags){
+					// Must have tag name
+					if(tag.name){
+						this.$store.dispatch('tagsView/addVisitedView', tag)
 					}
 				}
-			})
-		},
-		closeSelectedTag(view){
-			this.$store.dispatch('tagsView/delAllViews', view).then(({ visitedViews }) => {
-				if(this.isActive(view)){
-					this.toLastView(visitedViews, view)
+			},
+			addTags(){
+				const { name } = this.$route
+				if(name){
+					this.$store.dispatch('tagsView/addView', this.$route)
 				}
-			})
-		},
-		toLastView(visitedViews, view){
-			const latestView = visitedViews.slice(-1)[0]
-			if(latestView){
-				this.$router.push(latestView)
-			} else {
-				// 现在，如果没有标签打开时，则默认重定向的到home页
-				// 你可以根据自己的实际情况调整
-				if(view.name === 'Dashboard'){
-					// 重新加载home页
-					this.$router.replace({ path: '/redirect' + view.fullPath })
+				return false
+			},
+			moveToCurrentTag(){
+				const tags = this.$refs.tag
+				this.$nextTick(() => {
+					for(const tag of tags){
+						if(tag.to.path === this.$route.path){
+							this.$refs.scrollPane.moveToTarget(tag)
+							// when query is different then update
+							if(tag.to.fullPath !== this.$route.fullPath){
+								this.$store.dispatch('tagsView/updateVisitedView',this.$route)
+							}
+							break
+						}
+					}
+				})
+			},
+			closeSelectedTag(view){
+				this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+					if(this.isActive(view)){
+						this.toLastView(visitedViews, view)
+					}
+				})
+			},
+			toLastView(visitedViews, view){
+				const latestView = visitedViews.slice(-1)[0]
+				if(latestView){
+					this.$router.push(latestView)
 				} else {
-					this.$router.push('/')
+					// 现在，如果没有标签打开时，则默认重定向的到home页
+					// 你可以根据自己的实际情况调整
+					if(view.name === 'Dashboard'){
+						// 重新加载home页
+						this.$router.replace({ path: '/redirect' + view.fullPath })
+					} else {
+						this.$router.push('/')
+					}
 				}
+			},
+			// https://vuejs.org/v2/guide/events.html
+			openMenu(tag, e){
+				const menuMinWidth = 105
+				console.log(this)
+				// getBoundingClientRect用于获取某个元素相对于视窗的位置集合。集合中有top, right, bottom, left等属性。
+				// 语法：这个方法没有参数。
+				// offsetLeft --> 元素左边到视窗左边的距离
+				const offsetLeft = this.$el.getBoundingClientRect().left
+				const offsetWidth = this.$el.offsetWidth               //该容器的宽度
+				const maxLeft = offsetWidth - menuMinWidth             //left boundary
+				const left = e.clientX - offsetLeft + 15                // 15: margin right
 			}
-		}
     }
 }
 
@@ -157,7 +170,40 @@ export default {
 	.tags-view-wrapper {
 		.tags-view-item {
 			display: inline-block;
+			position: relative;
+			cursor: pointer;
+			height: 26px;
+			line-height: 26px;
+			border: 1px solid #d8dce5;
+			color: #495060;
+			background: #fff;
+			padding: 0 8px;
+			font-size: 12px;
+			margin-left: 5px;
+			margin-top: 4px;
+			&:first-of-type {
+				margin-left: 15px;
+			}
+			&:last-of-type {
+				margin-right: 15px;
+			}
+			&.active {
+				background-color: #42b983;
+				color: #fff;
+				border-color: #42b983;
+				&::before {
+					content:  '';
+					background: #fff;
+					display: inline-block;
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					position: relative;
+					margin-right: 2px;
+				}
+			}
 		}
 	}
 }
 </style>
+
