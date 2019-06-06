@@ -1,8 +1,7 @@
 <script>
 export default {
     beforeCreate(){
-        console.log(this.route)
-        const { params, query } = this.route
+        const { params, query } = this.$route
         const { path } = params
         this.$router.replace({
             path: '/' + path,
@@ -10,7 +9,7 @@ export default {
         })
      },
      render: function(h){
-         return h()
+         return h()   //避免出现警告信息
      }
 }
 </script>
