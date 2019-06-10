@@ -19,6 +19,20 @@
 			  <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
 			</router-link>	
 		</scroll-pane>	
+		<ul v-show="visible" :style="{ left: left +'px', top:top + 'px' }" class="contextmenu">
+			<li @click="refreshSelectedTag(selectedTag)">
+				{{ $t('tagsView.refresh') }}
+			</li>
+			<li>
+				{{ $t('tagsView.close') }}
+			</li>
+			<li>
+				{{ $t('tagsView.closeOthers') }}
+			</li>
+			<li>
+				{{ $t('tagsView.closeAll') }}
+			</li>
+		</ul>
 	</div>
 </template>
 <script>
@@ -27,37 +41,40 @@ import { generateTitle } from '@/utils/i18n'
 import path from 'path'
 
 export default {
-	name: 'TagsView',
-	components: {
-		ScrollPane
-	},
-	data(){
-		return {
-			// visible: false,
-			affixTags: []
-		}
-	},
-  computed: {
-    visitedViews() {
-      return this.$store.state.tagsView.visitedViews
-    },
-    routes() {
-      return this.$store.state.permission.routes
-    }
-  },
-	watch: {
-    $route() {
-      this.addTags()
-      this.moveToCurrentTag()
-    },
-		// visible(value){
-		// 	if(value){
-		// 		document.body.addEventListener('click', this.closeMenu)
-		// 	} else {
-		// 		document.body.removeEventListener('click', this.closeMenu)
-		// 	}
-		// }	
-	},
+		name: 'TagsView',
+		components: {
+			ScrollPane
+		},
+		data(){
+			return {
+				top: 0,
+				left:0,
+				visible: false,
+				affixTags: [],
+				selectedTag:{}
+			}
+		},
+		computed: {
+			visitedViews() {
+				return this.$store.state.tagsView.visitedViews
+			},
+			routes() {
+				return this.$store.state.permission.routes
+			}
+		},
+		watch: {
+			$route() {
+				this.addTags()
+				this.moveToCurrentTag()
+			},
+			visible(value){
+				if(value){
+					document.body.addEventListener('click', this.closeMenu)
+				} else {
+					document.body.removeEventListener('click', this.closeMenu)
+				}
+			}	
+		},
 		mounted(){
 			this.initTags()
 			this.addTags()
@@ -127,6 +144,16 @@ export default {
 					}
 				})
 			},
+			refreshSelectedTag(view){
+				this.$store.dispatch('tagsView/delCachedView', view).then(() => {
+					const { fullPath } = view
+					this.$nextTick(() => {
+						this.$router.replace({
+							path: '/redirect' + fullPath
+						})
+					})
+				})
+			},
 			toLastView(visitedViews, view){
 				const latestView = visitedViews.slice(-1)[0]
 				if(latestView){
@@ -153,6 +180,19 @@ export default {
 				const offsetWidth = this.$el.offsetWidth               //该容器的宽度
 				const maxLeft = offsetWidth - menuMinWidth             //left boundary
 				const left = e.clientX - offsetLeft + 15                // 15: margin right
+
+				if(left > maxLeft) {
+					this.left = maxLeft
+				} else {
+					this.left = left
+				}
+
+				this.top = e.clientY
+				this.visible = true
+				this.selectedTag = tag
+			},
+			closeMenu(){
+				this.visible = false
 			}
     }
 }
@@ -204,6 +244,51 @@ export default {
 			}
 		}
 	}
+	.contextmenu {
+		margin: 0;
+		background: #fff;
+		z-index: 3000;
+		position: absolute;
+		list-style-type: none;
+		padding: 5px 0;
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 400;
+		color: #333;
+		box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+		li {
+			margin: 0;
+			padding: 7px 16px;
+			cursor: pointer;
+			&:hover {
+				background: #eee;
+			}
+		}
+	}
 }
 </style>
 
+<style lang="scss">
+	.tags-view-wrapper{
+		.tags-view-item {
+			.el-icon-close {
+				width: 16px;
+				height: 16px;
+				vertical-align: 2px;
+				border-radius: 50%;
+				text-align: center;
+				transition: all .3s cubic-bezier(.645, .045, .355, 1);
+				transition-origin: 100% 50%;
+				&:before {
+					transform: scale(.6);
+					display: inline-block;
+					vertical-align: -3px;
+				}
+				&:hover {
+					background-color: #b4bccc;
+					color: #fff;
+				}
+			}
+		}
+	}
+</style>
