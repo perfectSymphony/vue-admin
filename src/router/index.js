@@ -76,6 +76,16 @@ export const constantRoutes = [{
                 affix: true
             }
         }]
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/error-page/404'),
+        hidden: true
+    },
+    {
+        path: '/401',
+        component: () => import('@/views/error-page/401'),
+        hidden: true
     }
 ]
 
@@ -84,7 +94,37 @@ export const constantRoutes = [{
  * 根据用户角色动态加载路由
  */
 
-export const asyncRoutes = []
+export const asyncRoutes = [
+    {
+        path: '/error',
+        component:  Layout,
+        redirect: 'noRedirect',
+        name: 'ErrorPages',
+        meta: {
+            title: 'errorPages',
+            icon: '404'
+        },
+        children: [
+            {
+                path: '401',
+                component: () => import('@/views/error-page/401'),
+                name:'Page401',
+                meta:{
+                    title: 'page401',
+                    noCache: true
+                }
+            },
+            {
+            path: '404',
+            component: () => import('@/views/error-page/404'),
+            name:'Page404',
+            meta: {
+                title: 'page404',
+                noCache: true
+            }
+        }]
+    }
+]
 
 const createRouter = () => new Router({
     // mode: 'history',
