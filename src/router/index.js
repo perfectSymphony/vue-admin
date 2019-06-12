@@ -39,14 +39,12 @@ export const constantRoutes = [{
         hidden: true,
         children: [{
             path: '/redirect/:path*',
-            component: () =>
-                import ('@/views/redirect/index')
+            component: () => import ('@/views/redirect/index')
         }]
     },
     {
         path: '/login',
-        component: () =>
-            import ('@/views/login/index'),
+        component: () => import ('@/views/login/index'),
         hidden: true
     },
     {
@@ -55,8 +53,7 @@ export const constantRoutes = [{
         redirect: 'dashboard',
         children: [{
             path: 'dashboard',
-            component: () =>
-                import ('@/views/dashboard/index'),
+            component: () => import ('@/views/dashboard/index'),
             name: 'Dashboard',
             meta: {
                 title: 'dashboard',
@@ -71,8 +68,7 @@ export const constantRoutes = [{
         component: Layout,
         children: [{
             path: 'index',
-            component: () =>
-                import ('@/views/documentation/index'),
+            component: () => import ('@/views/documentation/index'),
             name: 'Documentation',
             meta: {
                 title: 'documentation',
@@ -100,8 +96,7 @@ const router = createRouter()
 // https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
     const newRouter = createRouter()
-        //重置路由
-    router.matcher = newRouter.matcher
+    router.matcher = newRouter.matcher //重置路由
 }
 
 export default router
