@@ -101,6 +101,22 @@ export const constantRoutes = [{
                 noCache: true
             }
         }]
+    },
+    {
+        path: '/profile',
+        component: Layout,
+        redirect: '/profile/index',
+        hidden: true,
+        children: [{
+            path: 'index',
+            component: () => import('@/views/profile/index'),
+            name: 'Profile',
+            meta: {
+                title: 'profile',
+                icon: 'user',
+                noCache: true
+            }
+        }]
     }
 ]
 
