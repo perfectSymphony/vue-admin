@@ -21,8 +21,9 @@
       </el-col>
     </el-row>
     <!-- vue 修饰符.sync的功能是：当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定。 -->
-    <el-dialog :visible.sync="dialogVisible" title="随便看">
-        <img :src="ewizardClap" alt="img">
+    <!-- https://element.eleme.cn/#/zh-CN/component/dialog#dialog-dui-hua-kuang -->
+    <el-dialog v-bind:visible.sync="dialogVisible" title="随便看">
+        <img :src="ewizardClap" class="img">
     </el-dialog>
   </div>
 </template>
@@ -58,6 +59,11 @@ export default {
     background: #008489;
     color: #fff;
     border: none !important;
+  }
+  .img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
   }
   .text-jumbo {
     font-size: 60px;
