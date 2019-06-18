@@ -24,12 +24,20 @@ import './icons'
 // 引入权限控制文件
 import './permission'
 
+import * as filters from './filters'
+
 Vue.config.productionTip = false
 
 
 Vue.use(Element, {
 	size: Cookies.get('size') || 'medium',   //设置element-ui默认字体大小
     i18n: (key, value) => i18n.t(key, value)
+})
+
+// 注册全局过滤器
+Object.keys(filters).forEach(key => {
+    console.log(key)
+  Vue.filter(key, filters[key])
 })
 
 new Vue({
