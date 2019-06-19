@@ -7,7 +7,7 @@
                 </el-col>
                 <el-col :span="18">
                     <el-card>
-                        <el-tabs v-model="activeTab" @tab-click="handleClick">
+                        <el-tabs v-model="activeTab">
                             <el-tab-pane label="Activity" name="activity">
                                 <activity />
                             </el-tab-pane>
@@ -15,7 +15,7 @@
                                 <timeline />
                             </el-tab-pane>
                             <el-tab-pane label="Account" name="account">
-                                <account />
+                                <account :user='user'/>
                             </el-tab-pane>
                         </el-tabs>                        
                     </el-card>
@@ -60,11 +60,9 @@ export default {
             this.user = {
                 name: this.name,
                 avatar: this.avatar,
-                role: this.roles.join('')
+                role: this.roles.join(' | '),
+                email: 'admin@test.com'
             }
-        },
-        handleClick(tab, event) {
-            console.log(tab, event);
         }
     }
 }
