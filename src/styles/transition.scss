@@ -1,0 +1,15 @@
+// 全局过渡css样式
+
+// fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.28s;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+// fade-transform
+
