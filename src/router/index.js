@@ -127,6 +127,46 @@ export const constantRoutes = [{
 
 export const asyncRoutes = [
     {
+        path: '/permission',
+        component: Layout,
+        redirect: '/permission/page',
+        always: true,   //显示根菜单
+        name: 'Permission',
+        meta: {
+            title: 'permission',
+            icon: 'lock',
+            roles: ['admin', 'editor']   //可以根导航设置角色
+        },
+        children: [{
+            path: 'page',
+            component: () => import('@/views/permission/page'),
+            name: 'PagePermission',
+            meta: {
+                title: 'pagePermission',
+                role: ['admin']   // 你仅仅只能在子导航设置角色
+            }
+        },
+        {
+            path: 'directive',
+            component: () => import('@/views/permission/directive'),
+            name: 'DirectivePermission',
+            meta: {
+                title: 'directivePermission'
+                // 如果不设置角色，意思是默认是： 这个页面需要权限
+            }
+        },
+        {
+            path: 'role',
+            component: () => import('@/views/permission/role'),
+            name: 'RolePermission',
+            meta: {
+                title: 'rolePermission',
+                roles: ['admin']
+            }
+        }
+    ]
+    },
+    {
         path: '/error',
         component:  Layout,
         redirect: 'noRedirect',
