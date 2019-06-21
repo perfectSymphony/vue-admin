@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        <switch-roles /> 
+        <switch-roles @change="handleRolesChange" /> 
     </div>
 </template>
 <script>
@@ -12,7 +12,11 @@ export default {
         SwitchRoles
     },
     methods: {
-        
+        handleRolesChange() {
+            this.$router.push({
+                path: '/permission/index?' + +new Date()
+            })
+        }
     }
 }
 </script>
