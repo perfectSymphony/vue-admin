@@ -3,10 +3,12 @@ import param2Obj from '../src/utils'
 
 import user from './user'
 import search from './remote-search'
+import role from './role'
 
 const mocks = [
     ...user,
-    ...search
+    ...search,
+    ...role
 ]
 
 
