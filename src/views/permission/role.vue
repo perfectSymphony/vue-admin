@@ -3,11 +3,12 @@
     <el-button type="primary" @click="dialogFormVisible = true">
         {{ $t('permission.addRole') }}
     </el-button>
+
     <!-- table -->
     <el-table :data="rolesList" style="width: 100%; margin-top:30px;" border>
         <el-table-column label="Role Key" width="220" align="center">
             <template slot-scope="scope">
-                {{ scope.row.date }}
+                {{ scope.row.key }}
             </template>
         </el-table-column>
         <el-table-column label="Role Name" width="220" align="center">
@@ -17,12 +18,12 @@
         </el-table-column>
         <el-table-column label="Description" align="center">
             <template slot-scope="scope">
-                {{ scope.row.address }}
+                {{ scope.row.description }}
             </template>
         </el-table-column>
         <el-table-column label="Operations" align="center">
             <template slot-scope="scope">
-                <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">
+                <el-button type="primary" size="small" @click="handleEdit(scope)">
                     {{ $t('permission.editPermission') }}
                 </el-button>
                 <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">
@@ -42,7 +43,7 @@
         <el-input v-model="form.region" type="textarea" autocomplete="off" placeholder="Role Description"></el-input>
         </el-form-item>
         <el-form-item label="Menus">
-          <el-tree show-checkbox node-key="path" class="permission-tree" />
+            <el-tree ref="tree" :data="routesData" show-checkbox node-key="path" :props="defaultProps" class="permission-tree" />
         </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -57,29 +58,19 @@
     </div>
 </template>
 <script>
-import { getRoles } from '@/api/role'
+import path from 'path'
+import { getRoutes, getRoles } from '@/api/role'
 
 export default {
     name: 'RolePermission',
     data() {
         return {
-            rolesList: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-            }],
+            defaultProps: {
+                children: 'children',
+                label: 'title'
+            },
+            rolesList: [],
+            routes: [],
             dialogTableVisible: false,
             dialogFormVisible: false,
             form: {
@@ -95,25 +86,80 @@ export default {
             formLabelWidth: '120px'
         }
     },
+    computed: {
+        routesData(){
+           return this.routes
+        }
+    },
     created() {
         // Mock: get all routes and roles list from server
+        this.getRoutes(),
         this.getRoles()
     },
     methods: {
-      handleEdit(index, row) {
-        console.log(index, row);
+      async getRoles() {
+          const res = await getRoles()
+          this.rolesList = res.data
+      },
+      async getRoutes(){
+          const res =  await getRoutes()
+          this.serviceRoutes = res.data
+          const routes = this.generateRoutes(res.data)
+      },
+      // Reshape the routes structure so that it looks the same as the sidebar
+      generateRoutes(routes, basePath = '/'){
+          const res = []
+
+          for(route of routes){
+            //   跳过一些路由
+            if(route.hidden) { continue }
+            
+            const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
+
+            if(route.children && onlyOneShowingChild && !route.alwaysShow){
+                route = onlyOneShowingChild
+            }
+
+            const data = {
+                path: path.resolve(basePath, route.path),
+                title: route.meta && route.meta.title
+            }
+          }
+      },
+      handleEdit(scope) {
+        console.log(scope);
       },
       handleDelete(index, row) {
         console.log(index, row);
       },
-      async getRoles() {
-          const res = await getRoles()
-          this.rolesList = res.data
+      // reference: src/view/layout/components/Sidebar/SidebarItem.vue
+      onlyOneShowingChild(children = [], parent){
+          let onlyOneChild = null
+          const showingChildren = children.filter(item => !item.hidden)
+
+          // When there is only one child route, the child route is displayed by default
+          if(showingChildren.length === 1){
+              onlyOneChild = showingChildren[0]
+              onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
+              return onlyOneChild
+          }
+
+          // Show parent if there are no child route to display
+          if(showingChildren.length === 0){
+              onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+              return onlyOneChild
+          }
+
+          return false
       }
     }    
 }
 </script>
 <style lang="scss" scoped>
-
+.app-container {
+    .permission-tree {
+        margin-top: 30px;
+    }
+}
 </style>
 

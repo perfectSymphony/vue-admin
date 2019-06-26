@@ -17,7 +17,7 @@ export default [
     {
         url: '/transaction/list',
         type: 'get',
-        response: _ => { //一般来说加下划线的变量为私有变量，这是大家都比较遵守的一种代码规范
+        response: _ => { 
             // console.log(_);
             return {
                 code: 20000,
