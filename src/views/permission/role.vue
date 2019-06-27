@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-    <el-button type="primary" @click="dialogFormVisible = true">
+    <el-button type="primary" @click="handleAddRole">
         {{ $t('permission.addRole') }}
     </el-button>
 
@@ -34,7 +34,7 @@
     </el-table>
 
     <!-- dialog -->
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+    <el-dialog title="收货地址" :visible.sync="dialogVisible">
     <el-form :model="form">
         <el-form-item label="Name" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off" placeholder="Role Name"></el-input>
@@ -43,14 +43,14 @@
         <el-input v-model="form.region" type="textarea" autocomplete="off" placeholder="Role Description"></el-input>
         </el-form-item>
         <el-form-item label="Menus">
-            <el-tree ref="tree" :data="routesData" show-checkbox node-key="path" :props="defaultProps" class="permission-tree" />
+            <el-tree ref="tree" :check-strictly="checkStrictly" :data="routesData" show-checkbox node-key="path" :props="defaultProps" class="permission-tree" />
         </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-        <el-button type="danger" @click="dialogFormVisible = false">
+        <el-button type="danger" @click="dialogVisible = false">
             {{ $t('permission.cancel') }}
         </el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">
+        <el-button type="primary" @click="confirmRole">
             {{ $t('permission.confirm') }}
         </el-button>
     </div>
@@ -60,6 +60,13 @@
 <script>
 import path from 'path'
 import { getRoutes, getRoles } from '@/api/role'
+
+const defaultRole = {
+    key: '',
+    name: '',
+    description: '',
+    routes: []
+}
 
 export default {
     name: 'RolePermission',
@@ -71,8 +78,9 @@ export default {
             },
             rolesList: [],
             routes: [],
-            dialogTableVisible: false,
-            dialogFormVisible: false,
+            checkStrictly: false,
+            dialogVisible: false,
+            role: Object.assign({}, defaultRole),
             form: {
             name: '',
             region: '',
@@ -110,8 +118,8 @@ export default {
       generateRoutes(routes, basePath = '/'){
           const res = []
 
-          for(route of routes){
-            //   跳过一些路由
+          for(let route of routes){
+            //   跳过指定的路由
             if(route.hidden) { continue }
             
             const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
@@ -124,6 +132,19 @@ export default {
                 path: path.resolve(basePath, route.path),
                 title: route.meta && route.meta.title
             }
+
+            //递归生成子路由
+            if(route.children){
+                data.children = this.generateRoutes(route.children, data.path)
+            }
+            res.push(data)
+          }
+          return res
+      },
+      handleAddRole(){
+          this.role = Object.assign({}, defaultRole)
+          if(this.$refs.tree){
+              this.$refs.tree.setCheckedNodes([])
           }
       },
       handleEdit(scope) {
@@ -151,6 +172,9 @@ export default {
           }
 
           return false
+      },
+      async confirmRole(){
+
       }
     }    
 }
