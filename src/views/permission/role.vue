@@ -26,7 +26,7 @@
                 <el-button type="primary" size="small" @click="handleEdit(scope)">
                     {{ $t('permission.editPermission') }}
                 </el-button>
-                <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">
+                <el-button type="danger" size="small" @click="handleDelete(scope)">
                     {{ $t('permission.delete') }}
                 </el-button>
             </template>
@@ -34,7 +34,7 @@
     </el-table>
 
     <!-- dialog -->
-    <el-dialog title="收货地址" :visible.sync="dialogVisible">
+    <el-dialog :title="dialogType === 'edit' ? 'Edit Role':'New Role'" :visible.sync="dialogVisible">
     <el-form :model="form">
         <el-form-item label="Name" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off" placeholder="Role Name"></el-input>
@@ -81,6 +81,7 @@ export default {
             checkStrictly: false,
             dialogVisible: false,
             role: Object.assign({}, defaultRole),
+            dialogType: 'new',
             form: {
             name: '',
             region: '',
@@ -146,12 +147,23 @@ export default {
           if(this.$refs.tree){
               this.$refs.tree.setCheckedNodes([])
           }
+          this.dialogType = 'new'
+          this.dialogVisible = true
       },
       handleEdit(scope) {
-        console.log(scope);
+          this.dialogType = 'edit'
+          this.dialogVisible = true
+          this.checkStrictly = true
+          this.role = deepClone(scope.row)
+          this.$nextTick(() => {
+              const routes = this.generateRoutes(this.role.routes)
+              this.$refs.tree.setCheckedNodes(this.generateRoutes(routes))
+              // set checked state of a node not affects its father and child nodes
+              this.checkStrictly = false
+          })
       },
-      handleDelete(index, row) {
-        console.log(index, row);
+      handleDelete({$index, row}) {
+        console.log($index, row);
       },
       // reference: src/view/layout/components/Sidebar/SidebarItem.vue
       onlyOneShowingChild(children = [], parent){
