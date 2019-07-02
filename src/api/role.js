@@ -13,3 +13,18 @@ export function getRoles(){
         method: 'get'
     })
 }
+
+export function deleteRole(id){
+    return request({
+        url: `/role/${id}`,
+        method: 'delete'
+    })
+}
+
+export function updateRole(id, data){
+    return request({
+        url: `/role/${id}`,
+        method: 'put',
+        data
+    })
+}

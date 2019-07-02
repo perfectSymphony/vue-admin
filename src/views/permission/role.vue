@@ -35,12 +35,12 @@
 
     <!-- dialog -->
     <el-dialog :title="dialogType === 'edit' ? 'Edit Role':'New Role'" :visible.sync="dialogVisible">
-    <el-form :model="form">
-        <el-form-item label="Name" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" placeholder="Role Name"></el-input>
+    <el-form :model="role" label-width="80px" label-position="left">
+        <el-form-item label="Name">
+        <el-input v-model="role.name" autocomplete="off" placeholder="Role Name"></el-input>
         </el-form-item>
-        <el-form-item label="Desc" :label-width="formLabelWidth">
-        <el-input v-model="form.region" type="textarea" autocomplete="off" placeholder="Role Description"></el-input>
+        <el-form-item label="Desc">
+        <el-input v-model="role.description" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" autocomplete="off" placeholder="Role Description"></el-input>
         </el-form-item>
         <el-form-item label="Menus">
             <el-tree ref="tree" :check-strictly="checkStrictly" :data="routesData" show-checkbox node-key="path" :props="defaultProps" class="permission-tree" />
@@ -59,7 +59,9 @@
 </template>
 <script>
 import path from 'path'
-import { getRoutes, getRoles } from '@/api/role'
+import { deepClone } from '@/utils'
+import { getRoutes, getRoles, deleteRole, updateRole } from '@/api/role'
+import i18n from '@/lang'
 
 const defaultRole = {
     key: '',
@@ -82,20 +84,10 @@ export default {
             dialogVisible: false,
             role: Object.assign({}, defaultRole),
             dialogType: 'new',
-            form: {
-            name: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
-            },
-            formLabelWidth: '120px'
         }
     },
     computed: {
+        // 在dom加载后马上执行的,其实就是在mounted的时候阶段执行。这个是一个计算属性，触发的时候不需要条件
         routesData(){
            return this.routes
         }
@@ -114,6 +106,17 @@ export default {
           const res =  await getRoutes()
           this.serviceRoutes = res.data
           const routes = this.generateRoutes(res.data)
+          this.routes = this.i18n(routes)
+      },
+      i18n(routes){
+          const app = routes.map(route => {
+              route.title = i18n.t(`route.${route.title}`)
+              if(route.children){
+                  route.children = this.i18n(route.children)
+              }
+              return route
+          })
+          return app
       },
       // Reshape the routes structure so that it looks the same as the sidebar
       generateRoutes(routes, basePath = '/'){
@@ -163,7 +166,70 @@ export default {
           })
       },
       handleDelete({$index, row}) {
-        console.log($index, row);
+        this.$confirm('Confirm to remove the role?', 'Warning', {
+             confirmButtonText: 'Confirm',
+             cancelButtonText: 'cancel',
+             type: 'warning'
+        }).then( async () => {
+            await deleteRole(row.key)
+            this.rolesList.splice($index, 1)
+            this.$message({
+                type: 'success',
+                message: 'Delete succed!'   
+            })
+        }).catch(err => {
+            console.error(err)
+        })
+      },
+      generateTree(routes, basePath = '/', checkedKeys){
+          const res = []
+
+          for(const route of routes){
+              const routePath = path.resolve(basePath, route.path)
+
+              //递归子路由
+              if(route.children){
+                  route.children = this.generateTree(route.children, routePath, checkedKeys)
+              }
+
+              if(checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)){
+                  res.push(route)
+              }
+          }
+          return res
+      },
+      async confirmRole(){
+          const isEdit = this.dialogType === 'edit'
+
+          const checkedKeys = this.$refs.tree.getCheckedKeys()
+          this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
+
+          if(isEdit){
+              await updateRole(this.role.key, this.role)
+              for (let index = 0; index < this.rolesList.length; index++){
+                  if(this.rolesList[index].key === this.role.key){
+                      this.rolesList.splice(index, 1, Object.assign({}, this.role))
+                      break
+                  }
+              }
+          } else {
+              const { data } = await addRole(this.role)
+              this.role.key = data.key
+              this.rolesList.push(this.role)
+          }
+
+          const { description, key, name } = this.role
+          this.dialogVisible = false
+          this.$notify({
+              title: 'Success',
+              dangerouslyUseHTMLString: true,
+              message: `
+                    <div>Role key: ${key}</div>
+                    <div>Role Name: ${name}</div>
+                    <div>Description: ${description}</div>
+              `,
+              type: 'success'
+          })
       },
       // reference: src/view/layout/components/Sidebar/SidebarItem.vue
       onlyOneShowingChild(children = [], parent){
@@ -184,9 +250,6 @@ export default {
           }
 
           return false
-      },
-      async confirmRole(){
-
       }
     }    
 }

@@ -58,5 +58,27 @@ export default [
                 data: roles
             }
         }
+    },
+    //delete role
+    {
+        url: '/role/[A-Za-z0-9]',
+        type: 'delete',
+        response: {
+            code: 20000,
+            data: {
+                status: 'success'
+            }
+        }
+    },
+    // update role 
+    {
+        url: '/role/[A-Za-z0-9]',
+        type: 'put',
+        response: {
+            code: 20000,
+            data: {
+                status: 'success'
+            }
+        }
     }
 ]
