@@ -28,3 +28,11 @@ export function updateRole(id, data){
         data
     })
 }
+
+export function  addRole(data){
+    return request({
+        url: '/role',
+        method: 'post',
+        data
+    })
+}

@@ -130,7 +130,7 @@ export const asyncRoutes = [
         path: '/permission',
         component: Layout,
         redirect: '/permission/page',
-        always: true,   //显示根菜单
+        alwaysShow: true,   //显示根菜单
         name: 'Permission',
         meta: {
             title: 'permission',
@@ -143,7 +143,7 @@ export const asyncRoutes = [
             name: 'PagePermission',
             meta: {
                 title: 'pagePermission',
-                role: ['admin']   // 你仅仅只能在子导航设置角色
+                roles: ['admin']   // 你仅仅只能在子导航设置角色
             }
         },
         {

@@ -60,7 +60,7 @@
 <script>
 import path from 'path'
 import { deepClone } from '@/utils'
-import { getRoutes, getRoles, deleteRole, updateRole } from '@/api/role'
+import { getRoutes, getRoles, deleteRole, updateRole, addRole } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {

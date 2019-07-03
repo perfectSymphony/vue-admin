@@ -80,5 +80,16 @@ export default [
                 status: 'success'
             }
         }
+    },
+    // add Role
+    {
+        url: '/role',
+        type: 'post',
+        response: {
+            code: 20000,
+            data: {
+                key: Mock.mock('@integer(300, 5000)')
+            }
+        }
     }
 ]
