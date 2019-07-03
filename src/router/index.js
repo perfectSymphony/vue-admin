@@ -194,6 +194,11 @@ export const asyncRoutes = [
                 noCache: true
             }
         }]
+    },
+    {
+        path: '*',
+        redirect: '/404',
+        hidden: true
     }
 ]
 

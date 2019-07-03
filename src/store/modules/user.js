@@ -111,7 +111,6 @@ const actions = {
 
             // 根据角色生成可访问的路由表
             const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
-            console.log(accessRoutes)
 
             // 动态添加路由
             router.addRoutes(accessRoutes)
