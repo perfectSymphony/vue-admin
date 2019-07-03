@@ -152,7 +152,7 @@ export const asyncRoutes = [
             name: 'DirectivePermission',
             meta: {
                 title: 'directivePermission'
-                // 如果不设置角色，意思是默认是： 这个页面需要权限
+                // 如果不设置角色，意思是默认是： 这个页面不需要权限
             }
         },
         {

@@ -30,12 +30,6 @@ export default {
                 })
             }
         }
-    },
-    data() {
-        return {
-        radio1: 'admin',
-        radio2: 'admin',          
-        }
     }
 }
 </script>
