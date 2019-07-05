@@ -164,7 +164,22 @@ export const asyncRoutes = [
                 roles: ['admin']
             }
         }
-    ]
+      ]
+    },
+    {
+        path: '/icon',
+        component: Layout,
+        name: 'icon',
+        children: [{
+            path: 'index',
+            component: () => import('@/views/icons/index'),
+            name: 'Icons',
+            meta: {
+                title: 'icons',
+                icon: 'icon',
+                noCache: true
+            }
+        }]
     },
     {
         path: '/error',
