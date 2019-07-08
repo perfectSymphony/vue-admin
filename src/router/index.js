@@ -6,6 +6,9 @@ Vue.use(Router)
 // layout
 import Layout from '@/layout'
 
+// 路由模块
+import componentsRouter from './modules/components'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -181,6 +184,12 @@ export const asyncRoutes = [
             }
         }]
     },
+    /**
+     * 当路由表太长的话， 可以拆分小的模块
+     * 
+     */
+    componentsRouter,
+    
     {
         path: '/error',
         component:  Layout,
