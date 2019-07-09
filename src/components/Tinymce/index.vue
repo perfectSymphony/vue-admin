@@ -1,14 +1,14 @@
 <template>
-    <div class="app-container">
-        markdown
+    <div>
+        Tinymce
     </div>
 </template>
 <script>
 export default {
-    name: 'markdown',
+    name: 'Tinymce',
     data(){
         return {
-            
+
         }
     }
 }
@@ -16,5 +16,4 @@ export default {
 <style lang="scss" scoped>
 
 </style>
-
 
