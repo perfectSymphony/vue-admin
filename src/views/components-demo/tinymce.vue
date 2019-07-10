@@ -5,7 +5,7 @@
             <a target="_blank" class="link-type" href="https://www.tiny.cloud/docs/"> {{ $t('components.documentation') }}</a>
         </aside>
         <div>
-            <tinymce v-model="content"/>
+            <tinymce v-model="content" :height="300" />
         </div>
     </div>
 </template>
