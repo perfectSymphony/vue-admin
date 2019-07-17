@@ -77,7 +77,7 @@ export default {
             }
         },
         beforeUpload(file){
-            const _this = this
+            const _self = this
             const _URL = window.URL || window.webkitURL
             const fileName = file.uid
             this.listObj[fileName] = {}
