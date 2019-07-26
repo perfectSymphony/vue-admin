@@ -1,5 +1,7 @@
 <template>
-    
+    <div class="json-editor">
+        <textarea ref="textarea"></textarea>
+    </div>
 </template>
 
 <script>
@@ -11,7 +13,7 @@
 
     // 根据设置的主题，引入相应的主题包,主题包存储在theme下
     import 'codemirror/theme/colorforth.css'
-    require('./script-loader!jsonlint')
+    require('script-loader')
 
     // 根据设置的编辑器语言，引入相应语言工具包
     import 'codemirror/mode/javascript/javascript'
