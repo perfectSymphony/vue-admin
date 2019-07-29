@@ -33,6 +33,14 @@ const componentsRouter = {
             meta: {
                 title: 'JsonEditor'
             }
+        },
+        {
+            path: 'split-pane',
+            component: () => import('@/views/components-demo/split-pane'),
+            name: 'Splitpane',
+            meta: {
+                title: 'Splitpane'
+            }
         }
     ]
 }
