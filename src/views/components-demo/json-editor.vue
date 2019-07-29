@@ -12,7 +12,9 @@
         target="_blank"
       >json-lint</a>.
     </aside>
-    <div class="editor-container">3</div>
+    <div class="editor-container">
+      <json-editor ref="jsonEditor" v-model="value" /> 
+    </div>
   </div>
 </template>
 <script>
@@ -22,11 +24,20 @@ const jsonData ='[{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"mark
 
 export default {
   name: "jsonEditorDemo",
+  components: {
+    JsonEditor
+  },
   data() {
-    return {};
+    return {
+      value: JSON.parse(jsonData)
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
+  .editor-container{
+    position: relative;
+    height: 100%;
+  }
 </style>
 
