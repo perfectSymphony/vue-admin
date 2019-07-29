@@ -41,6 +41,14 @@ const componentsRouter = {
             meta: {
                 title: 'Splitpane'
             }
+        },
+        {
+            path: 'avatar-upload',
+            component: () => import('@/views/components-demo/avatar-upload'),
+            name: 'AvatarUploadDemo',
+            meta: {
+                title: 'avatarUpload'
+            }
         }
     ]
 }
