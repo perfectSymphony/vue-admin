@@ -49,6 +49,14 @@ const componentsRouter = {
             meta: {
                 title: 'avatarUpload'
             }
+        },
+        {
+            path: 'dropzone',
+            component: () => import('@/views/components-demo/dropzone'),
+            name: 'DropZoneDemo',
+            meta: {
+                title: 'Dropzone'
+            }
         }
     ]
 }
