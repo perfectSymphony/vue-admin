@@ -73,7 +73,8 @@ export default {
     },
     data(){
         return {
-            dropzone: ''
+            dropzone: '',
+            initOnce: true
         }
     },
     mounted(){
@@ -95,11 +96,55 @@ export default {
             
             // 事件监听器只能在Dropzone的instances[实例] 上注册 , 添加你的事件监听器最好的地方是 在 init 方法中
             init(){},
+            accept: (file, done) => {
+                done()
+            },
+            // 在每个文件被发送前调用
+            sending: (file, xhr, formData) => {
+                vm.initOnce = false
+            },
         })
+        this.dropzone.on('success', file => {
+            vm.$emit('dropzone-success', file, vm.dropzone.element)
+        })
+        this.dropzone.on('addedfile', file => {
+            vm.$emit('dropzone-fileAdded', file)
+        })
+        this.dropzone.on('removedfile', file => {
+            vm.$emit('dropzone-removedFile', file)
+        })
+        this.dropzone.on('error', (file, error, xhr) => {
+            vm.$emit('dropzone-error', file, error, xhr)
+        })
+        this.dropzone.on('successmultiple', (file, error, xhr) => {
+            vm.$emit('dropzone-successmultiple', file, error, xhr)
+        })
+    },
+    destroyed(){
+        this.dropzone.destroy()
     }
 }
 </script>
 <style lang="scss" scoped>
-
+    .dropzone {
+        border: 2px solid #E5E5E5;
+        font-family: 'Roboto', sans-serif;
+        color: #777;
+        transition: background-color .2s linear;
+        padding: 5px; 
+    }
+    .dropzone:hover {
+        background-color: #F6F6F6;
+    }
+    i {
+        color: #ccc;
+    }
+    .dropzone .dz-image img {
+        width: 100%;
+        height: 100%;
+    }
+    .dropzone input[name='file'] {
+        display: none;
+    }
 </style>
 
