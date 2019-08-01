@@ -57,6 +57,14 @@ const componentsRouter = {
             meta: {
                 title: 'Dropzone'
             }
+        },
+        {
+            path: 'Sticky',
+            component: () => import('@/views/components-demo/sticky'),
+            name: 'Sticky',
+            meta: {
+                title: 'Sticky'
+            }
         }
     ]
 }
