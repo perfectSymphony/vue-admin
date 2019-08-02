@@ -65,6 +65,14 @@ const componentsRouter = {
             meta: {
                 title: 'Sticky'
             }
+        },
+        {
+            path: 'count to',
+            component: () => import('@/views/components-demo/count-to'),
+            name: 'countTo',
+            meta: {
+                title: 'count-to'
+            }
         }
     ]
 }
