@@ -67,7 +67,7 @@ const componentsRouter = {
             }
         },
         {
-            path: 'count to',
+            path: 'count-to',
             component: () => import('@/views/components-demo/count-to'),
             name: 'countTo',
             meta: {
