@@ -73,6 +73,14 @@ const componentsRouter = {
             meta: {
                 title: 'count-to'
             }
+        },
+        {
+            path: 'mixin',
+            component: () => import('@/views/components-demo/mixin'),
+            name: 'ComponentMixinDemo',
+            meta: {
+                title: 'componentMixin'
+            }
         }
     ]
 }
