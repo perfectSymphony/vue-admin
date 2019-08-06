@@ -1,6 +1,8 @@
 @import './variables.scss';
 @import './transition.scss';
 @import './sidebar.scss';
+@import './btn.scss';
+
 html {
     //此处也设置成高度等于100%，呼应body的高度等于100%，只是为了兼容IE6、firefox
     height: 100%;
