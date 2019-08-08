@@ -49,7 +49,7 @@
                 <div style="height: 100px;">
                     <el-form :model="demo" :rules="demoRules">
                     <el-form-item prop="title">
-                        <md-input v-model="demo.title" icon="search" name="title" placeholder="请输入事项名称">
+                        <md-input v-model="demo.title" icon = "search" name="title" autocomplete="off"  placeholder="请输入事项名称">
                             事项名称
                         </md-input>
                     </el-form-item>
@@ -62,8 +62,10 @@
                 <div slot="header" class="clearfix">
                     <span>图片hover效果</span>
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
+                <div class="component-item">
+                    <liu-thumb width="100px" height="100px" image="https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191">
+                        vue-element-admin
+                    </liu-thumb>
                 </div>
                 </el-card>
             </el-col>
@@ -72,8 +74,10 @@
                 <div slot="header" class="clearfix">
                     <span>水波纹 waves v-directive</span>
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
+                <div class="component-item">
+                    <el-button v-waves type="primary">
+                        水波纹效果
+                    </el-button>
                 </div>
                 </el-card>
             </el-col>
@@ -94,11 +98,17 @@
 <script>
 
 import MdInput from '@/components/MDinput'
+import liuThumb from '@/components/liuThumb'
+import waves from '@/directive/waves/index.js' // 水波纹指令
 
 export default {
     name: 'componentMixinDemo',
     components: {
-        MdInput
+        MdInput,
+        liuThumb
+    },
+    directives: {
+        waves
     },
     data(){
         const validate = (rule, value, callback) => {
@@ -131,4 +141,7 @@ export default {
     min-height: calc(100vh - 84px);
 }
 
+.component-item {
+    min-height: 100px;
+}
 </style>

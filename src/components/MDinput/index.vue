@@ -1,129 +1,132 @@
 <template>
   <div class="material-input__component" :class="computedClasses">
-    <input
-      v-if="type === 'email'"
-      type="email"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+    <div :class="{iconClass:icon}">
+      <i v-if="icon" :class="['el-icon-' + icon]" class="el-input__icon material-input__icon" />
+      <input
+        v-if="type === 'email'"
+        type="email"
+        class="material-input"
+        :name="name"
+        :placeholder="fillPlaceHolder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :required="required"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
-    <input
-      v-if="type === 'url'"
-      type="url"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
+      <input
+        v-if="type === 'url'"
+        type="url"
+        class="material-input"
+        :name="name"
+        :placeholder="fillPlaceHolder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :required="required"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
-    <input
-      v-if="type === 'number'"
-      type="number"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
+      <input
+        v-if="type === 'number'"
+        type="number"
+        class="material-input"
+        :name="name"
+        :placeholder="fillPlaceHolder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :max="max"
-      :min="min"
-      :step="step"
-      :minlength="minlength"
-      :maxlength="maxlength"
-      :required="required"
+        :max="max"
+        :min="min"
+        :step="step"
+        :minlength="minlength"
+        :maxlength="maxlength"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
-    <input
-      v-if="type === 'password'"
-      type="password"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
+      <input
+        v-if="type === 'password'"
+        type="password"
+        class="material-input"
+        :name="name"
+        :placeholder="fillPlaceHolder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :max="max"
-      :min="min"
-      :step="step"
-      :required="required"
+        :max="max"
+        :min="min"
+        :step="step"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
-    <input
-      v-if="type === 'tel'"
-      type="tel"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
+      <input
+        v-if="type === 'tel'"
+        type="tel"
+        class="material-input"
+        :name="name"
+        :placeholder="placeholder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :required="required"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
-    <input
-      v-if="type === 'text'"
-      type="text"
-      class="material-input"
-      :name="name"
-      :placeholder="placeholder"
-      v-model="valueCopy"
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
+      <input
+        v-if="type === 'text'"
+        type="text"
+        class="material-input"
+        :name="name"
+        :placeholder="fillPlaceHolder"
+        v-model="valueCopy"
 
-      :readonly="readonly"
-      :disabled="disabled"
-      :autocomplete="autocomplete"
+        :readonly="readonly"
+        :disabled="disabled"
+        :autocomplete="autocomplete"
 
-      :minlength="minlength"
-      :maxlength="maxlength"
-      :required="required"
+        :minlength="minlength"
+        :maxlength="maxlength"
+        :required="required"
 
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="handleModelInput"
-    >
+        @focus="handleMdFocus"
+        @blur="handleMdBlur"
+        @input="handleModelInput"
+      >
 
-    <span class="material-input-bar"></span>
+      <span class="material-input-bar"></span>
 
-    <label class="material-label">
-      <slot></slot>
-    </label>
+      <label class="material-label">
+        <slot></slot>
+      </label>
+    </div>
   </div>
 </template>
 
@@ -137,50 +140,57 @@
         return {
           'material--active': this.focus,
           'material--disabled': this.disabled,
-          'material--raised': Boolean(
-            this.focus ||
-            this.valueCopy || // has value
-            (this.placeholder && !this.valueCopy)) // has placeholder
+          'material--raised': Boolean( this.focus || this.valueCopy)  // has value
         }
       }
     },
     data () {
       return {
-        valueCopy: null,
+        valueCopy: this.value,
         focus: false,
-        valid: true,
-        placeholder: null
+        fillPlaceHolder: null
       }
-    },
-    beforeMount () {
-      // Here we are following the Vue2 convention on custom v-model:
-      // https://github.com/vuejs/vue/issues/2873#issuecomment-223759341
-      this.copyValue(this.value)
     },
     methods: {
       handleModelInput (event) {
-        this.$emit('input', event.target.value, event)
-        this.handleValidation()
+        const value = event.target.value
+        this.$emit('input', value)
+        if (this.$parent.$options.componentName === 'ElFormItem') { 
+          if (this.validateEvent) {
+            this.$parent.$emit('el.form.change', [value])
+          }
+        }
+        this.$emit('change', value)
       },
-      handleFocus (focused) {
-        this.focus = focused
+      handleMdFocus(event) {
+        this.focus = true
+        this.$emit('focus', event)
+        if(this.placeholder && this.placeholder !== ''){
+          this.fillPlaceHolder = this.placeholder
+        }
       },
-      handleValidation () {
-        this.valid = this.$el ? this.$el.querySelector(
-          '.material-input').validity.valid : this.valid
-      },
-      copyValue (value) {
-        this.valueCopy = value
-        this.handleValidation()
+      handleMdBlur() {
+        this.focus = false
+        this.$emit('blur', event)
+        this.fillPlaceHolder = null
+        if(this.$parent.$options.componentName === 'ElFormItem'){
+          if(this.validateEvent){
+            this.$parent.$emit('el.form.blur', [this.copyValue])
+          }
+        }
       }
     },
     watch: {
       value (newValue) {
         // This watch works from the code side of the 2-way-binding:
-        this.copyValue(newValue)
+         this.copyValue = newValue
       }
     },
     props: {
+      icon:{
+        type: String,
+        default: null
+      },
       name: {
         type: String,
         default: null
@@ -240,16 +250,29 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
-  // Fonts:
+  //Fonts:
   $font-size-base: 16px;
-  $font-size-small: 14px;
+  $font-size-small: 17px;
   $font-size-smallest: 12px;
   $font-weight-normal: normal;
+  $font-weight-bold : 700;
+  $apixel: 1px;
   // Utils
-  $spacer: 10px;
+  $spacer: 12px;
+  $index: 0px;
+  $index-has-icon: 30px;
   $transition: 0.2s ease all;
+
+  // Theme:
+  $color-white: white;
+  $color-grey: #9E9E9E;
+  $color-grey-light: #E0E0E0;
+  $color-blue: #2196F3;
+  $color-red: #F44336;
+  $color-black: black;
+
   // Base clases:
   %base-bar-pseudo {
     content: '';
@@ -261,22 +284,45 @@
   }
   // Mixins:
   @mixin slided-top() {
-    top: -2 * $spacer;
+    top: - ($font-size-base + $spacer);
+    left: 0;
     font-size: $font-size-small;
+    font-weight: $font-weight-bold;
   }
   // Component:
   .material-input__component {
-    margin-top: 45px;
+    margin-top: 36px;
     position: relative;
     * {
       box-sizing: border-box;
     }
+    .iconClass {
+      .material-input__icon {
+        position: absolute;
+        left: 0;
+        top: $spacer;
+        line-height: $font-size-base;
+        color: $color-blue;
+        width: $index-has-icon;
+        height: $font-size-base;
+        font-size: $font-size-base;
+        font-weight: $font-weight-normal;
+        pointer-events: none;
+      }
+      .material-label {
+        left: $index-has-icon;
+      }
+      .material-input {
+        text-indent: $index-has-icon;
+      }
+    }
     .material-input {
       font-size: $font-size-base;
-      padding: $spacer $spacer $spacer $spacer / 2;
+      padding: $spacer $spacer $spacer - $apixel * 10 $spacer / 2;
       display: block;
       width: 100%;
       border: none;
+      line-height: 1;
       border-radius: 0;
       &:focus {
         outline: none;
@@ -289,9 +335,10 @@
       font-weight: $font-weight-normal;
       position: absolute;
       pointer-events: none;
-      left: 0;
-      top: $spacer;
+      left: $index;
+      top: 0;
       transition: $transition;
+      font-size: $font-size-small;
     }
     .material-input-bar  {
       position: relative;
@@ -342,13 +389,7 @@
       }
     }
   }
-  // Theme:
-  $color-white: white;
-  $color-grey: #9E9E9E;
-  $color-grey-light: #E0E0E0;
-  $color-blue: #2196F3;
-  $color-red: #F44336;
-  $color-black: black;
+
   .material-input__component {
     background: $color-white;
     .material-input {
@@ -369,23 +410,6 @@
     &.material--active {
       .material-label {
         color: $color-blue;
-      }
-    }
-    // Errors:
-    &.material--has-errors {
-      // These styles are required
-      // for custom validation:
-      &.material--active .material-label {
-        color: $color-red;
-      }
-      .material-input-bar {
-        &:before,
-        &:after {
-          background: $color-red;
-        }
-      }
-      .material-errors {
-        color: $color-red;
       }
     }
   }
