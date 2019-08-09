@@ -86,11 +86,24 @@
                 <div slot="header" class="clearfix">
                     <span>hover text</span>
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
+                <div class="component-item">
+                    <mallki class-name="mallki-text" text="vue-element-admin" />
                 </div>
                 </el-card>
             </el-col>
+        </el-row>
+
+        <el-row :gutter="20" style="margin-top: 50px;">
+            <el-col :span="8">
+                <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>Sharing</span>
+                </div>
+                <div class="component-item" style="height: 580px;">
+                    <dropdown-menu :items = 'ProjectList' style="margin: 0 auto" title="技术栈" /> 
+                </div>
+                </el-card>
+            </el-col>            
         </el-row>
     </div>
 </template>
@@ -100,12 +113,16 @@
 import MdInput from '@/components/MDinput'
 import liuThumb from '@/components/liuThumb'
 import waves from '@/directive/waves/index.js' // 水波纹指令
+import Mallki from '@/components/TextHoverEffect/Mallki'
+import DropdownMenu from '@/components/Share/DropdownMenu'
 
 export default {
     name: 'componentMixinDemo',
     components: {
         MdInput,
-        liuThumb
+        liuThumb,
+        Mallki,
+        DropdownMenu
     },
     directives: {
         waves
@@ -128,7 +145,18 @@ export default {
                     trigger: 'change',
                     validator: validate
                 }]
-            }
+            },
+            ProjectList: [
+                { title: 'HTML5', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: 'CSS3', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: 'JavaScript', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: 'NodeJS', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: 'Vue.js', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: 'electron', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: '性能优化篇', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: '数据结构和算法篇', href: 'https://www.cnblogs.com/myprogramer/' },
+                { title: '设计模式篇', href: 'https://www.cnblogs.com/myprogramer/' }
+            ]
         }
     }
 }

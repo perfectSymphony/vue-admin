@@ -3,7 +3,7 @@ import './waves.css'
 const context = '@@wavesContext'
 
 function handleClick(el, binding){
-    console.log(el, binding)
+    // console.log(el, binding)
     function handle(e){
         const customOpts = Object.assign({}, binding.value)
         const opts = Object.assign({
@@ -14,7 +14,7 @@ function handleClick(el, binding){
         customOpts
         )
         const target = opts.ele
-        console.log(target)
+        // console.log(target)
         if(target){
             target.style.position = 'relative'
             target.style.overflow = 'hidden'
@@ -43,7 +43,7 @@ function handleClick(el, binding){
             ripple.className = 'waves-ripple z-active'
             return false
         }
-        console.log(target)
+        // console.log(target)
     }
 
     if(!el[context]){
