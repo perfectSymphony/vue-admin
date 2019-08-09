@@ -81,6 +81,14 @@ const componentsRouter = {
             meta: {
                 title: 'componentMixin'
             }
+        },
+        {
+            path: 'back-to-top',
+            component: () => import('@/views/components-demo/back-to-top'),
+            name: 'back-to-top',
+            meta: {
+                title: 'backToTop'
+            }
         }
     ]
 }
