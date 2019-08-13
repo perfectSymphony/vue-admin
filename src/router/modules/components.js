@@ -105,6 +105,14 @@ const componentsRouter = {
             meta: {
                 title: 'dragSelect'
             }
+        },
+        {
+            path: 'dnd-list',
+            component: () => import('@/views/components-demo/dnd-list'),
+            name: 'dnd-list',
+            meta: {
+                title: 'dndList'
+            }
         }
     ]
 }

@@ -10,7 +10,7 @@
         "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
     },
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.18.1",
         "clipboard": "^2.0.4",
         "codemirror": "^5.48.2",
         "core-js": "^2.6.5",
@@ -32,6 +32,7 @@
         "vue-image-crop-upload": "^2.5.0",
         "vue-router": "3.0.2",
         "vue-splitpane": "^1.0.4",
+        "vuedraggable": "^2.23.0",
         "vuex": "^3.0.1"
     },
     "devDependencies": {
