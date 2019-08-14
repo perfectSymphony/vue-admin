@@ -113,6 +113,14 @@ const componentsRouter = {
             meta: {
                 title: 'dndList'
             }
+        },
+        {
+            path: 'drag-panel',
+            component: () => import('@/views/components-demo/drag-panel'),
+            name: 'drag-panel',
+            meta: {
+                title: 'dragKanban'
+            }
         }
     ]
 }

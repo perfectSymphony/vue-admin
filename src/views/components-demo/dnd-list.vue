@@ -35,7 +35,7 @@ export default {
         getData(){
             this.listLoading = true
             fetchList().then(response => {
-                console.log(response.data.items)
+                // console.log(response.data.items)
                 this.list1 = response.data.items.splice(0, 5)
                 this.list2 = response.data.items
             })
