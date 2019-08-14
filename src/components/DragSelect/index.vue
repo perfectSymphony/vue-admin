@@ -1,6 +1,10 @@
 <template>
-<!--  v-on: 用在自定义元素组件上时，也可以监听子组件触发的自定义事件 -->
-    <el-select ref="dragSelect" v-model="selectVal">
+<!-- 
+    https://www.cnblogs.com/mengfangui/p/9686199.html
+    
+    https://blog.csdn.net/songxiugongwang/article/details/84001967
+ --> 
+    <el-select ref="dragSelect" v-model="selectVal" v-bind="$attrs" v-on="$listeners">
         <slot />
     </el-select>
 </template>
