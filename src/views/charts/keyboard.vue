@@ -1,15 +1,25 @@
 <template>
-    <div class="components-container">
-        charts
+    <div class="chart-container">
+        <chart height="100%" width="100%" />
     </div>
 </template>
 
 <script>
-export default {
 
+import Chart from '@/components/Charts/Keyboard'
+
+export default {
+    name: 'KeyboardChart',
+    components: {
+        Chart
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 84px);
+}
 </style>
