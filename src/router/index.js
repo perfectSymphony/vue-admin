@@ -8,6 +8,7 @@ import Layout from '@/layout'
 
 // 路由模块
 import componentsRouter from './modules/components'
+import chartsRouter from './modules/charts'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -189,6 +190,7 @@ export const asyncRoutes = [
      * 
      */
     componentsRouter,
+    chartsRouter,
     
     {
         path: '/error',
