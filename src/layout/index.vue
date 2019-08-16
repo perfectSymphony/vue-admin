@@ -54,6 +54,6 @@ export default {
   height: 100%;
 }
 .hideSidebar .fixed-header {
-  width: calc(100% - 54px);
+  width: calc(100% - 84px);
 }
 </style>
