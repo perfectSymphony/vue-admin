@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <el-alert :closable="false" title="menu 1">
+    <el-alert :closable="false" title="menu 1-3" type="success">
       <router-view />
     </el-alert>
   </div>
