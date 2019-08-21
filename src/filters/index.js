@@ -1,3 +1,5 @@
+export { parseTime } from '@/utils'
+
 /**
  * Upper case first char
  * @param {String} string

@@ -11,3 +11,15 @@
     //     }
     // }
 }
+
+
+.status-col {
+    .cell {
+        padding: 0 10px;
+        text-align: center;
+
+        .el-tag {
+            margin-right: 0px;
+        }
+    }
+}
