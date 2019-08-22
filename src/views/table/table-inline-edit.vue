@@ -28,8 +28,14 @@
       <el-table-column
         prop="title"
         label="标题">
-        <template slot-scope="scope">
-          <span>{{ scope.row.title }}</span>
+        <template slot-scope="{row}">
+          <template v-if="row.edit">
+              <el-input v-model="row.title" class="edit-input" size="small"></el-input>
+              <el-button class="cancel-btn" size="small" icon="el-icon-refresh" type="warning" @click="cancelEdit(row)">
+                  cancel
+              </el-button>
+          </template>
+          <span v-else>{{ row.title }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -52,15 +58,6 @@
       </el-table-column>
       <el-table-column
         align="center"
-        prop="readings"
-        label="阅读量"
-        width="150">
-        <template slot-scope="scope">
-            <span>{{ scope.row.pageviews }}</span>
-        </template>  
-      </el-table-column>
-      <el-table-column
-        align="center"
         prop="status"
         class-name="status-col"
         label="状态"
@@ -73,21 +70,19 @@
       </el-table-column>
       <el-table-column
         align="center"
-        prop="drag"
-        label="是否可拖拽"
-        width="100">
-        <template>
-            <svg-icon class="drag-handler" icon-class="drag" />
+        prop="action"
+        label="操作"
+        width="150">
+        <template slot-scope="{row}">
+            <el-button v-if="row.edit" type="success" size="small" icon="el-icon-circle-check" @click="confirmEdit(row)">
+                ok
+            </el-button>
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="row.edit = !row.edit">
+                Edit
+            </el-button>
         </template>  
       </el-table-column>
     </el-table>
-    <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
-    <div class="show-d">
-      <el-tag style="margin-right:12px;">{{ $t('table.dragTips1') }} :</el-tag> {{ oldList }}
-    </div>
-    <div class="show-d">
-      <el-tag>{{ $t('table.dragTips2') }} :</el-tag> {{ newList }}
-    </div>
   </div>
 </template>
 
@@ -97,7 +92,7 @@ import { fetchList } from '@/api/article'
 import Sortable from 'sortablejs'
 
 export default {
-      name: 'DragTable',
+      name: 'tableInlineEdit',
       filters: {
         statusFilter(status){
           const statusMap = {
@@ -117,9 +112,7 @@ export default {
             page: 1,
             limit: 10
           },
-          sortable: null,
-          oldList: [],
-          newList: []
+          sortable: null
         }
       },
       created() {
@@ -129,34 +122,45 @@ export default {
         async getList(){
           this.listLoading = true
           const { data } = await fetchList(this.listQuery)
-          this.list = data.items
-          // console.log(this.list)
-          this.total = data.total
+          const items = data.items
+          this.list = items.map(v => {
+              this.$set(v, 'edit', false)
+              v.originalTitle = v.title
+              return v
+          })
+        //   console.log(items)
           this.listLoading = false
-          this.oldList = this.list.map(v => v.id)
-          this.newList =this.oldList.slice()
           this.$nextTick(() => {
             this.setSort()
           })
         },
         setSort(){
-          // console.log(this.$refs.dragTable.$el)
+        //   console.log(this.$refs.dragTable.$el)
           const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-          // console.log(el)
+        //   console.log(el)
           this.sortable = Sortable.create(el, {
             ghostClass: 'sortable-ghost',
             setData: function(dataTransfer){
               dataTransfer.setData('Text', '')
-            },
-            onEnd: evt => {
-              const targetRow = this.list.splice(evt.oldIndex, 1)[0]
-              this.list.splice(evt.newIndex, 0, targetRow)
-
-
-              const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-              this.newList.splice(evt.newIndex, 0, tempIndex)
             }
           })
+        },
+        cancelEdit(row){
+            console.log(row)
+            row.title = row.originalTitle
+            row.edit = false
+            this.$message({
+                message: 'The title has been edited',
+                type: 'success'
+            })
+        },
+        confirmEdit(row){
+            row.edit = false
+            row.originalTitle = row.title
+            this.$message({
+                message: 'The title has been edited',
+                type: 'suceess'
+            })
         }
       }
 }
@@ -171,14 +175,19 @@ export default {
 </style>
 
 <style scoped>
+.edit-input {
+  padding-right: 100px;
+}
+
+.cancel-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
   .drag-handler {
     width: 20px;
     height: 20px;
     cursor: pointer;
-  }
-
-  .show-d{
-    margin-top: 15px;
   }
 
 </style>
