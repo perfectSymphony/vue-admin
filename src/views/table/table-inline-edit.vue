@@ -72,12 +72,12 @@
         align="center"
         prop="action"
         label="操作"
-        width="150">
+        width="120">
         <template slot-scope="{row}">
             <el-button v-if="row.edit" type="success" size="small" icon="el-icon-circle-check" @click="confirmEdit(row)">
                 ok
             </el-button>
-            <el-button type="primary" size="small" icon="el-icon-edit" @click="row.edit = !row.edit">
+            <el-button v-else type="primary" size="small" icon="el-icon-edit" @click="row.edit = !row.edit">
                 Edit
             </el-button>
         </template>  
@@ -146,7 +146,7 @@ export default {
           })
         },
         cancelEdit(row){
-            console.log(row)
+            // console.log(row)
             row.title = row.originalTitle
             row.edit = false
             this.$message({
@@ -184,10 +184,5 @@ export default {
   right: 15px;
   top: 10px;
 }
-  .drag-handler {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
 
 </style>
