@@ -40,6 +40,9 @@
          refreshView(){
             //  为了清除页面缓存而重新渲染
             // this.$store.dispatch('tagsView/delAllCachedViews', this.$route)
+            console.log(1111111111)
+            console.log(this.$route)
+            console.log(22222222222222)
             const { fullPath } = this.$route
 
             this.$nextTick(() => {

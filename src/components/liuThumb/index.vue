@@ -1,13 +1,10 @@
 <template>
 	<div :style="{ zIndex:zIndex, height:height, width:width }" class="liu-item">
-<!-- 		<div class="liu-info">
+		<div class="liu-info">
 			<div class="liu-info-roles-container">
-				
-				https://www.jb51.net/article/150676.htm
-				
 				<slot />
 			</div>
-		</div> -->
+		</div>
 		<img :src="image" class="liu-thumb">
 	</div>
 </template>
@@ -55,6 +52,20 @@ export default {
 		transform-origin: 95% 40%;
 		transition: all 0.3s ease-in-out;
 	}
+	.liu-info-roles-container {
+		padding: 20px;
+		text-align: center;
+	}
+
+	.liu-info {
+		position: absolute;
+		width: inherit;
+		height: inherit;
+		border-radius: 50%;
+		overflow: hidden;
+		box-shadow: 0 0 1px rgba(0, 0, 0, 0.05);
+	}
+
 	.liu-thumb:after {
 		content: '';
 		width: 8px;

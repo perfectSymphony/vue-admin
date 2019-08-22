@@ -6,6 +6,12 @@ Vue.use(Router)
 // layout
 import Layout from '@/layout'
 
+// 路由模块
+import componentsRouter from './modules/components'
+import chartsRouter from './modules/charts'
+import nestedRouter from './modules/nested'
+import tableRouter from './modules/table'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -39,14 +45,12 @@ export const constantRoutes = [{
         hidden: true,
         children: [{
             path: '/redirect/:path*',
-            component: () =>
-                import ('@/views/redirect/index')
+            component: () => import ('@/views/redirect/index')
         }]
     },
     {
         path: '/login',
-        component: () =>
-            import ('@/views/login/index'),
+        component: () => import ('@/views/login/index'),
         hidden: true
     },
     {
@@ -55,8 +59,7 @@ export const constantRoutes = [{
         redirect: 'dashboard',
         children: [{
             path: 'dashboard',
-            component: () =>
-                import ('@/views/dashboard/index'),
+            component: () => import ('@/views/dashboard/index'),
             name: 'Dashboard',
             meta: {
                 title: 'dashboard',
@@ -71,13 +74,53 @@ export const constantRoutes = [{
         component: Layout,
         children: [{
             path: 'index',
-            component: () =>
-                import ('@/views/documentation/index'),
+            component: () => import ('@/views/documentation/index'),
             name: 'Documentation',
             meta: {
                 title: 'documentation',
                 icon: 'documentation',
                 affix: true
+            }
+        }]
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/error-page/404'),
+        hidden: true
+    },
+    {
+        path: '/401',
+        component: () => import('@/views/error-page/401'),
+        hidden: true
+    },
+    {
+        path: '/guide',
+        component: Layout,
+        redirect: '/guide/index',
+        children: [{
+            path: 'index',
+            component: () => import('@/views/guide/index'),
+            name: 'Guide',
+            meta: {
+                title: 'guide',
+                icon: 'guide',
+                noCache: true
+            }
+        }]
+    },
+    {
+        path: '/profile',
+        component: Layout,
+        redirect: '/profile/index',
+        hidden: true,
+        children: [{
+            path: 'index',
+            component: () => import('@/views/profile/index'),
+            name: 'Profile',
+            meta: {
+                title: 'profile',
+                icon: 'user',
+                noCache: true
             }
         }]
     }
@@ -88,7 +131,106 @@ export const constantRoutes = [{
  * 根据用户角色动态加载路由
  */
 
-export const asyncRoutes = []
+export const asyncRoutes = [
+    {
+        path: '/permission',
+        component: Layout,
+        redirect: '/permission/page',
+        alwaysShow: true,   //显示根菜单
+        name: 'Permission',
+        meta: {
+            title: 'permission',
+            icon: 'lock',
+            roles: ['admin', 'editor']   //可以根导航设置角色
+        },
+        children: [{
+            path: 'page',
+            component: () => import('@/views/permission/page'),
+            name: 'PagePermission',
+            meta: {
+                title: 'pagePermission',
+                roles: ['admin']   // 你仅仅只能在子导航设置角色
+            }
+        },
+        {
+            path: 'directive',
+            component: () => import('@/views/permission/directive'),
+            name: 'DirectivePermission',
+            meta: {
+                title: 'directivePermission'
+                // 如果不设置角色，意思是默认是： 这个页面不需要权限
+            }
+        },
+        {
+            path: 'role',
+            component: () => import('@/views/permission/role'),
+            name: 'RolePermission',
+            meta: {
+                title: 'rolePermission',
+                roles: ['admin']
+            }
+        }
+      ]
+    },
+    {
+        path: '/icon',
+        component: Layout,
+        name: 'icon',
+        children: [{
+            path: 'index',
+            component: () => import('@/views/icons/index'),
+            name: 'Icons',
+            meta: {
+                title: 'icons',
+                icon: 'icon',
+                noCache: true
+            }
+        }]
+    },
+    /**
+     * 当路由表太长的话， 可以拆分小的模块
+     * 
+     */
+    componentsRouter,
+    chartsRouter,
+    nestedRouter,
+    tableRouter,
+    
+    {
+        path: '/error',
+        component:  Layout,
+        redirect: 'noRedirect',
+        name: 'ErrorPages',
+        meta: {
+            title: 'errorPages',
+            icon: '404'
+        },
+        children: [
+            {
+                path: '401',
+                component: () => import('@/views/error-page/401'),
+                name:'Page401',
+                meta:{
+                    title: 'page401',
+                    noCache: true
+                }
+            },
+            {
+            path: '404',
+            component: () => import('@/views/error-page/404'),
+            name:'Page404',
+            meta: {
+                title: 'page404',
+                noCache: true
+            }
+        }]
+    },
+    {
+        path: '*',
+        redirect: '/404',
+        hidden: true
+    }
+]
 
 const createRouter = () => new Router({
     // mode: 'history',
@@ -100,8 +242,7 @@ const router = createRouter()
 // https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
     const newRouter = createRouter()
-        //重置路由
-    router.matcher = newRouter.matcher
+    router.matcher = newRouter.matcher //重置路由
 }
 
 export default router

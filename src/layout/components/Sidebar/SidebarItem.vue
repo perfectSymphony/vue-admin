@@ -12,7 +12,7 @@
         <el-submenu v-else ref="suMenu" :index="resolvePath(item.path)" popper-append-to-body>
             <!-- 拥有二级子菜单的一级菜单的标题和icon -->
             <template slot="title">
-                <item v-if="item.meta" :icon="item.meta && item.meta.icon" />    
+                <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="generateTitle(item.meta.title)"/>    
             </template>
             <!-- 二级子菜单 -->          
             <sidebar-item 

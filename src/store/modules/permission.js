@@ -2,16 +2,17 @@ import { asyncRoutes, constantRoutes } from '@/router'
 
 
 /**
- *
  * Use meta.role to determine if the current user has permission
+ * @param roles
+ * @param route
  */
 
-function hasPerssion(roles, route) {
+function hasPermission(roles, route) {
     if (route.meta && route.meta.roles) {
         // 确定数组的所有成员是否满足指定的测试
         return roles.some(role => {
             // 判断是否包含某一元素
-            route.meta.roles.includes(role)
+           return route.meta.roles.includes(role)
         })
     } else {
         return true
@@ -28,7 +29,8 @@ export function filterAsyncRoutes(routes, roles) {
 
     routes.forEach(route => {
         const tmp = {...route }
-        if (hasPerssion(roles, tmp)) {
+        console.log(tmp)
+        if (hasPermission(roles, tmp)) {
             if (tmp.children) {
                 tmp.children = filterAsyncRoutes(tmp.children, roles)
             }

@@ -39,7 +39,7 @@ export default {
     Table: 'Table',
     dynamicTable: '动态 Table',
     dragTable: '拖拽 Table',
-    inlineEditTable: 'Table 内编辑',
+    tableInlineEdit: 'Table 内编辑',
     complexTable: '综合 Table',
     tab: 'Tab',
     form: '表单',

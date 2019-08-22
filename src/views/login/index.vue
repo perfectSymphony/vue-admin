@@ -107,7 +107,7 @@
     watch: {
       $route: {
         handler: function(route){
-          console.log(route)
+          // console.log(route)
           this.redirect = route.query && route.query.redirect
         },
         immediate: true
