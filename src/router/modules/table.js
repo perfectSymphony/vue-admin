@@ -33,6 +33,14 @@ const tableRouter = {
             meta: {
                 title: 'tableInlineEdit'
             }
+        },
+        {
+            path: 'complex-table',
+            component: () => import('@/views/table/complex-table'),
+            name: 'complexTbale',
+            meta: {
+                title: 'complexTable'
+            }
         }
     ]
 }
