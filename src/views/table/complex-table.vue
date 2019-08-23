@@ -1,5 +1,5 @@
 <template>
-  <div class="components-container">
+  <div class="app-container">
     <el-table
       fit
       ref="dragTable"
@@ -11,7 +11,7 @@
         align="center"
         prop="id"
         label="ID"
-        width="80">
+        width="70">
         <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
         </template>
@@ -20,7 +20,7 @@
         align="center"
         prop="date"
         label="日期"
-        width="180">
+        width="140">
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>  
@@ -29,20 +29,14 @@
         prop="title"
         label="标题">
         <template slot-scope="{row}">
-          <template v-if="row.edit">
-              <el-input v-model="row.title" class="edit-input" size="small"></el-input>
-              <el-button class="cancel-btn" size="small" icon="el-icon-refresh" type="warning" @click="cancelEdit(row)">
-                  cancel
-              </el-button>
-          </template>
-          <span v-else>{{ row.title }}</span>
+          <span>{{ row.title }}</span>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="author"
         label="作者"
-        width="100">
+        width="80">
         <template slot-scope="scope">
             <span>{{ scope.row.author }}</span>
         </template>  
@@ -55,6 +49,15 @@
         <template slot-scope="scope">
               <svg-icon v-for="i in scope.row.importance" :key="i" icon-class="star" class="icon-star" />
         </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="readings"
+        label="阅读量"
+        width="70">
+        <template slot-scope="scope">
+            <span>{{ scope.row.pageviews }}</span>
+        </template>  
       </el-table-column>
       <el-table-column
         align="center"
@@ -72,27 +75,33 @@
         align="center"
         prop="action"
         label="操作"
-        width="120">
+        width="230">
         <template slot-scope="{row}">
-            <el-button v-if="row.edit" type="success" size="small" icon="el-icon-circle-check" @click="confirmEdit(row)">
-                ok
+            <el-button type="primary" size="small">
+                {{ $t('table.edit') }}
             </el-button>
-            <el-button v-else type="primary" size="small" icon="el-icon-edit" @click="row.edit = !row.edit">
-                Edit
+            <el-button type="success" size="small">
+                {{ $t('table.publish') }}
+            </el-button>
+            <el-button type="danger" size="small">
+                {{ $t('table.delete') }}
             </el-button>
         </template>  
       </el-table-column>
     </el-table>
+
+    <Pagination v-show="total > 0" :total="total" />
   </div>
 </template>
 
 <script>
 
 import { fetchList } from '@/api/article'
+import Pagination from '@/components/pagination'
 import Sortable from 'sortablejs'
 
 export default {
-      name: 'tableInlineEdit',
+      name: 'complexTable',
       filters: {
         statusFilter(status){
           const statusMap = {
@@ -104,13 +113,16 @@ export default {
           return statusMap[status]
         }
       },
+      components: {
+        Pagination
+      },
       data(){
         return {
           list: null,
           listLoading: true,
           listQuery: {
             page: 1,
-            limit: 10
+            limit: 20
           },
           sortable: null
         }
@@ -124,8 +136,6 @@ export default {
           const { data } = await fetchList(this.listQuery)
           const items = data.items
           this.list = items.map(v => {
-              this.$set(v, 'edit', false)
-              v.originalTitle = v.title
               return v
           })
         //   console.log(items)
@@ -144,23 +154,6 @@ export default {
               dataTransfer.setData('Text', '')
             }
           })
-        },
-        cancelEdit(row){
-            // console.log(row)
-            row.title = row.originalTitle
-            row.edit = false
-            this.$message({
-                message: 'The title has been edited',
-                type: 'success'
-            })
-        },
-        confirmEdit(row){
-            row.edit = false
-            row.originalTitle = row.title
-            this.$message({
-                message: 'The title has been edited',
-                type: 'suceess'
-            })
         }
       }
 }
