@@ -90,7 +90,7 @@
       </el-table-column>
     </el-table>
 
-    <Pagination v-show="total > 0" :total="total" />
+    <Pagination v-show="total > 0" :total="total" :page.sync = "listQuery.page" :limit.sync = "listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
@@ -118,6 +118,7 @@ export default {
       },
       data(){
         return {
+          total: 0,
           list: null,
           listLoading: true,
           listQuery: {
@@ -134,7 +135,9 @@ export default {
         async getList(){
           this.listLoading = true
           const { data } = await fetchList(this.listQuery)
+          // console.log(data)
           const items = data.items
+          this.total = data.total
           this.list = items.map(v => {
               return v
           })

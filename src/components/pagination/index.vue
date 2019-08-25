@@ -63,23 +63,26 @@ export default {
         },
         pageSize: {
             get() {
-                return limit
+                return this.limit
             },
             set(val) {
                 this.$emit('update:limit', val)
             }
         }
     },
-    data(){
-        return {
-            currentPage: 4
-        }
-    },
     methods: {
       handleSizeChange(val) {
+        this.$emit('pagination',{
+            page: this.currentPage,
+            limit: val
+        })
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+          this.$emit('pagination', {
+              page: val,
+              limit: this.pageSize
+          })
         console.log(`当前页: ${val}`);
       }
     }
