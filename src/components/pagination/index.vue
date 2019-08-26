@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+import { scrollTo } from '@/utils/scroll-to'
+
 export default {
     name: 'Pagination',
     props: {
@@ -76,6 +79,11 @@ export default {
             page: this.currentPage,
             limit: val
         })
+
+        if(this.autoScroll){
+            scrollTo(0, 800)
+        }
+
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
@@ -83,6 +91,10 @@ export default {
               page: val,
               limit: this.pageSize
           })
+        if(this.autoScroll){
+            scrollTo(0, 800)
+        }
+        
         console.log(`当前页: ${val}`);
       }
     }

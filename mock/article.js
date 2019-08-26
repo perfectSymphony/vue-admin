@@ -56,5 +56,25 @@ export default [
                 }
             }
         }
+    },
+    {
+        url: '/article/create',
+        type: 'post',
+        response: _ => {
+            return {
+                code: 20000,
+                data: 'success'
+            }
+        }
+    },
+    {
+        url: '/article/update',
+        type: 'post',
+        response: _ => {
+            return {
+                code: 20000,
+                data: 'success'
+            }
+        }
     }
 ]
