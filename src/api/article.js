@@ -16,6 +16,14 @@ export function createArticle(data){
   })
 }
 
+export function fetchPv(pv){
+  return request({
+    url: 'article/pv',
+    method: 'get',
+    params: { pv }
+  })
+}
+
 export function updateArticle(data){
   return request({
     url: '/article/update',

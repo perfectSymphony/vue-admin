@@ -59,8 +59,8 @@
         prop="readings"
         :label="$t('table.readings')"
         width="70">
-        <template slot-scope="scope">
-            <span>{{ scope.row.pageviews }}</span>
+        <template slot-scope="{row}">
+            <span class="link-type" v-if="row.pageviews"  @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
         </template>  
       </el-table-column>
       <el-table-column
@@ -79,12 +79,13 @@
         align="center"
         prop="action"
         :label="$t('table.actions')"
-        width="230">
+        width="230"
+        class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-            <el-button type="primary" size="small">
+            <el-button type="primary" size="small" @click="handleUpdate(row)">
                 {{ $t('table.edit') }}
             </el-button>
-            <el-button type="success" size="small">
+            <el-button type="success" size="small" v-if="row.status != 'publish'" @click="handleModifyStatus(row,'publish')">
                 {{ $t('table.publish') }}
             </el-button>
             <el-button type="danger" size="small">
@@ -96,6 +97,7 @@
 
     <Pagination v-show="total > 0" :total="total" :page.sync = "listQuery.page" :limit.sync = "listQuery.limit" @pagination="getList" />
 
+      <!-- 每条数据的详情弹框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :model="temp" ref="dataForm" :rules="rules" label-position="left" label-width="70px" style="width: 400px; margin-left: 50px;">
         <el-form-item :label="$t('table.type')" prop="type">
@@ -131,12 +133,20 @@
       </div>
     </el-dialog>
 
+    <!-- 阅读量弹框 -->
+    <el-dialog title="Reading statistics" :visible.sync="dialogPvVisible">
+      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
+        <el-table-column property="key" label="Channel" ></el-table-column>
+        <el-table-column property="pv" label="Pv" ></el-table-column>
+      </el-table>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
 
-import { fetchList, createArticle, updateArticle } from '@/api/article'
+import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import Pagination from '@/components/pagination'
 import Sortable from 'sortablejs'
 
@@ -220,7 +230,9 @@ export default {
           textMap: {
             update: 'Edit',
             create: 'Create'
-          }
+          },
+          dialogPvVisible: false,
+          pvData: []
         }
       },
       created() {
@@ -248,6 +260,13 @@ export default {
         handleFilter(){
           this.listQuery.page = 1
           this.getList()
+        },
+        handleModifyStatus(row, status){
+          this.$message({
+            title: '操作成功',
+            type: 'success'
+          })
+          row.status = status
         },
         setSort(){
         //   console.log(this.$refs.dragTable.$el)
@@ -325,6 +344,13 @@ export default {
                 })
               })
             }
+          })
+        },
+        handleFetchPv(pv){
+          fetchPv(pv).then(response => {
+            console.log(response.data)
+            this.pvData = response.data.pvData
+            this.dialogPvVisible = true
           })
         }
       }

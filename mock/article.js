@@ -76,5 +76,22 @@ export default [
                 data: 'success'
             }
         }
+    },
+    {
+        url: '/article/pv',
+        type: 'get',
+        response: _ => {
+            return {
+                code: 20000,
+                data: {
+                    pvData: [
+                        { key: 'pc', pv: 1024 },
+                        { key: 'mobile', pv: 2048 },
+                        { key: 'ios', pv: 1024 },
+                        { key: 'android', pv: 6666 }
+                    ]
+                }
+            }
+        }
     }
 ]
