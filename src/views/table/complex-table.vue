@@ -1,7 +1,33 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-input v-model="listQuery.title" :placeholder="$t('table.title')" clearable style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
+      <el-select v-model="listQuery.importance" clearable :placeholder="$t('table.importance')" style="width: 90px;" class="filter-item">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item"></el-option>
+      </el-select>
+     <el-select v-model="listQuery.type" clearable :placeholder="$t('table.type')" style="width: 130px;" class="filter-item">
+        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key"></el-option>
+      </el-select>
+     <el-select v-model="listQuery.sort" clearable style="width: 140px;" class="filter-item" @change="handleFilter">
+        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"></el-option>
+      </el-select>
+      <el-button type="primary" icon="el-icon-search" class="filter-item" @click="handleFilter">
+        {{ $t('table.search') }}
+      </el-button>
+      <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="handleCreate">
+        {{ $t('table.add') }}
+      </el-button>
+      <el-button v-waves :loading="downloadLoading" type="primary" icon="el-icon-download" class="filter-item" @click="handleDownload">
+        {{ $t('table.export') }}
+      </el-button>
+      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left: 15px;" @change="tableKey = tableKey + 1">
+        {{ $t('table.reviewer') }}
+      </el-checkbox>
+    </div>
+
     <el-table
       fit
+      :key='tableKey'
       ref="dragTable"
       v-loading="listLoading"
       :data="list"
@@ -47,6 +73,15 @@
       </el-table-column>
       <el-table-column
         align="center"
+        v-if="showReviewer"
+        :label="$t('table.reviewer')"
+        width="110">
+        <template slot-scope="scope">
+              <span style="color: red;">{{ scope.row.reviewer }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
         prop="importance"
         :label="$t('table.importance')"
         width="100">
@@ -58,7 +93,7 @@
         align="center"
         prop="readings"
         :label="$t('table.readings')"
-        width="70">
+        width="90">
         <template slot-scope="{row}">
             <span class="link-type" v-if="row.pageviews"  @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
         </template>  
@@ -82,13 +117,16 @@
         width="230"
         class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-            <el-button type="primary" size="small" @click="handleUpdate(row)">
+            <el-button type="primary" size="mini" @click="handleUpdate(row)">
                 {{ $t('table.edit') }}
             </el-button>
-            <el-button type="success" size="small" v-if="row.status != 'publish'" @click="handleModifyStatus(row,'publish')">
+            <el-button type="success" size="small" v-if="row.status != 'published'" @click="handleModifyStatus(row, 'published', '发布成功！')">
                 {{ $t('table.publish') }}
             </el-button>
-            <el-button type="danger" size="small">
+            <el-button size="small" v-if="row.status != 'draft'" @click="handleModifyStatus(row, 'draft', '保存为草稿成功！')">
+                {{ $t('table.draft') }}
+            </el-button>
+            <el-button type="danger" size="small" v-if="row.status != 'deleted'" @click="handleModifyStatus(row, 'deleted', '删除成功！')">
                 {{ $t('table.delete') }}
             </el-button>
         </template>  
@@ -147,6 +185,8 @@
 <script>
 
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import waves from '@/directive/waves'
+import { parseTime } from '@/utils'
 import Pagination from '@/components/pagination'
 import Sortable from 'sortablejs'
 
@@ -165,6 +205,9 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
       name: 'complexTable',
+      directives: {
+        waves
+      },
       filters: {
         statusFilter(status){
           const statusMap = {
@@ -184,6 +227,7 @@ export default {
       },
       data(){
         return {
+          tableKey: 0,
           total: 0,
           list: null,
           listLoading: true,
@@ -195,8 +239,20 @@ export default {
             type: undefined,
             sort: '+id'
           },
+          importanceOptions: [1, 2, 3],
           calendarTypeOptions,
+          sortOptions: [
+            {
+              label: 'ID Ascending',
+              key: '+id'
+            },
+            {
+              label: 'ID Descending',
+              key: '-id'
+            }
+          ],
           statusOptions: ['published', 'draft', 'deleted'],
+          showReviewer: false,
           temp: {
             id: undefined,
             importance: 1,
@@ -232,7 +288,8 @@ export default {
             create: 'Create'
           },
           dialogPvVisible: false,
-          pvData: []
+          pvData: [],
+          downloadLoading: false
         }
       },
       created() {
@@ -261,9 +318,9 @@ export default {
           this.listQuery.page = 1
           this.getList()
         },
-        handleModifyStatus(row, status){
+        handleModifyStatus(row, status, tips){
           this.$message({
-            title: '操作成功',
+            message: tips,
             type: 'success'
           })
           row.status = status
@@ -294,6 +351,25 @@ export default {
           }
 
           this.handleFilter()
+        },
+        resetTemp(){
+          this.temp = {
+            id: undefined,
+            importance: 1,
+            remark: '',
+            timestamp: new Date(),
+            title: '',
+            status: 'published',
+            type: ''
+          }
+        },
+        handleCreate(){
+          this.resetTemp()
+          this.dialogStatus = 'create'
+          this.dialogFormVisible = true
+          this.$nextTick(() => {
+            this.$refs['dataForm'].clearValidate()
+          })
         },
         createData(){
           this.$refs['dataForm'].validate((valid) => {
@@ -352,6 +428,32 @@ export default {
             this.pvData = response.data.pvData
             this.dialogPvVisible = true
           })
+        },
+        handleDownload(){
+          this.downloadLoading = true
+          import('@/vendor/Export2Excel').then(excel => {
+            // tHeader是表头，filterVal 中的数据是表格的字段
+            const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
+             // 上面设置Excel的表格第一行的标题
+            const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+            // 上面的timestamp、title、type、importance、status是list里对象的属性
+            const data = this.formatJson(filterVal, this.list)
+            excel.export_json_to_excel({
+              header: tHeader,
+              data,
+              filename: 'table-list'
+            })
+            this.downloadLoading = false
+          })
+        },
+        formatJson(filterVal, jsonData){
+          return jsonData.map(v => filterVal.map(j => {
+            if(j === 'timestamp'){
+              return parseTime(v[j])
+            } else {
+              return v[j]
+            }
+          }))
         }
       }
 }

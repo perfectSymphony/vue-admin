@@ -31,9 +31,22 @@
     }
 }
 
+.cell {
+    .el-tag {
+        margin-right: 0px;
+    }
+}
+
+.small-padding {
+    .cell {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
 .fixed-width {
     .el-button--small {
-        padding: 9px 12px;
-        // width: 60px;
+        padding: 7px 10px;
+        width: 60px;
     }
 }
