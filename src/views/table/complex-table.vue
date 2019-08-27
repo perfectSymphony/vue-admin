@@ -39,7 +39,7 @@
         align="center"
         prop="id"
         :label="$t('table.id')"
-        width="80">
+        width="70">
         <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
         </template>
@@ -114,19 +114,19 @@
         align="center"
         prop="action"
         :label="$t('table.actions')"
-        width="230"
+        width="240"
         class-name="small-padding fixed-width">
         <template slot-scope="{row}">
             <el-button type="primary" size="mini" @click="handleUpdate(row)">
                 {{ $t('table.edit') }}
             </el-button>
-            <el-button type="success" size="small" v-if="row.status != 'published'" @click="handleModifyStatus(row, 'published', '发布成功！')">
+            <el-button type="success" size="mini" v-if="row.status != 'published'" @click="handleModifyStatus(row, 'published', '发布成功！')">
                 {{ $t('table.publish') }}
             </el-button>
-            <el-button size="small" v-if="row.status != 'draft'" @click="handleModifyStatus(row, 'draft', '保存为草稿成功！')">
+            <el-button size="mini" v-if="row.status != 'draft'" @click="handleModifyStatus(row, 'draft', '保存为草稿成功！')">
                 {{ $t('table.draft') }}
             </el-button>
-            <el-button type="danger" size="small" v-if="row.status != 'deleted'" @click="handleModifyStatus(row, 'deleted', '删除成功！')">
+            <el-button type="danger" size="mini" v-if="row.status != 'deleted'" @click="handleModifyStatus(row, 'deleted', '删除成功！')">
                 {{ $t('table.delete') }}
             </el-button>
         </template>  
