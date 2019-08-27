@@ -39,7 +39,7 @@
         align="center"
         prop="id"
         :label="$t('table.id')"
-        width="70">
+        width="80">
         <template slot-scope="scope">
             <span>{{ scope.row.id }}</span>
         </template>
