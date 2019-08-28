@@ -197,6 +197,37 @@ export const asyncRoutes = [
     tableRouter,
     
     {
+        path: '/example',
+        component: Layout,
+        redirect: '/example/list',
+        name: 'Example',
+        meta: {
+            title: 'example',
+            icon: 'example'
+        },
+        children: [
+            {
+                path: 'create',
+                component: () => import('@/views/example/create'),
+                name: 'CreateArticle',
+                meta: {
+                    title: 'createArticle',
+                    icon: 'edit'
+                },
+            },
+            {
+                path: 'list',
+                component: () => import('@/views/example/list'),
+                name: 'ArticleList',
+                meta: {
+                    title: 'articleList',
+                    icon: 'list'
+                }
+            }
+        ]
+    },
+
+    {
         path: '/error',
         component:  Layout,
         redirect: 'noRedirect',
