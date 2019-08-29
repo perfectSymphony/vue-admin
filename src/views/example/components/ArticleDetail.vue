@@ -23,6 +23,30 @@
                             Title
                         </MDinput>
                     </el-form-item>
+
+                    <div class="postInfo-container">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
+                                    <el-select v-model="postForm.author" multiple filterable remote reserve-keyword default-first-option
+                                    placeholder="search user" :remote-method="getRemoteUserList" :loading="loading">
+                                        <el-option v-for="(item, index) in userListOptions" :key="index" :label="item" :value="item">
+                                        </el-option>
+                                    </el-select>                                    
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="10">
+                                <el-form-item label-width="120px" label="Publush Time:" class="postInfo-container-item">
+                                    <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                                   
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-form-item label-width="90px" label="Importance:" class="postInfo-container-item">
+                                    <el-rate v-model="value2" :colors="colors"></el-rate>                                    
+                                </el-form-item>
+                            </el-col>
+                        </el-row>  
+                    </div>
                 </el-col>
             </el-row>
         </div>
@@ -36,6 +60,7 @@ import Sticky from '@/components/Sticky'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 import Warning from './Warning'
 import MDinput from '@/components/MDinput'
+import { searchUser } from '@/api/remote-search'
 
 const defaultForm = {
 
@@ -54,8 +79,46 @@ export default {
     data(){
         return {
             postForm: Object.assign({}, defaultForm),
-            loading: false
+            loading: false,
+            userListOptions: [],
+            options: [],
+            value1: '',
+            colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+            value2: null,
+            list: [],
+            states: ["Alabama", "Alaska", "Arizona",
+            "Arkansas", "California", "Colorado",
+            "Connecticut", "Delaware", "Florida",
+            "Georgia", "Hawaii", "Idaho", "Illinois",
+            "Indiana", "Iowa", "Kansas", "Kentucky",
+            "Louisiana", "Maine", "Maryland",
+            "Massachusetts", "Michigan", "Minnesota",
+            "Mississippi", "Missouri", "Montana",
+            "Nebraska", "Nevada", "New Hampshire",
+            "New Jersey", "New Mexico", "New York",
+            "North Carolina", "North Dakota", "Ohio",
+            "Oklahoma", "Oregon", "Pennsylvania",
+            "Rhode Island", "South Carolina",
+            "South Dakota", "Tennessee", "Texas",
+            "Utah", "Vermont", "Virginia",
+            "Washington", "West Virginia", "Wisconsin",
+            "Wyoming"]
         }
+    },
+    mounted() {
+      this.list = this.states.map(item => {
+        return { value: item, label: item };
+      })
+    },
+    methods: {
+      getRemoteUserList(query) {
+          searchUser(query).then(response => {
+              if(!response.data.items) return 
+              this.userListOptions = response.data.items.map(v => v.name)
+              console.log(this.userListOptions)
+          })
+
+      }
     }
 }
 </script>
@@ -69,6 +132,16 @@ export default {
 
     .createPost-main-container {
         padding: 40px 45px 20px 50px;
+
+        .postInfo-container {
+            position: relative;
+            @include clearfix;
+            margin-bottom: 10px;
+
+            .postInfo-container-item {
+                float: left;
+            }
+        }
     }
 }
 
