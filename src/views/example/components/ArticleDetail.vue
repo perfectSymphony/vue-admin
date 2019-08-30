@@ -1,14 +1,14 @@
 <template>
   <div class="createPost-container">
-      <el-form ref="postForm" :model="postForm" class="form-container">   
-        <Sticky :z-index = '10' class-name="sub-navbar">
+      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">   
+        <Sticky :z-index = '10' :class-name="'sub-navbar '+postForm.status">
             <CommentDropdown v-model="postForm.comment_disabled" />
             <PlatformDropdown v-model="postForm.platforms" />
             <SourceUrlDropdown v-model="postForm.source_uri" />
-            <el-button type="success" v-loading="loading" style="margin-left: 10px;">
+            <el-button type="success" v-loading="loading" style="margin-left: 10px;" @click="submitForm">
                 Publish
             </el-button>
-            <el-button type="warning" v-loading="loading">
+            <el-button type="warning" v-loading="loading" @click="draftForm">
                 Draft
             </el-button>
         </Sticky>
@@ -37,18 +37,34 @@
                             </el-col>
                             <el-col :span="10">
                                 <el-form-item label-width="120px" label="Publush Time:" class="postInfo-container-item">
-                                    <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                                   
+                                    <el-date-picker v-model="postForm.display_time" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time"></el-date-picker>                                   
                                 </el-form-item>
                             </el-col>
                             <el-col :span="6">
                                 <el-form-item label-width="90px" label="Importance:" class="postInfo-container-item">
-                                    <el-rate v-model="value2" :colors="colors"></el-rate>                                    
+                                    <el-rate v-model="postForm.importance" :max="4" :low-threshold="1" :high-threshold="4" :colors="colors" style="margin-top:8px;"></el-rate>                                    
                                 </el-form-item>
                             </el-col>
                         </el-row>  
                     </div>
                 </el-col>
             </el-row>
+
+            <el-form-item style="margin-top: 40px; " label="Summary:" label-width="70px">
+                <el-input type="textarea" :rows="1" class="article-textarea" autosize placeholder="Please enter the content" v-model="postForm.content_short">
+                </el-input>
+                <span v-show="contentShortLength"  class="word-counter">
+                    {{ contentShortLength }}words
+                </span>
+            </el-form-item>
+
+            <el-form-item prop="content" style="margin-bottom: 30px;">
+                <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+            </el-form-item>
+            
+            <el-form-item prop="image_uri" style="margin-bottom:30px;">
+                <Upload v-model="postForm.image_uri" />
+            </el-form-item>
         </div>
       </el-form>
   </div>
@@ -61,9 +77,23 @@ import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown
 import Warning from './Warning'
 import MDinput from '@/components/MDinput'
 import { searchUser } from '@/api/remote-search'
+import Tinymce from '@/components/Tinymce'
+import Upload from '@/components/upload/SingleImage3'
+import { validURL } from '@/utils/validate'
+import { fetchArticle } from '@/api/article'
 
 const defaultForm = {
-
+    status: 'draft',
+    title: '',  //文章题目
+    content: '', //文章内容
+    content_short: '',  //文章摘要
+    source_uri: '',  //文章外链
+    image_uri: '',   //文章图片
+    display_time: undefined,  //页面展示时间
+    id: undefined,
+    platforms: ['a-platform'],
+    content_disabled: false,
+    importance: 0
 }
 
 export default {
@@ -74,41 +104,86 @@ export default {
         PlatformDropdown,
         SourceUrlDropdown,
         Warning,
-        MDinput
+        MDinput,
+        Tinymce,
+        Upload
+    },
+    props: {
+        isEdit: {
+            type: Boolean,
+            default: false
+        }
     },
     data(){
+        const validateRequire = (rule, value, callback) => {
+            if(value === ''){
+                this.$message({
+                    message: rule.field + '为必传项',
+                    type: 'error'
+                })
+                callback(new Error( rule.field + '为必传项'))
+            } else {
+                callback()
+            }
+        }
+        const validateSourceUri = (rule, value, callback) => {
+            if(value){
+                if(validURL(value)){
+                    callback()
+                } else {
+                    this.$message({
+                        message: '外链URL填写不正确',
+                        type: 'error'
+                    })
+                    callback(new Error('外链URL不正确'))
+                }
+            } else {
+                callback()
+            }
+        }
         return {
             postForm: Object.assign({}, defaultForm),
             loading: false,
             userListOptions: [],
             options: [],
-            value1: '',
             colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
-            value2: null,
             list: [],
-            states: ["Alabama", "Alaska", "Arizona",
-            "Arkansas", "California", "Colorado",
-            "Connecticut", "Delaware", "Florida",
-            "Georgia", "Hawaii", "Idaho", "Illinois",
-            "Indiana", "Iowa", "Kansas", "Kentucky",
-            "Louisiana", "Maine", "Maryland",
-            "Massachusetts", "Michigan", "Minnesota",
-            "Mississippi", "Missouri", "Montana",
-            "Nebraska", "Nevada", "New Hampshire",
-            "New Jersey", "New Mexico", "New York",
-            "North Carolina", "North Dakota", "Ohio",
-            "Oklahoma", "Oregon", "Pennsylvania",
-            "Rhode Island", "South Carolina",
-            "South Dakota", "Tennessee", "Texas",
-            "Utah", "Vermont", "Virginia",
-            "Washington", "West Virginia", "Wisconsin",
-            "Wyoming"]
+            rules: {
+                image_uri: [{
+                    validator: validateRequire
+                }],
+                title: [{
+                    validator: validateRequire
+                }],
+                content: [{
+                    validator: validateRequire
+                }],
+                source_uri: [{
+                    validator: validateSourceUri,
+                    trigger: 'blur'
+                }]
+            },
+            tempRoute: {}
         }
     },
-    mounted() {
-      this.list = this.states.map(item => {
-        return { value: item, label: item };
-      })
+    computed: {
+        contentShortLength(){
+            return this.postForm.content_short.length
+        }
+    },
+    created() {
+        if(this.isEdit){
+            const id = this.$route.params && this.$route.params.id
+            this.fetchData(id)
+        } else {
+            this.postForm = Object.assign({}, defaultForm)
+        }
+
+        // Why need to make a copy of this.$route here?
+        // Because if you enter this page and quickly switch tag, may be in the execution of the setTagsViewTitle function, this.$route is no longer pointing to the current page
+        // https://github.com/PanJiaChen/vue-element-admin/issues/1221
+
+        this.tempRoute = Object.assign({}, this.$route)
     },
     methods: {
       getRemoteUserList(query) {
@@ -117,7 +192,49 @@ export default {
               this.userListOptions = response.data.items.map(v => v.name)
               console.log(this.userListOptions)
           })
-
+      },
+      submitForm(){
+          this.postForm.display_time = parseInt(this.display_time / 1000)
+          this.$refs.postForm.validate(valid => {
+              if(valid){
+                  this.loading = true
+                  this.$notify({
+                      title: '成功',
+                      message: '发布文章成功',
+                      type: 'success',
+                      duration: 2000
+                  })
+                  this.postForm.status = 'publised',
+                  this.loading = false
+              } else {
+                  this.$notify({
+                      title: '成功',
+                      message: '文章发布失败',
+                      type: 'error',
+                      duration: 2000
+                  })
+                  return false
+              }
+          })
+      },
+      draftForm(){
+          if(this.postForm.content.length === 0 || this.postForm.title.length === 0){
+              this.$message({
+                  message: '请填写必要的标题和内容',
+                  type: 'warning'
+              })
+              return 
+          }
+          this.$message({
+              message: '保存成功',
+              type: 'success',
+              showClose: true,
+              duration: 1000
+          })
+          this.$refs.postForm.status = 'draft'
+      },
+      fetchData(id){
+          fetchArticle(id).then()
       }
     }
 }
@@ -143,6 +260,28 @@ export default {
             }
         }
     }
+
+    .word-counter {
+        width: 40px;
+        position: absolute;
+        right: 10px;
+        top: 0;
+    }
 }
+
+// .article-textarea /deep/ {
+//    textarea {
+//   }
+// }
+
+.article-textarea {
+  /deep/ textarea {
+      resize: none;
+      border: none;
+      border-radius: 0px;
+      border-bottom: 1px solid #bfcbd9;
+  }
+}
+
 
 </style>

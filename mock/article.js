@@ -93,5 +93,21 @@ export default [
                 }
             }
         }
+    },
+    {
+        url: '/article/detail',
+        type: 'get',
+        response: config => {
+            const { id } = config.query
+
+            for(const article of List){
+                if(article.id === +id){
+                    return {
+                        code: 20000,
+                        data: article
+                    }
+                }
+            }
+        }
     }
 ]

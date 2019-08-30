@@ -31,3 +31,11 @@ export function updateArticle(data){
     data
   })
 }
+
+export function fetchArticle(id){
+  return request({
+    url: '/article/detail',
+    method: 'get',
+    params: { id }
+  })
+}
