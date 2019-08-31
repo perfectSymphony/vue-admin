@@ -169,6 +169,9 @@ export default {
     computed: {
         contentShortLength(){
             return this.postForm.content_short.length
+        },
+        lang() {
+            return this.$store.getters.language
         }
     },
     created() {
@@ -234,7 +237,19 @@ export default {
           this.$refs.postForm.status = 'draft'
       },
       fetchData(id){
-          fetchArticle(id).then()
+          fetchArticle(id).then(response => {
+              this.postForm = response.data
+
+              this.setTagsViewTitle()
+          }).catch(err => {
+              console.log(err)
+          })
+      },
+      setTagsViewTitle(){
+          const title = this.lang === 'zh' ? '编辑文章' : 'Edit Article'
+
+          const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
+          this.$store.dispatch('tagsView/updateVisitedView', route)
       }
     }
 }
