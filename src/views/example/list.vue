@@ -76,18 +76,18 @@
         prop="drag"
         :label="$t('table.actions')"
         width="100">
-        <template>
-            <svg-icon class="drag-handler" icon-class="drag" />
+        <template slot-scope="scope">
+            <router-link :to="'/example/edit/'+scope.row.id">
+                <el-button type="primary" size="small" icon="el-icon-edit">
+                  Edit
+                </el-button>              
+            </router-link>
         </template>  
       </el-table-column>
     </el-table>
-    <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
-    <div class="show-d">
-      <el-tag style="margin-right:12px;">{{ $t('table.dragTips1') }} :</el-tag> {{ oldList }}
-    </div>
-    <div class="show-d">
-      <el-tag>{{ $t('table.dragTips2') }} :</el-tag> {{ newList }}
-    </div>
+
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
   </div>
 </template>
 
@@ -95,9 +95,13 @@
 
 import { fetchList } from '@/api/article'
 import Sortable from 'sortablejs'
+import Pagination from '@/components/pagination'
 
 export default {
       name: 'DragTable',
+      components: {
+        Pagination
+      },
       filters: {
         statusFilter(status){
           const statusMap = {
@@ -112,6 +116,7 @@ export default {
       data(){
         return {
           list: null,
+          total: 0,
           listLoading: true,
           listQuery: {
             page: 1,
@@ -133,8 +138,6 @@ export default {
           // console.log(this.list)
           this.total = data.total
           this.listLoading = false
-          this.oldList = this.list.map(v => v.id)
-          this.newList =this.oldList.slice()
           this.$nextTick(() => {
             this.setSort()
           })
@@ -147,14 +150,6 @@ export default {
             ghostClass: 'sortable-ghost',
             setData: function(dataTransfer){
               dataTransfer.setData('Text', '')
-            },
-            onEnd: evt => {
-              const targetRow = this.list.splice(evt.oldIndex, 1)[0]
-              this.list.splice(evt.newIndex, 0, targetRow)
-
-
-              const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-              this.newList.splice(evt.newIndex, 0, tempIndex)
             }
           })
         }

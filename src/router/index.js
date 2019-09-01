@@ -216,6 +216,17 @@ export const asyncRoutes = [
                 },
             },
             {
+                path: 'edit/:id(\\d+)',
+                component: () => import('@/views/example/edit'),
+                name: 'EditAticle',
+                meta: {
+                    title: 'editAticle',
+                    noCache: true,
+                    activeMenu: '/example/list'
+                },
+                hidden: true
+            },
+            {
                 path: 'list',
                 component: () => import('@/views/example/list'),
                 name: 'ArticleList',

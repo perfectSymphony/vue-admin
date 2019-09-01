@@ -19,7 +19,7 @@
 
                 <el-col :span="24">
                     <el-form-item style="margin-bottom: 40px;" prop="title">
-                        <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
+                        <MDinput v-model="postForm.title" :maxlength="100" name="name" autocomplete="off" required>
                             Title
                         </MDinput>
                     </el-form-item>
@@ -28,7 +28,7 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
-                                    <el-select v-model="postForm.author" multiple filterable remote reserve-keyword default-first-option
+                                    <el-select v-model="postForm.author" filterable remote reserve-keyword default-first-option
                                     placeholder="search user" :remote-method="getRemoteUserList" :loading="loading">
                                         <el-option v-for="(item, index) in userListOptions" :key="index" :label="item" :value="item">
                                         </el-option>
