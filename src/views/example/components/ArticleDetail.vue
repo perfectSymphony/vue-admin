@@ -211,7 +211,7 @@ export default {
                   this.loading = false
               } else {
                   this.$notify({
-                      title: '成功',
+                      title: '失败',
                       message: '文章发布失败',
                       type: 'error',
                       duration: 2000
