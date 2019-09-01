@@ -175,7 +175,7 @@
         this.fillPlaceHolder = null
         if(this.$parent.$options.componentName === 'ElFormItem'){
           if(this.validateEvent){
-            this.$parent.$emit('el.form.blur', [this.copyValue])
+            this.$parent.$emit('el.form.blur', [this.valueCopy])
           }
         }
       }
@@ -183,7 +183,7 @@
     watch: {
       value (newValue) {
         // This watch works from the code side of the 2-way-binding:
-         this.copyValue = newValue
+         this.valueCopy = newValue
       }
     },
     props: {
