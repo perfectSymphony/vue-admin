@@ -298,6 +298,34 @@ export const asyncRoutes = [
         ]
     },
     {
+        path: '/excel',
+        component: Layout,
+        redirect: '/excel/export-excel',
+        name: 'Excel',
+        meta: {
+            title: 'excel',
+            icon: 'excel'
+        },
+        children: [
+            {
+                path: 'export-excel',
+                component: () => import('@/views/excel/export-excel'),
+                name: 'ExportExcel',
+                meta: {
+                    title: 'exportExcel'
+                }
+            },
+            {
+                path: 'export-selected-excel',
+                component: () => import('@/views/excel/select-excel'),
+                name: 'SelectExcel',
+                meta: {
+                    title: 'selectExcel'
+                }
+            }
+        ]
+    },
+    {
         path: '*',
         redirect: '/404',
         hidden: true

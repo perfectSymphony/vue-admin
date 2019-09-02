@@ -1,12 +1,10 @@
 <template>
-  <div>
-      <!-- {{ a.a }} -->
-  </div>
+  <div>SelectExcel</div>
 </template>
 
 <script>
 export default {
-    name: 'ErrorTestA'
+    name: 'SelectExcel'
 }
 </script>
 
