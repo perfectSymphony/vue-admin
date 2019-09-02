@@ -1,5 +1,5 @@
 <template>
-  <div class="components-container">
+  <div class="app-container">
       <div>
           <FilenameOption v-model="filename" />
           <AutoWidthOption v-model="autoWidth" />
@@ -175,7 +175,7 @@ export default {
                 autoWidth: this.autoWidth,
                 bookType: this.bookType
                 })
-                this.downloadLoading = false
+                this.listLoading = false
             })
         },
         formatJson(filterVal, jsonData){
