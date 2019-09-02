@@ -322,6 +322,14 @@ export const asyncRoutes = [
                 meta: {
                     title: 'selectExcel'
                 }
+            },
+            {
+                path: 'export-merge-header',
+                component: () => import('@/views/excel/merge-header'),
+                name: 'MergeHeader',
+                meta: {
+                    title: 'mergeHeader'
+                }
             }
         ]
     },
