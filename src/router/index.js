@@ -342,6 +342,24 @@ export const asyncRoutes = [
         ]
     },
     {
+        path: '/zip',
+        component: Layout,
+        meta: {
+            title: 'zip',
+            icon: 'zip'
+        },
+        children: [
+            {
+                path: 'download',
+                component: () => import('@/views/zip/index'),
+                name: 'ExportZip',
+                meta: {
+                    title: 'ExportZip'
+                }
+            }
+        ]
+    },
+    {
         path: '*',
         redirect: '/404',
         hidden: true
