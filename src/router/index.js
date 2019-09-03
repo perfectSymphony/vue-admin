@@ -330,6 +330,14 @@ export const asyncRoutes = [
                 meta: {
                     title: 'mergeHeader'
                 }
+            },
+            {
+                path: 'upload-excel',
+                component: () => import('@/views/excel/upload-excel'),
+                name: 'UploadExcel',
+                meta: {
+                    title: 'uploadExcel'
+                }
             }
         ]
     },
