@@ -155,9 +155,9 @@ export default {
             // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader。
             // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
             import('@/vendor/Export2Excel').then(excel => {
-                const multiHeader = [['Id', 'Main Information', '', '', '', '', '', 'Action' ]]
-                const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status', '']
-                const filterVal = ['id', 'Date', 'title', 'author', 'importance', 'readings', 'status', 'action']
+                const multiHeader = [['Id', 'Main Information', '', '', '', '', '']]
+                const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
+                const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
                 const data = this.formatJson(filterVal, this.list)
                 const merges = ['A1:A2', 'B1:G1', 'H1:H2']
                 excel.export_json_to_excel({
