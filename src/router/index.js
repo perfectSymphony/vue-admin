@@ -360,6 +360,27 @@ export const asyncRoutes = [
         ]
     },
     {
+        path: '/pdf',
+        component: Layout,
+        redirect: '/pdf/printPdf',
+        children: [
+            {
+                path: 'printPDF',
+                component: () => import('@/views/pdf/index'),
+                name: 'PDF',
+                meta: {
+                    title: 'printPDF',
+                    icon: 'pdf'
+                }
+            }
+        ]
+    },
+    {
+        path: '/pdf/download',
+        component: () => import('@/views/pdf/download'),
+        hidden: true
+    },
+    {
         path: '*',
         redirect: '/404',
         hidden: true

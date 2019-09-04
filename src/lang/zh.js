@@ -56,7 +56,7 @@ export default {
     mergeHeader: '导出 多级表头',
     uploadExcel: '上传 Excel',
     zip: 'Zip',
-    pdf: 'PDF',
+    printPDF: '打印 PDF',
     exportZip: 'Export Zip',
     theme: '换肤',
     clipboardDemo: 'Clipboard',
