@@ -73,6 +73,10 @@
 </template>
 
 <script>
+
+import { toggleClass } from '@/utils'
+import '@/assets/custom-theme/index.css'
+
 export default {
     name: 'Theme',
     data(){
@@ -88,6 +92,11 @@ export default {
             radio: 3,
             slideValue: 50
         }
+    },
+    watch: {
+      theme(){
+        toggleClass(document.body, 'custom-theme')
+      }
     }
 }
 </script>
