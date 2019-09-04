@@ -362,7 +362,6 @@ export const asyncRoutes = [
     {
         path: '/pdf',
         component: Layout,
-        redirect: '/pdf/printPdf',
         children: [
             {
                 path: 'printPDF',
@@ -379,6 +378,21 @@ export const asyncRoutes = [
         path: '/pdf/download',
         component: () => import('@/views/pdf/download'),
         hidden: true
+    },
+    {
+        path: '/theme',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                component: () => import('@/views/theme/index'),
+                name: 'Theme',
+                meta: {
+                    title: 'theme',
+                    icon: 'theme'
+                }
+            }
+        ]
     },
     {
         path: '*',
