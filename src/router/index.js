@@ -395,6 +395,21 @@ export const asyncRoutes = [
         ]
     },
     {
+        path: '/clipboard',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                component: () => import('@/views/clipboard/index'),
+                name: 'Clipboard',
+                meta: {
+                    title: 'clipboard',
+                    icon: 'clipboard'
+                }
+            }
+        ]
+    },
+    {
         path: '*',
         redirect: '/404',
         hidden: true
