@@ -156,3 +156,44 @@ export function parseTime(time, cFormat) {
    element.className = classString
 
  }
+
+/**
+ * Check if an element has a class
+ * @param {HTMLElement} ele
+ * @param {string} cls
+ * @returns {boolean}
+ */
+
+   export function hasClass(ele, cls) {
+    //  方式一：
+    //  var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+    //  return !!reg.test(ele.className)
+
+    //  方式二：
+    return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+   }
+
+ /**
+  * Add class to element
+  * @param {HTMLElement} ele
+  * @param {string} cls
+  */
+
+  export function addClass(ele, cls){
+    if(!hasClass(ele, cls)) ele.className += ' ' + cls
+
+  }
+
+  /**
+   * Remove class from element
+   * @param {HTMLElement} ele
+   * @param {string} cls
+   */
+
+   export function removeClass(ele, cls){
+     if(hasClass(ele, cls)){
+       const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+       ele.className = ele.className.replace(reg, '')
+     }
+   }
+

@@ -6,12 +6,17 @@
       <!-- 主体内容部分 -->
       <tags-view/>
       <app-main/>
+      <right-panel v-if="showSetting">
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
 <script>
-import { AppMain, Navbar, Sidebar, TagsView } from "./components";
-import { mapState } from "vuex";
+
+import RightPanel from '@/components/RightPanel'
+import { AppMain, Navbar, Sidebar, TagsView, Settings } from "./components"
+import { mapState } from "vuex"
 
 export default {
   name: "Layout",
@@ -19,19 +24,22 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    TagsView
+    TagsView,
+    Settings,
+    RightPanel
   },
   computed: {
     ...mapState({
-      sidebar: state => state.app.sidebar
+      sidebar: state => state.app.sidebar,
+      showSetting: state => state.settings.showSetting
     }),
     classObj() {
       // console.log(this.sidebar)
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation
-      };
+        withoutAnimation: this.sidebar.withoutAnimation,
+      }
     }
   },
   methods: {
