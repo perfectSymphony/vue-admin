@@ -14,6 +14,7 @@ const state = {
 
 const mutations = {
     CHANGE_SETTING: (state, { key, value }) => {
+        console.log(key, value)
         if(state.hasOwnProperty(key)){
             state[key] = value
         }
@@ -22,6 +23,7 @@ const mutations = {
 
 const actions = {
     changeSetting({ commit }, data){
+        console.log(data)
         commit('CHANGE_SETTING', data)
     }
 }

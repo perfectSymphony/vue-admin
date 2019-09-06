@@ -5,13 +5,24 @@
 
       <div class="drawer-item">
         <span>{{ $t('settings.theme') }}</span>
-        <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" />
+        <theme-picker class="drawer-switch" @change="themeChange"  />
       </div>
 
       <div class="drawer-item">
         <span>{{ $t('settings.tagsView') }}</span>
         <el-switch v-model="tagsView" class="drawer-switch" />
       </div>
+
+      <div class="drawer-item">
+        <span>{{ $t('settings.fixedHeader') }}</span>
+        <el-switch v-model="fixedHeader" class="drawer-switch" />
+      </div>
+
+      <div class="drawer-item">
+        <span>{{ $t('settings.sidebarLogo') }}</span>
+        <el-switch v-model="sidebarLogo" class="drawer-switch" />
+      </div>
+
     </div>
   </div>
 </template>
@@ -26,8 +37,49 @@ export default {
       ThemePicker
     },
     data(){
-      return {
-        tagsView: false
+      return {}
+    },
+    computed: {
+      tagsView: {
+        get(){
+          return this.$store.state.settings.tagsView
+        },
+        set(val){
+          this.$store.dispatch('settings/changeSetting',{
+            key: 'tagsView',
+            value: val
+          })
+        }
+      },
+      fixedHeader: {
+        get(){
+          return this.$store.state.settings.fixedHeader
+        },
+        set(val){
+          this.$store.dispatch('settings/changeSetting', {
+            key: 'fixedHeader',
+            value: val
+          })
+        }
+      },
+      sidebarLogo: {
+        get(){
+          return this.$store.state.settings.sidebarLogo
+        },
+        set(val){
+          this.$store.dispatch('settings/changeSetting', {
+            key: 'sidebarLogo',
+            value: val
+          })
+        }
+      }
+    },
+    methods: {
+      themeChange(val){
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'theme',
+          value: val
+        })
       }
     }
 }

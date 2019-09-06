@@ -1,10 +1,12 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <sidebar class="sidebar-container"/>
-    <div class="main-container">
-      <navbar/>
-      <!-- 主体内容部分 -->
-      <tags-view/>
+    <div :class="{ hasTagsView:needTagsView }" class="main-container">
+      <div :class="{'fixed-header':fixedHeader}">
+        <navbar/>
+        <!-- 主体内容部分 -->
+        <tags-view v-if="needTagsView"/>        
+      </div>
       <app-main/>
       <right-panel v-if="showSetting">
         <settings />
@@ -31,7 +33,9 @@ export default {
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
-      showSetting: state => state.settings.showSetting
+      showSetting: state => state.settings.showSetting,
+      needTagsView: state => state.settings.tagsView,
+      fixedHeader: state => state.settings.fixedHeader
     }),
     classObj() {
       // console.log(this.sidebar)
@@ -55,13 +59,26 @@ export default {
 <style lang="scss" scoped>
 @import "~@/styles/mixin.scss";
 @import "~@/styles/variables.scss";
-.app-wrapper {
-  @include clearfix;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.hideSidebar .fixed-header {
-  width: calc(100% - 54px);
-}
+  .app-wrapper {
+    @include clearfix;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .hideSidebar .fixed-header {
+    width: calc(100% - 54px);
+  }
+
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    width: calc(100% - #{$sideBarWidth});
+    transition: width 0.28s;
+  }
+
+  .hideSidebar .fixed-header {
+    width: calc(100% - 54px)
+  }
 </style>
