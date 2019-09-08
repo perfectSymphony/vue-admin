@@ -5,7 +5,7 @@
 
       <div class="drawer-item">
         <span>{{ $t('settings.theme') }}</span>
-        <theme-picker class="drawer-switch" @change="themeChange"  />
+        <theme-picker class="drawer-switch" @change="themeChange" />
       </div>
 
       <div class="drawer-item">

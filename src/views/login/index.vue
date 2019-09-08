@@ -44,14 +44,42 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn')}}</el-button>
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">
+        {{ $t('login.logIn')}}
+      </el-button>
+
+      <div style="position: relative">
+        <div class="tips">
+          <span>{{ $t('login.username') }} : admin</span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>          
+        </div>
+        <div class="tips">
+          <span style="margin-right:18px;">
+            {{ $t('login.username') }} : editor
+          </span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>          
+        </div>
+        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
+            {{ $t('login.thirdparty') }}
+        </el-button>
+      </div>
     </el-form>
+
+    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
+      {{ $t('login.thirdpartyTips') }}
+      <br />
+      <br />
+      <br />
+      <social-sign />
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
   import { validUsername } from '@/utils/validate'
   import LangSelect from '@/components/LangSelect'
+  import socialSign from './components/socialSign'
 
   export default {
   // 此处name有以下3点作用：
@@ -60,7 +88,8 @@
   // 3、当你用vue-tools时，vue-devtools调试工具里显示的组见名称是由vue中组件name决定的
     name: 'Login',
     components: {
-      LangSelect
+      LangSelect,
+      socialSign
     },
     data() {
       const validateUsername = (rule, value, callback) => {
@@ -101,8 +130,9 @@
         passwordType: 'password',
         capsTooltip: false,
         loading: false,
-        redirect: undefined
-      };
+        redirect: undefined,
+        showDialog: false
+      }
     },
     watch: {
       $route: {
@@ -234,6 +264,18 @@
       overflow: hidden; 
     }
 
+    .tips {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 10px;
+
+      span {
+        &:first-of-type {
+          margin-right: 20px;
+        }
+      }
+    }
+
     .svg-container {
       padding: 6px 5px 6px 15px;
       color: $dark_gray;
@@ -272,6 +314,18 @@
       // 设置或检索是否允许用户选中文本
       // https://www.html.cn/book/css/properties/user-interface/user-select.htm
       user-select: none;
+    }
+
+    .thirdparty-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    @media only screen and (max-width: 470px) {
+      .thirdparty-button {
+        display: none;
+      }
     }
 
   }
