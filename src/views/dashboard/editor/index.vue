@@ -11,6 +11,9 @@
               <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
           </div>
       </div>
+      <div>
+          <img :src="gif" class="emptyGif">
+      </div> 
   </div>
 </template>
 
@@ -35,7 +38,7 @@ export default {
     },
     data(){
         return {
-            emptyGif: 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
+            gif: 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
         }
     }
 }
