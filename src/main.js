@@ -23,6 +23,7 @@ import './icons'
 
 // 引入权限控制文件
 import './permission'
+import './utils/error-log'  //error log
 
 import * as filters from './filters'
 

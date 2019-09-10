@@ -15,6 +15,8 @@
                 <screenfull id="screenfull" class="right-menu-item hover-effect" />
                 <!-- 国际化 -->
                 <lang-select class="right-menu-item hover-effect" />
+                <!-- 错误日志 -->
+                <error-log class="errLog-container right-menu-item hover-effect" />
             </template>
             <!-- 下拉菜单 -->
             <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -53,6 +55,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
+import ErrorLog from '@/components/ErrorLog'
 
 export default {
     name: 'Navbar',
@@ -61,7 +64,8 @@ export default {
         Breadcrumb,
         LangSelect,
         Screenfull,
-        SizeSelect
+        SizeSelect,
+        ErrorLog
     },
     computed: {
         ...mapGetters([
@@ -112,6 +116,11 @@ export default {
     // 面包屑
     .breadcrumb-container {
         float: left;
+    }
+
+    .errLog-container {
+      display: inline-block;
+      vertical-align: top;
     }
 
     // 右侧菜单

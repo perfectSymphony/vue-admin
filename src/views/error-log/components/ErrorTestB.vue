@@ -6,7 +6,7 @@
 export default {
     name: 'ErrorLogA',
     created(){
-        // this.b = b // eslint-disable-line
+        this.b = b // eslint-disable-line
     }
 }
 </script>

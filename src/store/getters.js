@@ -8,7 +8,8 @@ const getters = {
     name: state => state.user.name,
     permission_routes: state => state.permission.routes,
     visitedViews: state => state.tagsView.visitedViews,
-    cacheViews: state => state.tagsView.cacheViews
+    cacheViews: state => state.tagsView.cacheViews,
+    errorLogs: state => state.errorLog.logs
 }
 
 export default getters
