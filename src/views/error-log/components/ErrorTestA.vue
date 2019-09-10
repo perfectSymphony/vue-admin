@@ -1,6 +1,6 @@
 <template>
   <div>
-      {{ a.a }}
+      <!-- {{ a.a }} -->
   </div>
 </template>
 

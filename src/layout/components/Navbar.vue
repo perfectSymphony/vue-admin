@@ -7,6 +7,8 @@
         <!-- 右侧菜单 -->
         <div class="right-menu">
             <template>
+                <!-- 错误日志 -->
+                <error-log class="errLog-container right-menu-item hover-effect" />                
                 <!-- 设置网站整体字体大小 -->
                 <el-tooltip effect="dark" :content="$t('navbar.size')" placement="bottom">
                     <size-select id="size-select" class="right-menu-item hover-effect" />
@@ -15,8 +17,6 @@
                 <screenfull id="screenfull" class="right-menu-item hover-effect" />
                 <!-- 国际化 -->
                 <lang-select class="right-menu-item hover-effect" />
-                <!-- 错误日志 -->
-                <error-log class="errLog-container right-menu-item hover-effect" />
             </template>
             <!-- 下拉菜单 -->
             <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
