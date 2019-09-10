@@ -7,6 +7,8 @@
         <!-- 右侧菜单 -->
         <div class="right-menu">
             <template>
+                <!-- 全文搜索 -->
+                <search id="header-search" class="right-menu-item" />
                 <!-- 错误日志 -->
                 <error-log class="errLog-container right-menu-item hover-effect" />                
                 <!-- 设置网站整体字体大小 -->
@@ -56,6 +58,7 @@ import LangSelect from '@/components/LangSelect'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import ErrorLog from '@/components/ErrorLog'
+import Search from '@/components/HeaderSearch'
 
 export default {
     name: 'Navbar',
@@ -65,7 +68,8 @@ export default {
         LangSelect,
         Screenfull,
         SizeSelect,
-        ErrorLog
+        ErrorLog,
+        Search
     },
     computed: {
         ...mapGetters([
