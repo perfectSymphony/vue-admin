@@ -46,7 +46,9 @@ const i18n = new VueI18n({
     // 设置语言标识
     locale: getLanguage(),
     // 设置语言标识信息
-    messages
+    messages,
+    // 解决控制台出现警告的问题
+    silentTranslationWarn: true 
 })
 
 export default i18n
