@@ -11,7 +11,7 @@ export default {
     name: 'LineChart',
     props: {
         className: {
-            type:String,
+            type: String,
             default: 'chart'
         },
         width: {
@@ -34,7 +34,7 @@ export default {
     data(){
         return {
             chart: null,
-           // sidebarElm: null
+           sidebarElm: null
         }
     },
     watch: {
@@ -57,8 +57,8 @@ export default {
         }
 
     // 监听侧边栏的变化.  ----->. 没看明白为什么要监听侧边栏变化
-    //this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
-    //this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)        
+    this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+    this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)       
     },
     beforeDestroy(){
       if(!this.chart){
@@ -68,17 +68,17 @@ export default {
         window.removeEventListener('resize', this.__resizeHandler)
       }
 
-      //this.sidebarElm && this.sidebarElm.removeEventListener('transitionend', this.sidebarResizeHandler)
+      this.sidebarElm && this.sidebarElm.removeEventListener('transitionend', this.sidebarResizeHandler)
 
       this.chart.dispose()
       this.chart = null
     },
     methods: {
-      //sidebarResizeHandler(e){
-      //  if(e.propertyName === 'width' ){
-      //    this.__resizeHandler()
-      //  }
-      //},
+      sidebarResizeHandler(e){
+       if(e.propertyName === 'width' ){
+         this.__resizeHandler()
+       }
+      },
        setOptions({ expectedData, actualData } = {}){
            this.chart.setOption({
                xAxis:{

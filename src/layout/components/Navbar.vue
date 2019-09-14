@@ -6,7 +6,7 @@
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
         <!-- 右侧菜单 -->
         <div class="right-menu">
-            <template>
+            <template v-if="device!=='mobile'">
                 <!-- 全文搜索 -->
                 <search id="header-search" class="right-menu-item" />
                 <!-- 错误日志 -->
@@ -74,7 +74,8 @@ export default {
     computed: {
         ...mapGetters([
             'sidebar',
-            'avatar'
+            'avatar',
+            'device'
         ])
     },
     methods: {

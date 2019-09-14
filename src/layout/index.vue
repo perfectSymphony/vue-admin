@@ -1,5 +1,6 @@
 <template>
   <div :class="classObj" class="app-wrapper">
+    <div v-if="device === 'mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container"/>
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
@@ -18,6 +19,7 @@
 
 import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Sidebar, TagsView, Settings } from "./components"
+import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from "vuex"
 
 export default {
@@ -30,12 +32,14 @@ export default {
     Settings,
     RightPanel
   },
+  mixins: [ResizeMixin],
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
       showSetting: state => state.settings.showSetting,
       needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
+      fixedHeader: state => state.settings.fixedHeader,
+      device: state => state.app.device
     }),
     classObj() {
       // console.log(this.sidebar)
@@ -43,15 +47,13 @@ export default {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
+        mobile: this.device === 'mobile'
       }
     }
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleClickOutside(){
+      this.$store.dispatch('app/closeSideBar',{ withoutAnimation: false })
     }
   }
 };
@@ -64,7 +66,23 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
+
+    &.mobile.openSidebar {
+      position: fixed;
+      top: 0;
+    }
   }
+
+  .drawer-bg {
+    background: #000;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+  }
+
   .hideSidebar .fixed-header {
     width: calc(100% - 54px);
   }
@@ -80,5 +98,9 @@ export default {
 
   .hideSidebar .fixed-header {
     width: calc(100% - 54px)
+  }
+
+  .mobile .fixed-header {
+    width: 100%;
   }
 </style>
