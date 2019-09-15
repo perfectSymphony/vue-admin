@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'perfectSymphony Admin',
+    title: 'perfectSymphony',
 
     /**
      * 是否需要设置右侧面板

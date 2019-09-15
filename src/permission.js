@@ -9,6 +9,8 @@ import 'nprogress/nprogress.css'
 //获取从cookie中token值
 import { getToken } from '@/utils/auth'
 
+import getPageTitle from '@/utils/get-page-title'
+
 //进度条配置
 NProgress.configure({
     showSpinner: false
@@ -20,6 +22,8 @@ const whiteList = ['/login']
 //调用钩子函数
 router.beforeEach(async(to, from, next) => {
     NProgress.start()
+
+    document.title = getPageTitle(to.meta.title)
 
     //决定用户是否已经登录
     const hasToken = getToken()
