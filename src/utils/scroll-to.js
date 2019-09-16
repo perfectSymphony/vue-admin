@@ -22,7 +22,7 @@ Math.easeOutQuad = (t, b, c, d) => {
 // shim layer with setTimeout fallback
 // http://www.webhek.com/post/requestanimationframe.html
 // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
-window.requestAnimFrame = (function() {
+const requestAnimFrame = (function() {
   return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame ||

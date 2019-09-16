@@ -107,6 +107,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 'use strict'
 import language from './utils/language.js'
 import mimes from './utils/mimes.js'

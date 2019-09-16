@@ -28,10 +28,6 @@ export default {
     width: {
       type: String,
       default: '100%'
-    },
-    chartData: {
-      type: Object,
-      require: true
     }
   },
   data() {

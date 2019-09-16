@@ -148,6 +148,7 @@ export default {
       type: String,
       default: 'text'
     },
+    /* eslint-disable vue/require-prop-types */
     value: {
       default: null
     },
