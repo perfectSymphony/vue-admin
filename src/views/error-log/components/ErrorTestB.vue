@@ -1,13 +1,13 @@
 <template>
-  <div></div>
+  <div />
 </template>
 
 <script>
 export default {
-    name: 'ErrorLogA',
-    created(){
+  name: 'ErrorLogA',
+  created() {
         this.bug = bug // eslint-disable-line
-    }
+  }
 }
 </script>
 

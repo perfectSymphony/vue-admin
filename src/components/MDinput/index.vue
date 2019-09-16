@@ -4,11 +4,11 @@
       <i v-if="icon" :class="['el-icon-' + icon]" class="el-input__icon material-input__icon" />
       <input
         v-if="type === 'email'"
+        v-model="valueCopy"
         type="email"
         class="material-input"
         :name="name"
         :placeholder="fillPlaceHolder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -22,11 +22,11 @@
       >
       <input
         v-if="type === 'url'"
+        v-model="valueCopy"
         type="url"
         class="material-input"
         :name="name"
         :placeholder="fillPlaceHolder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -40,11 +40,11 @@
       >
       <input
         v-if="type === 'number'"
+        v-model="valueCopy"
         type="number"
         class="material-input"
         :name="name"
         :placeholder="fillPlaceHolder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -63,11 +63,11 @@
       >
       <input
         v-if="type === 'password'"
+        v-model="valueCopy"
         type="password"
         class="material-input"
         :name="name"
         :placeholder="fillPlaceHolder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -84,11 +84,11 @@
       >
       <input
         v-if="type === 'tel'"
+        v-model="valueCopy"
         type="tel"
         class="material-input"
         :name="name"
         :placeholder="placeholder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -102,11 +102,11 @@
       >
       <input
         v-if="type === 'text'"
+        v-model="valueCopy"
         type="text"
         class="material-input"
         :name="name"
         :placeholder="fillPlaceHolder"
-        v-model="valueCopy"
 
         :readonly="readonly"
         :disabled="disabled"
@@ -121,10 +121,10 @@
         @input="handleModelInput"
       >
 
-      <span class="material-input-bar"></span>
+      <span class="material-input-bar" />
 
       <label class="material-label">
-        <slot></slot>
+        <slot />
       </label>
     </div>
   </div>
@@ -133,121 +133,121 @@
 <script>
 // source:https://github.com/wemake-services/vue-material-input/blob/master/src/components/MaterialInput.vue
 
-  export default {
-    name: 'MdInput',
-    computed: {
-      computedClasses () {
-        return {
-          'material--active': this.focus,
-          'material--disabled': this.disabled,
-          'material--raised': Boolean( this.focus || this.valueCopy)  // has value
-        }
-      }
+export default {
+  name: 'MdInput',
+  props: {
+    icon: {
+      type: String,
+      default: null
     },
-    data () {
+    name: {
+      type: String,
+      default: null
+    },
+    type: {
+      type: String,
+      default: 'text'
+    },
+    value: {
+      default: null
+    },
+    placeholder: {
+      type: String,
+      default: null
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    min: {
+      type: String,
+      default: null
+    },
+    max: {
+      type: String,
+      default: null
+    },
+    step: {
+      type: Number,
+      default: null
+    },
+    minlength: {
+      type: Number,
+      default: null
+    },
+    maxlength: {
+      type: Number,
+      default: null
+    },
+    required: {
+      type: Boolean,
+      default: true
+    },
+    autocomplete: {
+      type: String,
+      default: null
+    },
+    validateEvent: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
+      valueCopy: this.value,
+      focus: false,
+      fillPlaceHolder: null
+    }
+  },
+  computed: {
+    computedClasses() {
       return {
-        valueCopy: this.value,
-        focus: false,
-        fillPlaceHolder: null
+        'material--active': this.focus,
+        'material--disabled': this.disabled,
+        'material--raised': Boolean(this.focus || this.valueCopy) // has value
       }
-    },
-    methods: {
-      handleModelInput (event) {
-        const value = event.target.value
-        this.$emit('input', value)
-        if (this.$parent.$options.componentName === 'ElFormItem') { 
-          if (this.validateEvent) {
-            this.$parent.$emit('el.form.change', [value])
-          }
-        }
-        this.$emit('change', value)
-      },
-      handleMdFocus(event) {
-        this.focus = true
-        this.$emit('focus', event)
-        if(this.placeholder && this.placeholder !== ''){
-          this.fillPlaceHolder = this.placeholder
-        }
-      },
-      handleMdBlur() {
-        this.focus = false
-        this.$emit('blur', event)
-        this.fillPlaceHolder = null
-        if(this.$parent.$options.componentName === 'ElFormItem'){
-          if(this.validateEvent){
-            this.$parent.$emit('el.form.blur', [this.valueCopy])
-          }
+    }
+  },
+  watch: {
+    value(newValue) {
+      // This watch works from the code side of the 2-way-binding:
+      this.valueCopy = newValue
+    }
+  },
+  methods: {
+    handleModelInput(event) {
+      const value = event.target.value
+      this.$emit('input', value)
+      if (this.$parent.$options.componentName === 'ElFormItem') {
+        if (this.validateEvent) {
+          this.$parent.$emit('el.form.change', [value])
         }
       }
+      this.$emit('change', value)
     },
-    watch: {
-      value (newValue) {
-        // This watch works from the code side of the 2-way-binding:
-         this.valueCopy = newValue
+    handleMdFocus(event) {
+      this.focus = true
+      this.$emit('focus', event)
+      if (this.placeholder && this.placeholder !== '') {
+        this.fillPlaceHolder = this.placeholder
       }
     },
-    props: {
-      icon:{
-        type: String,
-        default: null
-      },
-      name: {
-        type: String,
-        default: null
-      },
-      type: {
-        type: String,
-        default: 'text'
-      },
-      value: {
-        default: null
-      },
-      placeholder: {
-        type: String,
-        default: null
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      min: {
-        type: String,
-        default: null
-      },
-      max: {
-        type: String,
-        default: null
-      },
-      step: {
-        type: Number,
-        default: null
-      },
-      minlength: {
-        type: Number,
-        default: null
-      },
-      maxlength: {
-        type: Number,
-        default: null
-      },
-      required: {
-        type: Boolean,
-        default: true
-      },
-      autocomplete: {
-        type: String,
-        default: null
-      },
-      validateEvent: {
-        type: Boolean,
-        default: true
+    handleMdBlur() {
+      this.focus = false
+      this.$emit('blur', event)
+      this.fillPlaceHolder = null
+      if (this.$parent.$options.componentName === 'ElFormItem') {
+        if (this.validateEvent) {
+          this.$parent.$emit('el.form.blur', [this.valueCopy])
+        }
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

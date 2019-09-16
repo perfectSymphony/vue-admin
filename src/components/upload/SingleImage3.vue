@@ -1,68 +1,69 @@
 <template>
   <div class="upload-container">
     <el-upload
-    drag
-    :data="dataObj"
-    :multiple = 'false'
-    :show-file-list="false"
-    :on-success = 'handleImageSuccess'
-    class="image-uploader"
-    action="https://httpbin.org/post">
-    <i class="el-icon-upload"></i>
-    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      drag
+      :data="dataObj"
+      :multiple="false"
+      :show-file-list="false"
+      :on-success="handleImageSuccess"
+      class="image-uploader"
+      action="https://httpbin.org/post"
+    >
+      <i class="el-icon-upload" />
+      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </el-upload>
     <div v-show="imageUrl.length > 1" class="image-preview image-app-preview">
-        <img :src="imageUrl">
-        <div class="image-preview-wrapper">
-            <div class="image-preview-action">
-                <i class="el-icon-delete" @click="rmImage"></i>
-            </div>
+      <img :src="imageUrl">
+      <div class="image-preview-wrapper">
+        <div class="image-preview-action">
+          <i class="el-icon-delete" @click="rmImage" />
         </div>
+      </div>
     </div>
     <div class="image-preview">
-        <div v-show="imageUrl.length > 1" class="image-preview-wrapper">
-            <img :src="imageUrl">
-            <div class="image-preview-action">
-                <i class="el-icon-delete" @click="rmImage"></i>
-            </div>
+      <div v-show="imageUrl.length > 1" class="image-preview-wrapper">
+        <img :src="imageUrl">
+        <div class="image-preview-action">
+          <i class="el-icon-delete" @click="rmImage" />
         </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'SingleImageUpload3',
-    props: {
-        value: {
-            type: String,
-            default: ''
-        }
-    },
-    data(){
-        return {
-            dataObj: {
-                token: '',
-                key: ''
-            }
-        }
-    },
-    computed: {
-        imageUrl(){
-            return this.value
-        }
-    },
-    methods: {
-        rmImage(){
-            this.emitInput('')
-        },
-        emitInput(val){
-            this.$emit('input', val)
-        },
-        handleImageSuccess(file){
-            this.emitInput(file.files.file)
-        }
+  name: 'SingleImageUpload3',
+  props: {
+    value: {
+      type: String,
+      default: ''
     }
+  },
+  data() {
+    return {
+      dataObj: {
+        token: '',
+        key: ''
+      }
+    }
+  },
+  computed: {
+    imageUrl() {
+      return this.value
+    }
+  },
+  methods: {
+    rmImage() {
+      this.emitInput('')
+    },
+    emitInput(val) {
+      this.$emit('input', val)
+    },
+    handleImageSuccess(file) {
+      this.emitInput(file.files.file)
+    }
+  }
 }
 </script>
 

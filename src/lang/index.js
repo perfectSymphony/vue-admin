@@ -13,42 +13,42 @@ Vue.use(VueI18n)
 
 // https://element.eleme.cn/2.0/#/zh-CN/component/i18n#an-xu-jia-zai-li-ding-zhi-i18n
 const messages = {
-    en: {
-        ...enLocale,
-        ...elementEnLocale
-    },
-    zh: {
-        ...zhLocale,
-        ...elementZhLocale
-    },
-    es: {
-        ...esLocale,
-        ...elementEsLocale
-    }
+  en: {
+    ...enLocale,
+    ...elementEnLocale
+  },
+  zh: {
+    ...zhLocale,
+    ...elementZhLocale
+  },
+  es: {
+    ...esLocale,
+    ...elementEsLocale
+  }
 }
 
 export function getLanguage() {
-    const chooseLanguage = Cookies.get('language')
-    if (chooseLanguage) return chooseLanguage
+  const chooseLanguage = Cookies.get('language')
+  if (chooseLanguage) return chooseLanguage
 
-    //如果不选择语言
-    const language = (navigator.language || navigator.browserLanguage).toLowerCase()
-    const locales = Object.keys(messages)
-    for (const locale of locales) {
-        if (language.indexOf(locale) > -1) {
-            return locale
-        }
+  // 如果不选择语言
+  const language = (navigator.language || navigator.browserLanguage).toLowerCase()
+  const locales = Object.keys(messages)
+  for (const locale of locales) {
+    if (language.indexOf(locale) > -1) {
+      return locale
     }
-    return 'en'
+  }
+  return 'en'
 }
 
 const i18n = new VueI18n({
-    // 设置语言标识
-    locale: getLanguage(),
-    // 设置语言标识信息
-    messages,
-    // 解决控制台出现警告的问题
-    silentTranslationWarn: true 
+  // 设置语言标识
+  locale: getLanguage(),
+  // 设置语言标识信息
+  messages,
+  // 解决控制台出现警告的问题
+  silentTranslationWarn: true
 })
 
 export default i18n

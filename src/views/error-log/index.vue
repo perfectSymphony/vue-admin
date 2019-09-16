@@ -1,10 +1,10 @@
 <template>
   <div class="errPage-container">
     <div>
-        <ErrorA />
+      <ErrorA />
       <ErrorB />
     </div>
-     <h3>{{ $t('errorLog.tips') }}</h3>
+    <h3>{{ $t('errorLog.tips') }}</h3>
     <aside>
       {{ $t('errorLog.description') }}
       <a target="_blank" class="link-type" href="https://cn.vuejs.org/v2/api/#errorHandler">

@@ -1,14 +1,14 @@
 <template>
   <div ref="rightPanel" :class="{show: show}" class="rightPanel-container">
-      <div class="rightPanel-background" />
-        <div class="rightPanel">
-            <div class="handle-button" :style="{'top': buttonTop+'px', 'background-color': theme}" @click="show = !show">
-                <i :class="show ? 'el-icon-close' : 'el-icon-setting'"></i>
-            </div>
-            <div class="rightPanel-items">
-                <slot />
-            </div>
-        </div>
+    <div class="rightPanel-background" />
+    <div class="rightPanel">
+      <div class="handle-button" :style="{'top': buttonTop+'px', 'background-color': theme}" @click="show = !show">
+        <i :class="show ? 'el-icon-close' : 'el-icon-setting'" />
+      </div>
+      <div class="rightPanel-items">
+        <slot />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,60 +17,60 @@
 import { addClass, removeClass } from '@/utils'
 
 export default {
-    name: 'RightPanel',
-    props: {
-        clickNotClose: {
-            type: Boolean,
-            default: false
-        },
-        buttonTop: {
-            type: Number,
-            default: 250
-        }
+  name: 'RightPanel',
+  props: {
+    clickNotClose: {
+      type: Boolean,
+      default: false
     },
-    data(){
-        return {
-            show: false
-        }
-    },
-    computed: {
-        theme(){
-            return this.$store.state.settings.theme
-        }
-    },
-    watch: {
-        show(value){
-            console.log(value)
-            if(value && !this.clickNotClose){
-                this.addEventClick()
-            }
-            if(value){
-                addClass(document.body, 'showRightPanel')
-            } else {
-                removeClass(document.body, 'showRightPanel')
-            }
-        }
-    },
-    mounted(){
-        this.insertToBody()
-    },
-    methods: {
-        addEventClick(){
-            window.addEventListener('click', this.closeSidebar)
-        },
-        closeSidebar(evt){
-            const parent = evt.target.closest('.rightPanel')
-            if(!parent){
-                this.show = false
-                window.removeEventListener('click', this.closeSidebar)
-            }
-        },
-        insertToBody(){
-            const elx = this.$refs.rightPanel
-            const body = document.querySelector('body')
-            body.insertBefore(elx, body.firstChild)
-        }
+    buttonTop: {
+      type: Number,
+      default: 250
     }
+  },
+  data() {
+    return {
+      show: false
+    }
+  },
+  computed: {
+    theme() {
+      return this.$store.state.settings.theme
+    }
+  },
+  watch: {
+    show(value) {
+      console.log(value)
+      if (value && !this.clickNotClose) {
+        this.addEventClick()
+      }
+      if (value) {
+        addClass(document.body, 'showRightPanel')
+      } else {
+        removeClass(document.body, 'showRightPanel')
+      }
+    }
+  },
+  mounted() {
+    this.insertToBody()
+  },
+  methods: {
+    addEventClick() {
+      window.addEventListener('click', this.closeSidebar)
+    },
+    closeSidebar(evt) {
+      const parent = evt.target.closest('.rightPanel')
+      if (!parent) {
+        this.show = false
+        window.removeEventListener('click', this.closeSidebar)
+      }
+    },
+    insertToBody() {
+      const elx = this.$refs.rightPanel
+      const body = document.querySelector('body')
+      body.insertBefore(elx, body.firstChild)
+    }
+  }
 }
 </script>
 

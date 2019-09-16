@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
-    <el-form :model="loginForm" status-icon :rules="loginRules" ref="loginForm" label-width="100px" class="login-form" auto-complete="on" label-position="left">
-      
+    <el-form ref="loginForm" :model="loginForm" status-icon :rules="loginRules" label-width="100px" class="login-form" auto-complete="on" label-position="left">
+
       <div class="title-container">
         <h3 class="title">
           {{ $t('login.title') }}
@@ -13,14 +13,14 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input 
-            ref="username"
-            type="text"
-            name="username"
-            tabindex="1"
-            placeholder="账号" 
-            v-model="loginForm.username" 
-            auto-complete="on" 
+        <el-input
+          ref="username"
+          v-model="loginForm.username"
+          type="text"
+          name="username"
+          tabindex="1"
+          placeholder="账号"
+          auto-complete="on"
         />
       </el-form-item>
 
@@ -29,14 +29,14 @@
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
-          <el-input 
-             ref="password"
-             :type="passwordType"
-             name="password"
-             tabindex="2"
-             placeholder="密码"
-             v-model="loginForm.password"
-             auto-complete="on"
+          <el-input
+            ref="password"
+            v-model="loginForm.password"
+            :type="passwordType"
+            name="password"
+            tabindex="2"
+            placeholder="密码"
+            auto-complete="on"
           />
           <span class="show-pwd" onselectstart="return false;" unselectable="on" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open' " />
@@ -45,31 +45,31 @@
       </el-tooltip>
 
       <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">
-        {{ $t('login.logIn')}}
+        {{ $t('login.logIn') }}
       </el-button>
 
       <div style="position: relative">
         <div class="tips">
           <span>{{ $t('login.username') }} : admin</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>          
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
         <div class="tips">
           <span style="margin-right:18px;">
             {{ $t('login.username') }} : editor
           </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>          
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-            {{ $t('login.thirdparty') }}
+          {{ $t('login.thirdparty') }}
         </el-button>
       </div>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
       {{ $t('login.thirdpartyTips') }}
-      <br />
-      <br />
-      <br />
+      <br>
+      <br>
+      <br>
       <social-sign />
     </el-dialog>
 
@@ -77,124 +77,123 @@
 </template>
 
 <script>
-  import { validUsername } from '@/utils/validate'
-  import LangSelect from '@/components/LangSelect'
-  import socialSign from './components/socialSign'
+import { validUsername } from '@/utils/validate'
+import LangSelect from '@/components/LangSelect'
+import socialSign from './components/socialSign'
 
-  export default {
+export default {
   // 此处name有以下3点作用：
   // 1、当项目使用keep-alive时，可搭配组件name进行缓存过滤
   // 2、dom树递归使用， 递归组件是指组件自身调用自身
   // 3、当你用vue-tools时，vue-devtools调试工具里显示的组见名称是由vue中组件name决定的
-    name: 'Login',
-    components: {
-      LangSelect,
-      socialSign
-    },
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!validUsername(value)) {
-              callback(new Error('请填写正确的用户名'));
-        } else {
-          callback()
-        }
-      };
-
-      var validatePassword = (rule, value, callback) => {
-        // Number.isInteger()用来判断一个值是否为整数。(ES6)
-        // 在JavaScript内部，整数和浮点数是同样的储存方法，所以3和3.0被视为同一个值
-        // if (!Number.isInteger(value)) {
-        //   callback(new Error('请输入密码'));
-        // } else {
-        // }
-            if (value.length < 15) {
-              callback(new Error('密码不能小于15位'));
-            } else {
-              callback()
-            }
-      };
-
-      return {
-        loginForm: {
-          username: 'admin',
-          password: 'perfectSymphony'
-        },
-        loginRules: {
-          username: [
-            { require: true, validator: validateUsername, trigger: 'blur' }
-          ],
-          password: [
-            { require: true, validator: validatePassword, trigger: 'blur' }
-          ]
-        },
-        passwordType: 'password',
-        capsTooltip: false,
-        loading: false,
-        redirect: undefined,
-        showDialog: false
-      }
-    },
-    watch: {
-      $route: {
-        handler: function(route){
-          // console.log(route)
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true
-      }
-    },
-    created(){
-
-    },
-    mounted(){
-      if(this.loginForm.username === ''){
-        this.$refs.username.focus()
-      } else if(this.loginForm.password === ''){
-        this.$refs.password.focus()
-      }
-    },
-    destroyed(){
-
-    },
-    methods: {
-      showPwd: function(){
-        if(this.passwordType === 'password') {
-          this.passwordType = ''
-        } else {
-          this.passwordType = 'password'
-        }
-        //  this 自动绑定到调用它的实例上
-        this.$nextTick(() => {
-          // $refs: 一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例
-          this.$refs.password.focus()
-        })
-      },
-      handleLogin: function() {
-        this.$refs.loginForm.validate((valid) => {
-          if (valid) {
-            this.loading = true
-            this.$store.dispatch('user/login', this.loginForm)
-              .then(() => {
-                this.$router.push({ path: this.redirect || '/' })
-                this.loading = false
-              })
-              .catch(() => {
-                this.loading = false
-              })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+  name: 'Login',
+  components: {
+    LangSelect,
+    socialSign
+  },
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!validUsername(value)) {
+        callback(new Error('请填写正确的用户名'))
+      } else {
+        callback()
       }
     }
+
+    var validatePassword = (rule, value, callback) => {
+      // Number.isInteger()用来判断一个值是否为整数。(ES6)
+      // 在JavaScript内部，整数和浮点数是同样的储存方法，所以3和3.0被视为同一个值
+      // if (!Number.isInteger(value)) {
+      //   callback(new Error('请输入密码'));
+      // } else {
+      // }
+      if (value.length < 15) {
+        callback(new Error('密码不能小于15位'))
+      } else {
+        callback()
+      }
+    }
+
+    return {
+      loginForm: {
+        username: 'admin',
+        password: 'perfectSymphony'
+      },
+      loginRules: {
+        username: [
+          { require: true, validator: validateUsername, trigger: 'blur' }
+        ],
+        password: [
+          { require: true, validator: validatePassword, trigger: 'blur' }
+        ]
+      },
+      passwordType: 'password',
+      capsTooltip: false,
+      loading: false,
+      redirect: undefined,
+      showDialog: false
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        // console.log(route)
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
+  created() {
+
+  },
+  mounted() {
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.password.focus()
+    }
+  },
+  destroyed() {
+
+  },
+  methods: {
+    showPwd: function() {
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
+      } else {
+        this.passwordType = 'password'
+      }
+      //  this 自动绑定到调用它的实例上
+      this.$nextTick(() => {
+        // $refs: 一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例
+        this.$refs.password.focus()
+      })
+    },
+    handleLogin: function() {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          this.$store.dispatch('user/login', this.loginForm)
+            .then(() => {
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
   }
+}
 </script>
 
 <style lang="scss">
   /* 更改input 背景不协调 和光标变色 */
   // https://github.com/PanJiaChen/vue-element-admin/pull/927
-
 
   $bg:#283443;
   $light_gray:#fff;
@@ -243,12 +242,11 @@
   }
 </style>
 
-
 <style lang="scss" scoped>
   $bg: #2d3a4b;
   $dark_gray:#889aa4;
   $light_gray: #eee;
-  
+
   .login-container {
     min-height:100%;
     width:100%;
@@ -261,7 +259,7 @@
       max-width: 100%;
       padding:160px 35px 0;
       margin: 0 auto;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .tips {
@@ -303,7 +301,7 @@
         cursor: pointer;
       }
     }
-    
+
     .show-pwd {
       position: absolute;
       right: 10px;

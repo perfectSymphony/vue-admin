@@ -1,19 +1,19 @@
 <template>
   <div class="dashboard-editor-container">
-      <div class=" clearfix">
-          <liu-thumb :image="avatar" style="float: left;">
-              Your roles:
-              <span v-for="item in roles" :key="item" class="liu-info-roles">{{ item }}</span>
-          </liu-thumb>
-          <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
-            <div class="info-container">
-              <span class="display_name">{{ name }}</span>
-              <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
-          </div>
+    <div class=" clearfix">
+      <liu-thumb :image="avatar" style="float: left;">
+        Your roles:
+        <span v-for="item in roles" :key="item" class="liu-info-roles">{{ item }}</span>
+      </liu-thumb>
+      <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
+      <div class="info-container">
+        <span class="display_name">{{ name }}</span>
+        <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
       </div>
-      <div>
-        <img :src="gif" class="emptyGif">
-      </div> 
+    </div>
+    <div>
+      <img :src="gif" class="emptyGif">
+    </div>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     liuThumb,
     GithubCorner
   },
-  data(){
+  data() {
     return {
       gif: 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
     }

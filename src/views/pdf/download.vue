@@ -1,51 +1,49 @@
 <template>
   <div v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="正在努力生成PDF格式的文件..." class="main-article">
-      <div class="article_heading">
-          <div class="article_heading_title">
-              {{ article.title }}
-          </div>
+    <div class="article_heading">
+      <div class="article_heading_title">
+        {{ article.title }}
       </div>
-      <div style="color: #ccc">
-          This article is from Evan You on 
-          <a target="_blank" href="https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf">
-             medium
-          </a>    
-      </div>
-      <div ref="content" class="node-article-content" v-html="article.content">
-
-      </div>
+    </div>
+    <div style="color: #ccc">
+      This article is from Evan You on
+      <a target="_blank" href="https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf">
+        medium
+      </a>
+    </div>
+    <div ref="content" class="node-article-content" v-html="article.content" />
   </div>
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 export default {
-    name: 'download',
-    data(){
-        return {
-            article: '',
-            fullscreenLoading: true
-        }
-    },
-    mounted(){
-        this.fetchData()
-    },
-    methods: {
-        fetchData(){
-            import('./content.js').then(data => {
-                console.log(data)
-                const { title } = data.default
-                document.title = title
-                this.article = data.default
-                setTimeout(() => {
-                    this.fullscreenLoading = false
-                    this.$nextTick(() => {
-                        window.print()
-                    })
-                }, 3000)
-            })
-        }
+  name: 'Download',
+  data() {
+    return {
+      article: '',
+      fullscreenLoading: true
     }
+  },
+  mounted() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+            import('./content.js').then(data => {
+              console.log(data)
+              const { title } = data.default
+              document.title = title
+              this.article = data.default
+              setTimeout(() => {
+                this.fullscreenLoading = false
+                this.$nextTick(() => {
+                  window.print()
+                })
+              }, 3000)
+            })
+    }
+  }
 }
 </script>
 
@@ -134,7 +132,7 @@ export default {
         ul {
             margin-bottom: 30px;
         }
-        
+
         li {
             --x-height-multiplier: 0.375;
             --baseline-multiplier: 0.17;

@@ -1,14 +1,14 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device === 'mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container"/>
+    <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar/>
+        <navbar />
         <!-- 主体内容部分 -->
-        <tags-view v-if="needTagsView"/>        
+        <tags-view v-if="needTagsView" />
       </div>
-      <app-main/>
+      <app-main />
       <right-panel v-if="showSetting">
         <settings />
       </right-panel>
@@ -18,12 +18,12 @@
 <script>
 
 import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Sidebar, TagsView, Settings } from "./components"
+import { AppMain, Navbar, Sidebar, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
-import { mapState } from "vuex"
+import { mapState } from 'vuex'
 
 export default {
-  name: "Layout",
+  name: 'Layout',
   components: {
     Navbar,
     Sidebar,
@@ -52,11 +52,11 @@ export default {
     }
   },
   methods: {
-    handleClickOutside(){
-      this.$store.dispatch('app/closeSideBar',{ withoutAnimation: false })
+    handleClickOutside() {
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 @import "~@/styles/mixin.scss";

@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-checkbox-group v-model="formThead">
         <el-checkbox v-for="fruit in fruits" :key="fruit" :label="fruit">
-          {{fruit}}
+          {{ fruit }}
         </el-checkbox>
       </el-checkbox-group>
     </div>

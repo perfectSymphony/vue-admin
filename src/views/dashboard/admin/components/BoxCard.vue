@@ -1,29 +1,29 @@
 <template>
-    <el-card class="box-card-component" style="margin-left: 8px;">
-      <div slot="header" class="box-card-header">
-         <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png" class="image">  
-      </div>
-    <div style="position:relative;">
-        <liu-thumb :image="avatar" class="liuThumb" />
-        <mallki class-name="mallki-text" text="vue-admin" />
-        <div style="padding-top:35px;" class="progress-item">
-            <span>Vue</span>
-            <el-progress :percentage="80"></el-progress>
-        </div>
-        <div class="progress-item">
-            <span>JavaScript</span>
-            <el-progress :percentage="100" status="success"></el-progress>
-        </div>
-        <div class="progress-item">
-            <span>Css</span>
-            <el-progress :percentage="70"></el-progress>
-        </div>
-        <div class="progress-item">
-            <span>ESLint</span>
-            <el-progress :percentage="28" status="exception"></el-progress>
-        </div>
+  <el-card class="box-card-component" style="margin-left: 8px;">
+    <div slot="header" class="box-card-header">
+      <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png" class="image">
     </div>
-    </el-card>
+    <div style="position:relative;">
+      <liu-thumb :image="avatar" class="liuThumb" />
+      <mallki class-name="mallki-text" text="vue-admin" />
+      <div style="padding-top:35px;" class="progress-item">
+        <span>Vue</span>
+        <el-progress :percentage="80" />
+      </div>
+      <div class="progress-item">
+        <span>JavaScript</span>
+        <el-progress :percentage="100" status="success" />
+      </div>
+      <div class="progress-item">
+        <span>Css</span>
+        <el-progress :percentage="70" />
+      </div>
+      <div class="progress-item">
+        <span>ESLint</span>
+        <el-progress :percentage="28" status="exception" />
+      </div>
+    </div>
+  </el-card>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -31,22 +31,22 @@ import liuThumb from '@/components/liuThumb'
 import Mallki from '@/components/TextHoverEffect/Mallki'
 
 export default {
-    name:'BoxCard',
-    data() {
-        return {
-        currentDate: new Date()
-        }
-    },
-    components: {
-      liuThumb,
-      Mallki
-    },
-    computed: {
-      ...mapGetters([
-          'avatar'
-        ])
+  name: 'BoxCard',
+  components: {
+    liuThumb,
+    Mallki
+  },
+  data() {
+    return {
+      currentDate: new Date()
     }
-}	
+  },
+  computed: {
+    ...mapGetters([
+      'avatar'
+    ])
+  }
+}
 </script>
 <style lang="scss">
   .box-card-component{
@@ -68,7 +68,7 @@ export default {
                   transform: scale(1.1, 1.1);
                   // filter CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染
                   // contrast => 调整图像的对比度。值是0%的话，图像会全黑。值是100%，图像不变。值可以超过100%，意味着会运用更低的对比
-                  filter: contrast(150%);   
+                  filter: contrast(150%);
               }
           }
       }
@@ -78,7 +78,7 @@ export default {
         right: 30px;
         font-size: 20px;
         font-weight: bold;
-      }      
+      }
       .liuThumb {
         z-index: 100;
         width: 70px!important;

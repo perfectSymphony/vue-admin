@@ -32,56 +32,56 @@
 import ThemePicker from '@/components/ThemePicker'
 
 export default {
-    name: 'Setting',
-    components: {
-      ThemePicker
-    },
-    data(){
-      return {}
-    },
-    computed: {
-      tagsView: {
-        get(){
-          return this.$store.state.settings.tagsView
-        },
-        set(val){
-          this.$store.dispatch('settings/changeSetting',{
-            key: 'tagsView',
-            value: val
-          })
-        }
+  name: 'Setting',
+  components: {
+    ThemePicker
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    tagsView: {
+      get() {
+        return this.$store.state.settings.tagsView
       },
-      fixedHeader: {
-        get(){
-          return this.$store.state.settings.fixedHeader
-        },
-        set(val){
-          this.$store.dispatch('settings/changeSetting', {
-            key: 'fixedHeader',
-            value: val
-          })
-        }
-      },
-      sidebarLogo: {
-        get(){
-          return this.$store.state.settings.sidebarLogo
-        },
-        set(val){
-          this.$store.dispatch('settings/changeSetting', {
-            key: 'sidebarLogo',
-            value: val
-          })
-        }
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'tagsView',
+          value: val
+        })
       }
     },
-    methods: {
-      themeChange(val){
+    fixedHeader: {
+      get() {
+        return this.$store.state.settings.fixedHeader
+      },
+      set(val) {
         this.$store.dispatch('settings/changeSetting', {
-          key: 'theme',
+          key: 'fixedHeader',
+          value: val
+        })
+      }
+    },
+    sidebarLogo: {
+      get() {
+        return this.$store.state.settings.sidebarLogo
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'sidebarLogo',
           value: val
         })
       }
     }
+  },
+  methods: {
+    themeChange(val) {
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'theme',
+        value: val
+      })
+    }
+  }
 }
 </script>
 
@@ -100,7 +100,7 @@ export default {
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
-  
+
   .drawer-title {
     margin-bottom: 12px;
     color: rgba(0, 0, 0, .85);

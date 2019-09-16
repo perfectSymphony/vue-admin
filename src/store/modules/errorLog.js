@@ -9,7 +9,7 @@ const mutations = {
 }
 
 const actions = {
-  addErrorLog({ commit }, log){
+  addErrorLog({ commit }, log) {
     commit('ADD_ERROR_LOG', log)
   }
 }

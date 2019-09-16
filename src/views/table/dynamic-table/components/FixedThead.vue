@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-checkbox-group v-model="checkboxVal">
         <el-checkbox v-for="fruit in fruits" :key="fruit" :label="fruit">
-          {{fruit}}
+          {{ fruit }}
         </el-checkbox>
       </el-checkbox-group>
     </div>
@@ -52,7 +52,7 @@ export default {
   watch: {
     checkboxVal(valArr) {
       this.formThead = valArr
-      this.key = this.key + 1// 为了保证table 每次都会重渲 
+      this.key = this.key + 1// 为了保证table 每次都会重渲
     }
   }
 }

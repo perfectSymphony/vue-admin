@@ -1,104 +1,104 @@
 <template>
-    <div class="components-container">
-        <count-to 
-        class="example" 
-        ref="example"
-        :startVal='_startVal' 
-        :endVal='_endVal' 
-        :duration='setDuration'
-        :decimals = '_decimals'
-        :autoplay="false"
-        :prefix= "_prefix"
-        :suffix= "setSuffix" 
-        />
-        <div style="margin-left:25%;margin-top:40px;">
-            <label class="label" for="startValInput">startVal:
-                <input type="number" v-model.number="setStartVal" name="startValInput">
-            </label>
-            <label class="label" for="endValInput">endVal:
-                <input type="number" v-model.number="setEndVal" name="endValInput">
-            </label>
-            <label class="label" for="durationInput">duration:
-                <input type="number" v-model.number="setDuration" name="durationInput">
-            </label>
-            <div class="startBtn example-btn" @click="start">
-                Start
-            </div>
-            <div class="pause-resume-btn example-btn" @click="pauseResume">
-                pause/resume
-            </div>
-            <label class="label" for="decimalsInput">decimals:
-                <input v-model.number="setDecimals" type="number" name="decimalsInput">
-            </label>
-            <label class="label" for="separatorInput">separator:
-                <input v-model="setSeparator" name="separatorInput">
-            </label>
-            <label class="label" for="prefixInput">prefix:
-                <input v-model="setPrefix" name="prefixInput">
-            </label>
-            <label class="label" for="suffixInput">suffix:
-                <input v-model="setSuffix" name="suffixInput">
-            </label>
-        </div>
+  <div class="components-container">
+    <count-to
+      ref="example"
+      class="example"
+      :start-val="_startVal"
+      :end-val="_endVal"
+      :duration="setDuration"
+      :decimals="_decimals"
+      :autoplay="false"
+      :prefix="_prefix"
+      :suffix="setSuffix"
+    />
+    <div style="margin-left:25%;margin-top:40px;">
+      <label class="label" for="startValInput">startVal:
+        <input v-model.number="setStartVal" type="number" name="startValInput">
+      </label>
+      <label class="label" for="endValInput">endVal:
+        <input v-model.number="setEndVal" type="number" name="endValInput">
+      </label>
+      <label class="label" for="durationInput">duration:
+        <input v-model.number="setDuration" type="number" name="durationInput">
+      </label>
+      <div class="startBtn example-btn" @click="start">
+        Start
+      </div>
+      <div class="pause-resume-btn example-btn" @click="pauseResume">
+        pause/resume
+      </div>
+      <label class="label" for="decimalsInput">decimals:
+        <input v-model.number="setDecimals" type="number" name="decimalsInput">
+      </label>
+      <label class="label" for="separatorInput">separator:
+        <input v-model="setSeparator" name="separatorInput">
+      </label>
+      <label class="label" for="prefixInput">prefix:
+        <input v-model="setPrefix" name="prefixInput">
+      </label>
+      <label class="label" for="suffixInput">suffix:
+        <input v-model="setSuffix" name="suffixInput">
+      </label>
     </div>
+  </div>
 </template>
 <script>
 import countTo from 'vue-count-to'
 
 export default {
-    name: 'countToDemo',
-    components: {
-        countTo
-    },
-    data(){
-        return {
-            setStartVal: 0,
-            setEndVal: 2019.2019,
-            setDuration: 3000,
-            setDecimals: 4,
-            setSeparator: ',',
-            setPrefix: '￥',
-            setSuffix: ' RMB'
-        }
-    },
-    computed: {
-        _startVal(){
-            if(this.setStartVal){
-                return this.setStartVal
-            } else {
-                return 0
-            }
-        },
-        _endVal(){
-            if(this.setEndVal){
-                return this.setEndVal
-            } else {
-                return 0
-            }
-        },
-        _decimals(){
-            if(this.setDecimals){
-                if(this.setDecimals < 0 || this.setDecimals > 20){
-                    alert('数字参数必须介于0 ~ 20 之间');
-                    return 0
-                }
-                return this.setDecimals
-            } else {
-                return 0
-            }
-        },
-        _prefix(){
-            return this.setPrefix
-        }
-    },
-    methods: {
-        start(){
-            this.$refs.example.start()
-        },
-        pauseResume(){
-            this.$refs.example.pauseResume()
-        }
+  name: 'CountToDemo',
+  components: {
+    countTo
+  },
+  data() {
+    return {
+      setStartVal: 0,
+      setEndVal: 2019.2019,
+      setDuration: 3000,
+      setDecimals: 4,
+      setSeparator: ',',
+      setPrefix: '￥',
+      setSuffix: ' RMB'
     }
+  },
+  computed: {
+    _startVal() {
+      if (this.setStartVal) {
+        return this.setStartVal
+      } else {
+        return 0
+      }
+    },
+    _endVal() {
+      if (this.setEndVal) {
+        return this.setEndVal
+      } else {
+        return 0
+      }
+    },
+    _decimals() {
+      if (this.setDecimals) {
+        if (this.setDecimals < 0 || this.setDecimals > 20) {
+          alert('数字参数必须介于0 ~ 20 之间')
+          return 0
+        }
+        return this.setDecimals
+      } else {
+        return 0
+      }
+    },
+    _prefix() {
+      return this.setPrefix
+    }
+  },
+  methods: {
+    start() {
+      this.$refs.example.start()
+    },
+    pauseResume() {
+      this.$refs.example.pauseResume()
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -140,7 +140,7 @@ input {
     margin-left: 20px;
     font-size: 20px;
     color: #30B08F;
-    background-color: #fff;  
+    background-color: #fff;
 }
 
 .example-btn {
@@ -172,7 +172,7 @@ input {
     &:hover {
         background-color: #30B08F;
         color: #fff;
-        border-color: #30B08F;     
+        border-color: #30B08F;
     }
 }
 
@@ -183,7 +183,7 @@ input {
   &:hover {
     background-color: #E65D6E;
     color: #fff;
-    border-color: #E65D6E;      
+    border-color: #E65D6E;
   }
 }
 </style>

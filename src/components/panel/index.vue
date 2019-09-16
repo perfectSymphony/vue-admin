@@ -1,18 +1,18 @@
 <template>
   <div class="board-column">
-      <div class="board-column-header">
-          {{ headerText }}
+    <div class="board-column-header">
+      {{ headerText }}
+    </div>
+    <draggable
+      :list="list"
+      v-bind="$attrs"
+      class="board-column-content"
+      :set-data="setData"
+    >
+      <div v-for="element in list " :key="element.id" class="board-item">
+        {{ element.name }} {{ element.id }}
       </div>
-      <draggable
-        :list = 'list'
-        v-bind="$attrs"
-        class="board-column-content"
-        :set-data="setData"
-      >
-        <div v-for="element in list " :key="element.id" class="board-item">
-            {{ element.name }} {{ element.id }}
-        </div>
-      </draggable>
+    </draggable>
   </div>
 </template>
 
@@ -21,27 +21,27 @@
 import draggable from 'vuedraggable'
 
 export default {
-    name: 'DragKanbanDemo',
-    components: {
-        draggable
+  name: 'DragKanbanDemo',
+  components: {
+    draggable
+  },
+  props: {
+    headerText: {
+      type: String,
+      default: 'Header'
     },
-    props: {
-        headerText: {
-            type: String,
-            default: 'Header'
-        },
-        list: {
-            type: Array,
-            default(){
-                return []
-            }
-        }
-    },
-    methods: {
-        setData(dataTransfer){
-            dataTransfer.setData('Text', '')
-        }
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
     }
+  },
+  methods: {
+    setData(dataTransfer) {
+      dataTransfer.setData('Text', '')
+    }
+  }
 }
 </script>
 
@@ -86,7 +86,7 @@ export default {
             padding: 5px 10px;
             box-sizing: border-box;
             box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
-        } 
+        }
     }
 }
 </style>

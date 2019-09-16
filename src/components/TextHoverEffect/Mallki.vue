@@ -1,28 +1,28 @@
 <template>
-	<a :class="className" class="link--mallki" href="https://github.com/perfectSymphony/vue-admin">
-		{{ text }}	
+  <a :class="className" class="link--mallki" href="https://github.com/perfectSymphony/vue-admin">
+    {{ text }}
     <span :data-letters="text" />
     <span :data-letters="text" />
-	</a>
+  </a>
 </template>
 <script>
 export default {
-	name: 'Mallki',
-	data(){
-		return {
+  name: 'Mallki',
+  props: {
+    className: {
+      type: String,
+      default: ''
+    },
+    text: {
+      type: String,
+      default: 'vue-admin'
+    }
+  },
+  data() {
+    return {
 
-		}
-	},
-	props: {
-		className: {
-			type: String,
-			default: ''
-		},
-		text: {
-			type: String,
-			default: 'vue-admin'
-		}
-	}
+    }
+  }
 }
 </script>
 <style>

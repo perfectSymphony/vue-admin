@@ -1,35 +1,35 @@
 <template>
-    <div class="block">
+  <div class="block">
     <el-timeline>
-        <el-timeline-item timestamp="2019/6/19" placement="top">
+      <el-timeline-item timestamp="2019/6/19" placement="top">
         <el-card>
-            <h4>Update Github template</h4>
-            <p>perfectSymphony committed 2019/6/19 13:46</p>
+          <h4>Update Github template</h4>
+          <p>perfectSymphony committed 2019/6/19 13:46</p>
         </el-card>
-        </el-timeline-item>
-        <el-timeline-item timestamp="2018/4/3" placement="top">
+      </el-timeline-item>
+      <el-timeline-item timestamp="2018/4/3" placement="top">
         <el-card>
-            <h4>Update Github template</h4>
-            <p>perfectSymphony committed 2018/4/3 20:46</p>
+          <h4>Update Github template</h4>
+          <p>perfectSymphony committed 2018/4/3 20:46</p>
         </el-card>
-        </el-timeline-item>
-        <el-timeline-item timestamp="2018/4/2" placement="top">
+      </el-timeline-item>
+      <el-timeline-item timestamp="2018/4/2" placement="top">
         <el-card>
-            <h4>Update Github template</h4>
-            <p>perfectSymphony committed 2018/4/2 20:46</p>
+          <h4>Update Github template</h4>
+          <p>perfectSymphony committed 2018/4/2 20:46</p>
         </el-card>
-        </el-timeline-item>
+      </el-timeline-item>
     </el-timeline>
-    </div>
+  </div>
 </template>
 <script>
 export default {
-    name: 'Timeline',
-    data() {
-        return {
+  name: 'Timeline',
+  data() {
+    return {
 
-        }
     }
+  }
 }
 </script>
 <style lang="scss" scoped>

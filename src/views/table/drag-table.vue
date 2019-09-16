@@ -1,33 +1,37 @@
 <template>
   <div class="components-container">
     <el-table
-      fit
       ref="dragTable"
       v-loading="listLoading"
+      fit
       :data="list"
       border
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column
         align="center"
         prop="id"
         label="ID"
-        width="80">
+        width="80"
+      >
         <template slot-scope="scope">
-            <span>{{ scope.row.id }}</span>
+          <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="date"
         label="日期"
-        width="180">
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>  
+        </template>
       </el-table-column>
       <el-table-column
         prop="title"
-        label="标题">
+        label="标题"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.title }}</span>
         </template>
@@ -36,35 +40,39 @@
         align="center"
         prop="author"
         label="作者"
-        width="100">
+        width="100"
+      >
         <template slot-scope="scope">
-            <span>{{ scope.row.author }}</span>
-        </template>  
+          <span>{{ scope.row.author }}</span>
+        </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="importance"
         label="比重"
-        width="100">
+        width="100"
+      >
         <template slot-scope="scope">
-              <svg-icon v-for="i in scope.row.importance" :key="i" icon-class="star" class="icon-star" />
+          <svg-icon v-for="i in scope.row.importance" :key="i" icon-class="star" class="icon-star" />
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="readings"
         label="阅读量"
-        width="150">
+        width="150"
+      >
         <template slot-scope="scope">
-            <span>{{ scope.row.pageviews }}</span>
-        </template>  
+          <span>{{ scope.row.pageviews }}</span>
+        </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="status"
         class-name="status-col"
         label="状态"
-        width="90">
+        width="90"
+      >
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
@@ -75,10 +83,11 @@
         align="center"
         prop="drag"
         label="是否可拖拽"
-        width="100">
+        width="100"
+      >
         <template>
-            <svg-icon class="drag-handler" icon-class="drag" />
-        </template>  
+          <svg-icon class="drag-handler" icon-class="drag" />
+        </template>
       </el-table-column>
     </el-table>
     <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
@@ -97,68 +106,67 @@ import { fetchList } from '@/api/article'
 import Sortable from 'sortablejs'
 
 export default {
-      name: 'DragTable',
-      filters: {
-        statusFilter(status){
-          const statusMap = {
-            published: 'success',
-            draft: 'info',
-            deleted: 'danger'
-          }
-          // console.log(statusMap[status])
-          return statusMap[status]
-        }
-      },
-      data(){
-        return {
-          list: null,
-          listLoading: true,
-          listQuery: {
-            page: 1,
-            limit: 10
-          },
-          sortable: null,
-          oldList: [],
-          newList: []
-        }
-      },
-      created() {
-        this.getList()
-      },
-      methods: {
-        async getList(){
-          this.listLoading = true
-          const { data } = await fetchList(this.listQuery)
-          this.list = data.items
-          // console.log(this.list)
-          this.total = data.total
-          this.listLoading = false
-          this.oldList = this.list.map(v => v.id)
-          this.newList =this.oldList.slice()
-          this.$nextTick(() => {
-            this.setSort()
-          })
-        },
-        setSort(){
-          // console.log(this.$refs.dragTable.$el)
-          const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-          // console.log(el)
-          this.sortable = Sortable.create(el, {
-            ghostClass: 'sortable-ghost',
-            setData: function(dataTransfer){
-              dataTransfer.setData('Text', '')
-            },
-            onEnd: evt => {
-              const targetRow = this.list.splice(evt.oldIndex, 1)[0]
-              this.list.splice(evt.newIndex, 0, targetRow)
-
-
-              const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-              this.newList.splice(evt.newIndex, 0, tempIndex)
-            }
-          })
-        }
+  name: 'DragTable',
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'info',
+        deleted: 'danger'
       }
+      // console.log(statusMap[status])
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      list: null,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 10
+      },
+      sortable: null,
+      oldList: [],
+      newList: []
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    async getList() {
+      this.listLoading = true
+      const { data } = await fetchList(this.listQuery)
+      this.list = data.items
+      // console.log(this.list)
+      this.total = data.total
+      this.listLoading = false
+      this.oldList = this.list.map(v => v.id)
+      this.newList = this.oldList.slice()
+      this.$nextTick(() => {
+        this.setSort()
+      })
+    },
+    setSort() {
+      // console.log(this.$refs.dragTable.$el)
+      const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
+      // console.log(el)
+      this.sortable = Sortable.create(el, {
+        ghostClass: 'sortable-ghost',
+        setData: function(dataTransfer) {
+          dataTransfer.setData('Text', '')
+        },
+        onEnd: evt => {
+          const targetRow = this.list.splice(evt.oldIndex, 1)[0]
+          this.list.splice(evt.newIndex, 0, targetRow)
+
+          const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
+          this.newList.splice(evt.newIndex, 0, tempIndex)
+        }
+      })
+    }
+  }
 }
 </script>
 

@@ -28,33 +28,33 @@
               <span class="message-title" style="padding-right: 10px;">Url:</span>
               <el-tag type="success">
                 {{ row.url }}
-              </el-tag>             
+              </el-tag>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Stack">
           <template slot-scope="scope">
-              {{ scope.row.err.stack }}
+            {{ scope.row.err.stack }}
           </template>
         </el-table-column>
       </el-table>
-    </el-dialog>    
+    </el-dialog>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'ErrorLog',
-    computed: {
-      errorLogs(){
-        return this.$store.getters.errorLogs
-      }
-    },
-    data(){
-      return {
-          dialogTableVisible: false,        
-      }
+  name: 'ErrorLog',
+  data() {
+    return {
+      dialogTableVisible: false
     }
+  },
+  computed: {
+    errorLogs() {
+      return this.$store.getters.errorLogs
+    }
+  }
 }
 </script>
 

@@ -1,17 +1,16 @@
 <template>
   <div class="app-container">
     <el-card class="box-card">
-        <div slot="header">
-            <a class="link-type link-title" target="_blank" href="https://elementui.github.io/theme-preview/#/zh-CN">
-                {{ $t('theme.documentation') }}
-            </a>
-        </div>
-        <div class="box-item">
-            <span class="field-label">{{ $t('theme.change') }} : </span>
-            <el-switch v-model="theme">
-            </el-switch>
-            <aside style="margin-top:15px;">{{ $t('theme.tips') }}</aside>
-        </div>
+      <div slot="header">
+        <a class="link-type link-title" target="_blank" href="https://elementui.github.io/theme-preview/#/zh-CN">
+          {{ $t('theme.documentation') }}
+        </a>
+      </div>
+      <div class="box-item">
+        <span class="field-label">{{ $t('theme.change') }} : </span>
+        <el-switch v-model="theme" />
+        <aside style="margin-top:15px;">{{ $t('theme.tips') }}</aside>
+      </div>
     </el-card>
 
     <div class="block">
@@ -30,7 +29,7 @@
       <el-button type="danger">
         Danger
       </el-button>
-    </div> 
+    </div>
 
     <div class="block">
       <el-button type="primary" icon="el-icon-edit" />
@@ -78,26 +77,26 @@ import { toggleClass } from '@/utils'
 import '@/assets/custom-theme/index.css'
 
 export default {
-    name: 'Theme',
-    data(){
-        return {
-            theme: false,
-            tags: [
-                { name: 'Tag One', type: '' },
-                { name: 'Tag Two', type: 'info' },
-                { name: 'Tag Three', type: 'success' },
-                { name: 'Tag Four', type: 'warning' },
-                { name: 'Tag Five', type: 'danger' }
-            ],
-            radio: 3,
-            slideValue: 50
-        }
-    },
-    watch: {
-      theme(){
-        toggleClass(document.body, 'custom-theme')
-      }
+  name: 'Theme',
+  data() {
+    return {
+      theme: false,
+      tags: [
+        { name: 'Tag One', type: '' },
+        { name: 'Tag Two', type: 'info' },
+        { name: 'Tag Three', type: 'success' },
+        { name: 'Tag Four', type: 'warning' },
+        { name: 'Tag Five', type: 'danger' }
+      ],
+      radio: 3,
+      slideValue: 50
     }
+  },
+  watch: {
+    theme() {
+      toggleClass(document.body, 'custom-theme')
+    }
+  }
 }
 </script>
 

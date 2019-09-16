@@ -12,7 +12,7 @@
             <router-link to="/dashboard">返回首页</router-link>
           </li>
           <li>
-              <a href="#" @click.prevent="dialogVisible=true">点我看图</a>
+            <a href="#" @click.prevent="dialogVisible=true">点我看图</a>
           </li>
         </ul>
       </el-col>
@@ -22,33 +22,33 @@
     </el-row>
     <!-- vue 修饰符.sync的功能是：当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定。 -->
     <!-- https://element.eleme.cn/#/zh-CN/component/dialog#dialog-dui-hua-kuang -->
-    <el-dialog v-bind:visible.sync="dialogVisible" title="随便看">
-        <img :src="ewizardClap" class="img">
+    <el-dialog :visible.sync="dialogVisible" title="随便看">
+      <img :src="ewizardClap" class="img">
     </el-dialog>
   </div>
 </template>
 <script>
-import errGif from "@/assets/401_images/401.gif";
+import errGif from '@/assets/401_images/401.gif'
 
 export default {
-  name: "Page401",
+  name: 'Page401',
   data() {
     return {
-      errGif: errGif + "?" + +new Date(),
+      errGif: errGif + '?' + +new Date(),
       ewizardClap: 'https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646',
       dialogVisible: false
     }
   },
   methods: {
-      back() {
-          if(this.$route.query.noGoBack) {
-              this.$router.push({ path: '/dashboard' })
-          } else {
-              this.$router.go(-1)
-          }
+    back() {
+      if (this.$route.query.noGoBack) {
+        this.$router.push({ path: '/dashboard' })
+      } else {
+        this.$router.go(-1)
       }
+    }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .errPage-container {

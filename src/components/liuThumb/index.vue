@@ -1,34 +1,34 @@
 <template>
-	<div :style="{ zIndex:zIndex, height:height, width:width }" class="liu-item">
-		<div class="liu-info">
-			<div class="liu-info-roles-container">
-				<slot />
-			</div>
-		</div>
-		<img :src="image" class="liu-thumb">
-	</div>
+  <div :style="{ zIndex:zIndex, height:height, width:width }" class="liu-item">
+    <div class="liu-info">
+      <div class="liu-info-roles-container">
+        <slot />
+      </div>
+    </div>
+    <img :src="image" class="liu-thumb">
+  </div>
 </template>
 <script>
 export default {
-	name: 'liuThumb',
-	props: {
-		image: {
-			type: String,
-			required: true
-		},
-		zIndex: {
-			type: Number,
-			default: 1
-		},
-		width: {
-			type: String,
-			default: '150px'
-		},
-		height: {
-			type: String,
-			default: '150px'
-		}
-	}
+  name: 'LiuThumb',
+  props: {
+    image: {
+      type: String,
+      required: true
+    },
+    zIndex: {
+      type: Number,
+      default: 1
+    },
+    width: {
+      type: String,
+      default: '150px'
+    },
+    height: {
+      type: String,
+      default: '150px'
+    }
+  }
 }
 </script>
 <style scoped>
@@ -38,7 +38,7 @@ export default {
 		border-radius: 50%;
 		display: inline-block;
 		position: relative;
-		cursor: default; 
+		cursor: default;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 	}
 
@@ -76,7 +76,7 @@ export default {
 		left: 95%;
 		margin: -4px 0 0 -4px;
 		background: radial-gradient(ellipse at center, rgba(14, 14, 14, 1) 0%, rgba(125, 126, 125, 1) 100%);
-		box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);		
+		box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
 	}
 
 	.liu-item:hover .liu-thumb {

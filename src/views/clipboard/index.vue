@@ -1,50 +1,50 @@
 <template>
-    <div class="app-container" style="margin-top: 15px;">
-        <el-tabs v-model="activeName">
-            <el-tab-pane label="use clipboard directly" name="directly">
-                <el-input v-model="inputData" placeholder="Please input" style="width:400px;max-width:100%;" />
-                <el-button type="primary" icon="el-icon-document-copy" @click="handleCopy(inputData,$event)" style="margin-left:10px;">
-                copy
-                </el-button>
-            </el-tab-pane>
-            <el-tab-pane label="use clipboard by v-directive" name="v-directive">
-                <el-input v-model="inputData" placeholder="Please input" style="width:400px;max-width:100%;" />
-                <el-button v-clipboard:copy="inputData" v-clipboard:success="clipboardSuccess" type="primary" icon="el-icon-document-copy" style="margin-left: 10px;">
-                copy
-                </el-button>
-            </el-tab-pane>
-        </el-tabs> 
-    </div>
+  <div class="app-container" style="margin-top: 15px;">
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="use clipboard directly" name="directly">
+        <el-input v-model="inputData" placeholder="Please input" style="width:400px;max-width:100%;" />
+        <el-button type="primary" icon="el-icon-document-copy" style="margin-left:10px;" @click="handleCopy(inputData,$event)">
+          copy
+        </el-button>
+      </el-tab-pane>
+      <el-tab-pane label="use clipboard by v-directive" name="v-directive">
+        <el-input v-model="inputData" placeholder="Please input" style="width:400px;max-width:100%;" />
+        <el-button v-clipboard:copy="inputData" v-clipboard:success="clipboardSuccess" type="primary" icon="el-icon-document-copy" style="margin-left: 10px;">
+          copy
+        </el-button>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
 
-import clip from '@/utils/clipboard'   // use clipboard directly
+import clip from '@/utils/clipboard' // use clipboard directly
 import clipboard from '@/directive/clipboard/index.js' // use clipboard by v-directive
 
 export default {
-    name: 'clipboard',
-    directives: {
-        clipboard
+  name: 'Clipboard',
+  directives: {
+    clipboard
+  },
+  data() {
+    return {
+      activeName: 'directly',
+      inputData: 'https://github.com/perfectSymphony/vue-admin'
+    }
+  },
+  methods: {
+    handleCopy(text, event) {
+      clip(text, event)
     },
-    data(){
-        return {
-            activeName: 'directly',
-            inputData: 'https://github.com/perfectSymphony/vue-admin'
-        }
-    },
-    methods: {
-        handleCopy(text, event){
-            clip(text, event)
-        },
-       clipboardSuccess(){
-           this.$message({
-               message: 'Copy successfully',
-               type: 'success',
-               duration: 1500
-           })
-       } 
-    }    
+    clipboardSuccess() {
+      this.$message({
+        message: 'Copy successfully',
+        type: 'success',
+        duration: 1500
+      })
+    }
+  }
 }
 </script>
 
