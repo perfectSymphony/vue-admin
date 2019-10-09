@@ -6,7 +6,7 @@
         <h3 class="title">
           {{ $t('login.title') }}
         </h3>
-        <lang-select class="set-language" />
+        <el-button type="primary" icon="el-icon-caret-top" size="mini" circle class="caret-top" />
       </div>
 
       <el-form-item prop="username">
@@ -78,7 +78,6 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-import LangSelect from '@/components/LangSelect'
 import socialSign from './components/socialSign'
 
 export default {
@@ -88,7 +87,6 @@ export default {
   // 3、当你用vue-tools时，vue-devtools调试工具里显示的组见名称是由vue中组件name决定的
   name: 'Login',
   components: {
-    LangSelect,
     socialSign
   },
   data() {
@@ -192,12 +190,11 @@ export default {
 </script>
 
 <style lang="scss">
-  /* 更改input 背景不协调 和光标变色 */
-  // https://github.com/PanJiaChen/vue-element-admin/pull/927
 
   $bg:#283443;
   $light_gray:#fff;
   $cursor: #fff;
+  /* 更改input 背景不协调 和光标变色 */
 
   @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
     .login-container .el-input input {
@@ -243,7 +240,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  $bg: #9cdaa165; 
+  $bg: #9cdaa100;
+  $form_bg: rgba(0,0,0,0.3);
   $dark_gray:#889aa4;
   $light_gray: #eee;
 
@@ -257,9 +255,13 @@ export default {
       position: relative;
       width: 520px;
       max-width: 100%;
-      padding:160px 35px 0;
-      margin: 0 auto;
+      padding: 35px;
+      margin: 160px auto;
       overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 2px 2px 20px $form_bg;
+      border-color: $form_bg;
+      background-color: $form_bg;
     }
 
     .tips {
@@ -292,12 +294,12 @@ export default {
         font-weight: bolder;
       }
 
-      .set-language {
+      .caret-top {
         color: #fff;
         position:absolute;
-        top:3px;
+        top:-28px;
         font-size: 18px;
-        right: 0;
+        right: -27px;
         cursor: pointer;
       }
     }
