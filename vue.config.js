@@ -42,6 +42,9 @@ module.exports = {
                 '@': resolve('src')
             }
         }
+    }, 
+    css: {
+      sourceMap: false
     },
     chainWebpack: config => {
         config.plugins.delete('preload')
