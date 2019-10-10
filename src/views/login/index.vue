@@ -240,7 +240,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  $bg: #9cdaa100;
+  $bg: rgba(188, 238, 234, 0.288);
   $form_bg: rgba(0,0,0,0.3);
   $dark_gray:#889aa4;
   $light_gray: #eee;
@@ -259,7 +259,6 @@ export default {
       margin: 160px auto;
       overflow: hidden;
       border-radius: 15px;
-      box-shadow: 2px 2px 20px $form_bg;
       border-color: $form_bg;
       background-color: $form_bg;
     }

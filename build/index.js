@@ -8,9 +8,9 @@ const args = rawArgv.join(' ')
 if(process.env.npm_config_preview || rawArgv.includes('--preview')){
     const report = rawArgv.includes('--report')
 
-    run(`vue-cli-serve build ${args}`)
+    run(`vue-cli-service build ${args}`)
 
-    const port = 9527
+    const port = 8888
     const publicPath = config.publicPath
 
     const connect = require('connect')
