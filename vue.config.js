@@ -11,7 +11,7 @@ const port = 8888
 
 //所有的详细配置都在 https://cli.vuejs.org/config/
 module.exports = {
-    publicPath: '/',
+    publicPath: '/vue-admin',
     outputDir: 'dist',
     assetsDir: 'static',
     lintOnSave: process.env.NODE_ENV === 'development',
