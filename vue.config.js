@@ -8,6 +8,7 @@ function resolve(dir) {
 
 const name = defaultSettings.title || 'perfectSymphony Admin'
 const port = 8888
+// 
 
 //所有的详细配置都在 https://cli.vuejs.org/config/
 module.exports = {
@@ -32,6 +33,7 @@ module.exports = {
                 }
             }
         },
+        // 在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能。
         after: require('./mock/mock-server.js')
     },
     configureWebpack: {
@@ -46,6 +48,8 @@ module.exports = {
     css: {
       sourceMap: false
     },
+    // 该函数会在环境变量被设置之后懒执行
+    // https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
     chainWebpack: config => {
         config.plugins.delete('preload')
         config.plugins.delete('prefetch')
@@ -57,10 +61,11 @@ module.exports = {
             .rule('svg')
             .exclude.add(resolve('src/icons'))
             .end()
+            // 2，添加对icons规则，对svg文件进行处理
         config.module
             .rule('icons')
             .test(/\.svg$/)
-            .include.add(resolve('src/icons'))
+            .include.add(resolve('src/icons')) //在排除设置里，添加一条需要排除内容的绝对路径
             .end()
             .use('svg-sprite-loader')
             .loader('svg-sprite-loader')
@@ -69,7 +74,7 @@ module.exports = {
             })
             .end()
 
-        //设置vue去掉元素之间之间的空格
+        //设置vue去掉元素之间的空格
         //减少文件体积
         //https://zhuanlan.zhihu.com/p/25589193
         config.module
