@@ -34,9 +34,9 @@ import tableRouter from './modules/table'
  */
 
 /**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * constantRoutes:
+ * 没有任何权限要求的基础页面
+ * 任何角色都可以访问
  */
 
 export const constantRoutes = [{

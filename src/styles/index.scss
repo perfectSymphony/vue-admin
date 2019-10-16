@@ -19,6 +19,7 @@ body {
     // antialiased ------抗锯齿很好
     /*chrome、safari*/
     -webkit-font-smoothing: antialiased;
+    // CSS关于文本渲染的属性text-rendering告诉渲染引擎工作时如何优化显示文本。 浏览器会在渲染速度、易读性（清晰度）和几何精度方面做一个权衡
     // 文本渲染 当绘制文本时，浏览器会侧重文本的可读性（清晰度），而不是渲染速度和几何 精度
     // 该属性值可以用于字距调整和连字
     text-rendering: optimizeLegibility;
