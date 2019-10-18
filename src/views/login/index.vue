@@ -38,6 +38,7 @@
             placeholder="密码"
             auto-complete="on"
           />
+          <!-- https://blog.csdn.net/kpyue/article/details/80228675 -->
           <span class="show-pwd" onselectstart="return false;" unselectable="on" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open' " />
           </span>
@@ -140,9 +141,6 @@ export default {
       },
       immediate: true
     }
-  },
-  created() {
-
   },
   mounted() {
     if (this.loginForm.username === '') {

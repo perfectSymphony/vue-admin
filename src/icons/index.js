@@ -6,6 +6,7 @@ import SvgIcon from '@/components/SvgIcon'
 
 Vue.component('svg-icon', SvgIcon)
 
+// https://cn.vuejs.org/v2/guide/components.html
 // https://cn.vuejs.org/v2/guide/components-registration.html
 // 基础组件的自动化全局注册
 // 用 require.context 只全局注册这些非常通用的基础组件
@@ -18,7 +19,7 @@ const req = require.context(
   /\.svg$/
 )
 
-// map方法的作用不难理解，“映射”嘛，也就是原数组被“映射”成对应新数组
+// map方法的作用，“映射”，是原数组被“映射”成对应新数组
 // https://www.zhihu.com/question/24927450
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 
