@@ -133,6 +133,7 @@ export default {
       showDialog: false
     }
   },
+  // 监听,当路由发生变化的时候执行
   watch: {
     $route: {
       handler: function(route) {
