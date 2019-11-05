@@ -84,7 +84,7 @@ export default {
   // 此处name有以下3点作用：
   // 1、当项目使用keep-alive时，可搭配组件name进行缓存过滤
   // 2、dom树递归使用， 递归组件是指组件自身调用自身
-  // 3、当你用vue-tools时，vue-devtools调试工具里显示的组见名称是由vue中组件name决定的
+  // 3、当你用vue-tools时，vue-devtools调试工具里显示的组件名称是由vue中组件name决定的
   name: 'Login',
   components: {
     socialSign

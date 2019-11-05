@@ -17,7 +17,6 @@ const mocks = [
 //前端模拟数据
 export function mockXHR() {
     // https://github.com/nuysoft/Mock/issues/300
-
     Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send
 
     Mock.XHR.prototype.send = function() {

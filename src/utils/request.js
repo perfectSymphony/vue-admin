@@ -41,7 +41,6 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    // 如果这个状态码不是20000，就认为使error
     if (res.code !== 20000) {
       Message({
         message: res.message || 'error',
