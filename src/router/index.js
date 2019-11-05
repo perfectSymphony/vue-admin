@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 Vue.use(Router)
 
-// layout
 import Layout from '@/layout'
 
 // 路由模块
