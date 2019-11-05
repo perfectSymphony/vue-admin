@@ -66,7 +66,6 @@ router.beforeEach(async(to, from, next) => {
   } else {
     // 没有token的情况
     if (whiteList.indexOf(to.path) !== -1) {
-      // 匹配到了
       next()
     } else {
       // 没有权限访问的其他页面，重定向到登录页面

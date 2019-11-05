@@ -38,7 +38,6 @@
             placeholder="密码"
             auto-complete="on"
           />
-          <!-- https://blog.csdn.net/kpyue/article/details/80228675 -->
           <span class="show-pwd" onselectstart="return false;" unselectable="on" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open' " />
           </span>
@@ -193,8 +192,8 @@ export default {
   $bg:#283443;
   $light_gray:#fff;
   $cursor: #fff;
-  /* 更改input 背景不协调 和光标变色 */
 
+  /* 更改input 背景不协调 和光标变色 */
   @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
     .login-container .el-input input {
       color: $cursor;

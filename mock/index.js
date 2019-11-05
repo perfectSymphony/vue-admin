@@ -61,7 +61,6 @@ export function mockXHR() {
 
 
 //后台模拟数据
-
 const responseFake = (url, type, respond) => {
     return {
         url: new RegExp(`/mock${url}`),
