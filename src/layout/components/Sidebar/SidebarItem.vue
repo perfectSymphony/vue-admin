@@ -55,10 +55,8 @@ export default {
     }
   },
   data() {
-    // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
-    this.onlyOneChild = null
     return {
-
+      onlyOneChild: null
     }
   },
   methods: {
@@ -83,6 +81,7 @@ export default {
           path: '',
           noShowingChildren: true
         }
+        console.log(this.onlyOneChild)
         return true
       }
       return false

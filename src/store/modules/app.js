@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import { getLanguage } from '@/lang/index'
 
+// +Cookies.get('sidebarStatus') => Number(Cookies.get('sidebarStatus'))
 const state = {
   sidebar: {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
