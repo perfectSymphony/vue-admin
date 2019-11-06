@@ -19,7 +19,7 @@ module.exports = {
   /**
      * 是否在侧导航显示项目logo
      */
-  sidebarLogo: false,
+  sidebarLogo: true,
 
   /**
      * 显示组件的报错日志

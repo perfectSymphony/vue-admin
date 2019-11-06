@@ -81,7 +81,6 @@ export default {
           path: '',
           noShowingChildren: true
         }
-        console.log(this.onlyOneChild)
         return true
       }
       return false
