@@ -1,5 +1,4 @@
 <template>
-  <!-- 渲染一个“元组件”为动态组件。依 is 的值，来决定哪个组件被渲染。 -->
   <!-- eslint-disable vue/require-component-is -->
   <component v-bind="linkProps(to)">
     <slot />
