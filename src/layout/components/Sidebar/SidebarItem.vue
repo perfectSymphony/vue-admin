@@ -55,9 +55,8 @@ export default {
     }
   },
   data() {
-    return {
-      onlyOneChild: null
-    }
+    this.onlyOneChild = null
+    return {}
   },
   methods: {
     hasOneShowingChild(children = [], parent) {

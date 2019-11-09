@@ -42,6 +42,11 @@
               {{ $t('navbar.github') }}
             </el-dropdown-item>
           </a>
+          <a target="_blank" href="https://github.com/perfectSymphony/vue-admin">
+            <el-dropdown-item>
+              {{ $t('navbar.switchRoles') }}
+            </el-dropdown-item>
+          </a>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>

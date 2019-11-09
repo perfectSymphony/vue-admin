@@ -142,15 +142,6 @@ export const asyncRoutes = [
       roles: ['admin', 'editor'] // 可以根导航设置角色
     },
     children: [{
-      path: 'page',
-      component: () => import('@/views/permission/page'),
-      name: 'PagePermission',
-      meta: {
-        title: 'pagePermission',
-        roles: ['admin'] // 你仅仅只能在子导航设置角色
-      }
-    },
-    {
       path: 'directive',
       component: () => import('@/views/permission/directive'),
       name: 'DirectivePermission',
