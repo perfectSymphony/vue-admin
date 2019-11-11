@@ -52,38 +52,13 @@
       <el-button class="login" :loading="loading" type="primary" @click.native.prevent="handleLogin">
         {{ $t('login.logIn') }}
       </el-button>
-
-      <div style="position: relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : admin</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">
-            {{ $t('login.username') }} : editor
-          </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          {{ $t('login.thirdparty') }}
-        </el-button>
-      </div>
     </el-form>
-
-    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
-      {{ $t('login.thirdpartyTips') }}
-      <br>
-      <br>
-      <br>
-      <social-sign />
-    </el-dialog>
 
   </div>
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
-import socialSign from './components/socialSign'
 
 export default {
   // 此处name有以下3点作用：
@@ -91,9 +66,6 @@ export default {
   // 2、dom树递归使用， 递归组件是指组件自身调用自身
   // 3、当你用vue-tools时，vue-devtools调试工具里显示的组件名称是由vue中组件name决定的
   name: 'Login',
-  components: {
-    socialSign
-  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -260,8 +232,8 @@ export default {
       display: inline-block;
       text-align: center;
       position: absolute;
-      top: 16px;
-      left: 16px;
+      top: 20px;
+      left: 20px;
 
       span {
         color: $login-btn;
@@ -292,18 +264,6 @@ export default {
       border-radius: 5px;
       border-color: $form_bg;
       background-color: $form_bg;
-    }
-
-    .tips {
-      font-size: 14px;
-      color: #000;
-      margin-bottom: 10px;
-
-      span {
-        &:first-of-type {
-          margin-right: 20px;
-        }
-      }
     }
 
     .svg-container {
@@ -341,18 +301,6 @@ export default {
       margin-bottom: 30px;
       background: $login-btn;
       border: 1px solid $login-btn;
-    }
-
-    .thirdparty-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-
-    @media only screen and (max-width: 470px) {
-      .thirdparty-button {
-        display: none;
-      }
     }
 
   }
