@@ -10,3 +10,8 @@ export default {
   name: 'App'
 }
 </script>
+<style lang="scss">
+ #nprogress .bar {
+   background: #F85959 !important;
+ }
+</style>

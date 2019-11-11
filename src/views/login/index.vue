@@ -1,12 +1,17 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" status-icon :rules="loginRules" label-width="100px" class="login-form" auto-complete="on" label-position="left">
+    <div class="logo-wrap">
+      <span>你的头条</span>
+    </div>
+    <div class="slogan-wrap">
+      <img src="../../assets/slogan_c6bab2f.png" alt="slogan">
+    </div>
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="100px" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">
           {{ $t('login.title') }}
         </h3>
-        <el-button type="primary" icon="el-icon-caret-top" size="mini" circle class="caret-top" />
       </div>
 
       <el-form-item prop="username">
@@ -44,7 +49,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px;" @click.native.prevent="handleLogin">
+      <el-button class="login" :loading="loading" type="primary" @click.native.prevent="handleLogin">
         {{ $t('login.logIn') }}
       </el-button>
 
@@ -188,10 +193,9 @@ export default {
 </script>
 
 <style lang="scss">
-
   $bg:#283443;
-  $light_gray:#fff;
-  $cursor: #fff;
+  $light_gray:#000;
+  $cursor: #000;
 
   /* 更改input 背景不协调 和光标变色 */
   @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -214,7 +218,7 @@ export default {
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
-        height: 47px;
+        height: inherit;
         caret-color: $cursor;
 
         &:-webkit-autofill {
@@ -225,8 +229,7 @@ export default {
     }
 
     .el-form-item {
-      border:1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
+      border:1px solid #E8E8E8;
       border-radius: 5px;
       color: #454545;
     }
@@ -238,32 +241,62 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  $bg: rgba(188, 238, 234, 0.288);
-  $form_bg: rgba(0,0,0,0.3);
-  $dark_gray:#889aa4;
-  $light_gray: #eee;
+  $bg: #eee;
+  $form_bg: #fff;
+  $light_gray: #000 !important;
+  $login-btn: #F85959;
 
   .login-container {
     min-height:100%;
     width:100%;
     background-color: $bg;
+    background-image: url('../../assets/login_bg_7584f6a.png');
+    background-repeat: no-repeat;
+    background-position: top center;
     overflow:hidden;
+    position: relative;
+
+    .logo-wrap {
+      display: inline-block;
+      text-align: center;
+      position: absolute;
+      top: 16px;
+      left: 16px;
+
+      span {
+        color: $login-btn;
+        font-size: 25px;
+        font-weight: 700;
+        padding: 5px 0;
+      }
+    }
+
+    .slogan-wrap {
+      text-align: center;
+      margin: 10px auto;
+
+      img {
+        width: 520px;
+        height: 360px;
+      }
+    }
 
     .login-form {
       position: relative;
-      width: 520px;
+      width: 375px;
       max-width: 100%;
-      padding: 35px;
+      padding: 25px;
+      top: -320px;
       margin: 160px auto;
       overflow: hidden;
-      border-radius: 15px;
+      border-radius: 5px;
       border-color: $form_bg;
       background-color: $form_bg;
     }
 
     .tips {
       font-size: 14px;
-      color: #fff;
+      color: #000;
       margin-bottom: 10px;
 
       span {
@@ -275,7 +308,7 @@ export default {
 
     .svg-container {
       padding: 6px 5px 6px 15px;
-      color: $dark_gray;
+      color: $login-btn;
       vertical-align: middle;
       width: 30px;
       display: inline-block;
@@ -284,20 +317,10 @@ export default {
     .title-container {
       position: relative;
       .title {
-        font-size: 26px;
         color: $light_gray;
         margin: 0 auto 40px auto;
         text-align: center;
-        font-weight: bolder;
-      }
-
-      .caret-top {
-        color: #fff;
-        position:absolute;
-        top:-28px;
-        font-size: 18px;
-        right: -27px;
-        cursor: pointer;
+        font-weight: normal;
       }
     }
 
@@ -306,11 +329,18 @@ export default {
       right: 10px;
       top: 7px;
       font-size: 16px;
-      color: $dark_gray;
+      color: $login-btn;
       cursor: pointer;
       // 设置或检索是否允许用户选中文本
       // https://www.html.cn/book/css/properties/user-interface/user-select.htm
       user-select: none;
+    }
+
+    .login {
+      width: 100%;
+      margin-bottom: 30px;
+      background: $login-btn;
+      border: 1px solid $login-btn;
     }
 
     .thirdparty-button {
