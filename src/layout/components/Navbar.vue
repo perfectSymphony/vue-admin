@@ -32,11 +32,6 @@
               {{ $t('navbar.profile') }}
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
-            <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
-            </el-dropdown-item>
-          </router-link>
           <a target="_blank" href="https://github.com/perfectSymphony/vue-admin">
             <el-dropdown-item>
               {{ $t('navbar.github') }}

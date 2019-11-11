@@ -9,7 +9,7 @@ module.exports = {
   /**
      * 是否需要标签
      */
-  tagsView: true,
+  tagsView: false,
 
   /**
      * 是否固定头部
