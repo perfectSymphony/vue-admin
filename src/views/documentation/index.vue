@@ -1,8 +1,5 @@
 <template>
   <div class="app-container documentation-container">
-    <a class="document-btn" target="_blank" href="https://github.com/perfectSymphony">{{ $t('documentation.documentation') }}</a>
-    <a class="document-btn" target="_blank" href="https://github.com/perfectSymphony/vue-admin">{{ $t('documentation.github') }}</a>
-    <a class="document-btn" target="_blank" href="https://www.cnblogs.com/myprogramer/">博客园</a>
     <dropdown-menu :items="ProjectList" style="float:left;margin-left:50px;" title="技术栈" />
   </div>
 </template>

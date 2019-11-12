@@ -28,7 +28,7 @@ export default {
     // 60 = navBar 60
     // 34 = tagView
     min-height: calc(100vh - 60px);
-    margin-left: $sideBarWidth;
+    width: 100%;
     position: relative;
     overflow: hidden;
 }

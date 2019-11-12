@@ -1,10 +1,10 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device === 'mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <navbar />
+    <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <sidebar class="sidebar-container" />
+        <navbar />
         <!-- 主体内容部分 -->
         <tags-view v-if="needTagsView" />
       </div>

@@ -1,26 +1,24 @@
 #app {
-  // background: #F8F8F8;
   .main-container {
-    width: 80%;
-    margin: 0 auto;
     min-height: 100%;
     transition: margin-left .28s;
-    // margin-left: $sideBarWidth;
+    margin-left: $sideBarWidth;
     position: relative;
+   }
     
     .sidebar-container {
       transition: width 0.28s;
       width: $sideBarWidth !important;
       background-color: $menuBg;
       height: 100%;
-      position: absolute;
+      position: fixed;
       // https://segmentfault.com/q/1010000008628181
       font-size: 0px;
-      // top: 0;
-      // bottom: 0;
-      // left: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
       z-index: 1001;
-      // overflow: hidden;
+      overflow: hidden;
 
       // reset element-ui css
       .horizontal-collapse-transition {
@@ -62,7 +60,7 @@
       .submenu-title-noDropdown,
       .el-submenu__title {
           &:hover {
-              background-color: $menuHover !important;
+              color: $menuHover !important;
           }
       }
       .is-active>.el-submenu__title {
@@ -73,11 +71,10 @@
           min-width: $sideBarWidth !important;
           background-color: $subMenuBg !important;
           &:hover {
-              background-color: $subMenuHover !important;
+              color: $subMenuHover !important;
           }
       }
     }
-  }
 
   .hideSidebar {
     .sidebar-container {
@@ -167,7 +164,7 @@
   .nest-menu .el-submenu>.el-submenu__title,
   .el-menu-item {
     &:hover {
-      background-color: $menuHover !important;
+      color: $menuHover !important;
     }
   }
     //当子菜单出现，出现滚动条时
