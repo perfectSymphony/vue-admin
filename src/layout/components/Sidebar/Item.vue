@@ -14,7 +14,6 @@ export default {
     }
   },
   // https://vuejs.org/v2/guide/render-function.html#Functional-Components
-  // render: function (createElement, context) {}
   render(h, context) {
     const { icon, title } = context.props
     const VNode = []

@@ -8,6 +8,7 @@
   </section>
 </template>
 <script>
+
 export default {
   name: 'AppMain',
   computed: {
@@ -21,26 +22,28 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
+
 .app-main {
-    // 50 = navBar 50
+    // 60 = navBar 60
     // 34 = tagView
-    min-height: calc(100vh - 50px);
-    width: 100%;
+    min-height: calc(100vh - 60px);
+    margin-left: $sideBarWidth;
     position: relative;
     overflow: hidden;
 }
 
 .fixed-header + .app-main {
-    padding-top: 50px;
+    padding-top: 60px;
 }
 
 .hasTagsView {
     .app-main {
-        min-height: calc(100vh - 84px);
+        min-height: calc(100vh - 94px);
     }
 
     .fixed-header + .app-main {
-        padding-top: 84px;
+        padding-top: 94px;
     }
 }
 
