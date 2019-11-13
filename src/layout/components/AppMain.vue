@@ -25,25 +25,25 @@ export default {
 @import "~@/styles/variables.scss";
 
 .app-main {
-    // 60 = navBar 60
+    // 50 = navBar 50
     // 34 = tagView
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 50px);
     width: 100%;
     position: relative;
     overflow: hidden;
 }
 
 .fixed-header + .app-main {
-    padding-top: 60px;
+    padding-top: 50px;
 }
 
 .hasTagsView {
     .app-main {
-        min-height: calc(100vh - 94px);
+        min-height: calc(100vh - 84px);
     }
 
     .fixed-header + .app-main {
-        padding-top: 94px;
+        padding-top: 84px;
     }
 }
 
