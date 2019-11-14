@@ -39,7 +39,7 @@ export default {
 
 .hasTagsView {
     .app-main {
-        min-height: calc(100vh - 84px);
+        height: 100vh;
     }
 
     .fixed-header + .app-main {
