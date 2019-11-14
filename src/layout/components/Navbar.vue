@@ -47,9 +47,9 @@
           <a target="_blank" href="https://github.com/perfectSymphony/vue-admin">
             <el-dropdown-item>
               <span class="svg-container">
-                <svg-icon icon-class="exchange" />
+                <svg-icon icon-class="resume" />
               </span>
-              {{ $t('navbar.switchRoles') }}
+              {{ $t('navbar.resume') }}
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>
@@ -113,11 +113,11 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 60px;
+  height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0,21,41,.08);
+  box-shadow: 0 3px 5px rgba(0,21,41,.08);
 
   .hamburger-container {
     height: 100%;

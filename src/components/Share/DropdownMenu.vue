@@ -47,7 +47,7 @@ $t: .1s;
 		width: 100%;
 		display: block;
 		cursor: pointer;
-		background-color: #000;
+		background-color: #F85959;
 		color:#fff;
 		height:60px;
 		line-height:60px;
@@ -71,7 +71,7 @@ $t: .1s;
 		opacity: 1;
 		transition: transform 0.28s ease;
 		&:hover {
-			background: #000;
+			background: #ff8282;
 			color:#fff;
 		}
 		@for $i from 1 through $n {

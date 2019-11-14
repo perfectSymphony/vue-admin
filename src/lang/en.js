@@ -69,7 +69,7 @@ export default {
     github: 'Github',
     logOut: 'Log Out',
     profile: 'Profile',
-    switchRoles: 'Roles',
+    resume: 'resume',
     theme: 'Theme',
     size: 'Global Size'
   },

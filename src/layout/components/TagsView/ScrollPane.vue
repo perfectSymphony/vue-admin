@@ -23,6 +23,8 @@ export default {
       // wheelDelta -> 判断滚轮向上或向下
       // 参数delta可以获取鼠标滚轮的方向和速度。如果delta的值是负的，那么滚轮就是向下滚动，正的就是向上。
       // deltaX, deltaY分别是滚轮滚动的坐标值
+      // scrollLeft() 方法返回或设置匹配元素的滚动条的水平位置
+      // 滚动条的水平位置指的是从其左侧滚动过的像素数。当滚动条位于最左侧时，位置是 0
       const eventDelta = e.wheelDeta || -e.deltaY * 40
       const $scrollWrapper = this.scrollWrapper
       $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
@@ -78,7 +80,13 @@ export default {
 		width: 100%;
 		/deep/ {
 			.el-scrollbar__bar {
-				bottom: 0px;
+        bottom: 0px;
+        .el-scrollbar__thumb {
+          background: #ff8282;
+          &:hover {
+            background: #FE4145;
+          }
+        }
 			}
 			.el-scrollbar__wrap {
 				height:49px;
