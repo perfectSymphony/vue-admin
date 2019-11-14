@@ -47,9 +47,9 @@
           <a target="_blank" href="https://github.com/perfectSymphony/vue-admin">
             <el-dropdown-item>
               <span class="svg-container">
-                <svg-icon icon-class="exchange" />
+                <svg-icon icon-class="resume" />
               </span>
-              {{ $t('navbar.switchRoles') }}
+              {{ $t('navbar.resume') }}
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>

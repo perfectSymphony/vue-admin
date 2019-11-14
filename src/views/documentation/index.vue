@@ -1,6 +1,6 @@
 <template>
   <div class="app-container documentation-container">
-    <dropdown-menu :items="ProjectList" style="float:left;margin-left:50px;" title="技术栈" />
+    <dropdown-menu :items="ProjectList" style="margin-left:50px;" title="技术栈" />
   </div>
 </template>
 <script>
@@ -18,9 +18,9 @@ export default {
         { title: 'NodeJS', href: 'https://www.cnblogs.com/myprogramer/' },
         { title: 'Vue.js', href: 'https://www.cnblogs.com/myprogramer/' },
         { title: 'electron', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '性能优化篇', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '数据结构和算法篇', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '设计模式篇', href: 'https://www.cnblogs.com/myprogramer/' }
+        { title: '性能优化', href: 'https://www.cnblogs.com/myprogramer/' },
+        { title: '数据结构和算法', href: 'https://www.cnblogs.com/myprogramer/' },
+        { title: '设计模式', href: 'https://www.cnblogs.com/myprogramer/' }
       ]
     }
   }
@@ -29,19 +29,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .documentation-container {
-	margin: 50px;
-  .document-btn {
-	float: left;
-	margin-left: 50px;
-	display: block;
-	cursor: pointer;
-	background: black;
-	color: #fff;
-	height: 60px;
-	width: 200px;
-	line-height: 60px;
-	text-align: center;
-	foont-size: 20px;
-  }
+	margin: 5px;
 }
 </style>

@@ -5,7 +5,6 @@
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
-        <!-- 主体内容部分 -->
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />
