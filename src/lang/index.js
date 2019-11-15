@@ -1,17 +1,17 @@
+// 按需加载里定制i18n
+
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import Cookies from 'js-cookie'
-import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lang
-import elementEsLocale from 'element-ui/lib/locale/lang/es' // element-ui lang
+import elementEnLocale from 'element-ui/lib/locale/lang/en'
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import elementEsLocale from 'element-ui/lib/locale/lang/es'
 import enLocale from './en'
 import zhLocale from './zh'
 import esLocale from './es'
 
-// 通过插件的形式挂载
 Vue.use(VueI18n)
 
-// https://element.eleme.cn/2.0/#/zh-CN/component/i18n#an-xu-jia-zai-li-ding-zhi-i18n
 const messages = {
   en: {
     ...enLocale,

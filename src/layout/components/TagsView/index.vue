@@ -56,7 +56,6 @@ export default {
   },
   computed: {
     visitedViews() {
-      console.log(this.$store.state.tagsView.visitedViews)
       return this.$store.state.tagsView.visitedViews
     },
     routes() {
@@ -77,8 +76,8 @@ export default {
     }
   },
   mounted() {
-    this.initTags()
     this.addTags()
+    this.initTags()
   },
   methods: {
     generateTitle,
@@ -110,7 +109,6 @@ export default {
     initTags() {
       const affixTags = this.affixTags = this.filterAffixTags(this.routes)
       for (const tag of affixTags) {
-        // Must have tag name
         if (tag.name) {
           this.$store.dispatch('tagsView/addVisitedView', tag)
         }

@@ -88,7 +88,6 @@ const actions = {
   }, view) {
     commit('ADD_CACHED_VIEW', view)
   },
-
   delView({
     dispatch,
     state
