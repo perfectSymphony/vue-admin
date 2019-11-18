@@ -27,15 +27,6 @@ const mutations = {
       }
     }
   },
-  DEL_CACHED_VIEW: (state, view) => {
-    for (const i of state.cachedViews) {
-      if (i === view.name) {
-        const index = state.cachedViews.indexOf(i)
-        state.cachedViews.splice(index, 1)
-        break
-      }
-    }
-  },
 
   DEL_OTHERS_VISITED_VIEWS: (state, view) => {
     state.visitedViews = state.visitedViews.filter(v => {
@@ -95,10 +86,6 @@ const actions = {
     return new Promise(resolve => {
       dispatch('delVisitedView', view)
       dispatch('delCachedView', view)
-      resolve({
-        visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews]
-      })
     })
   },
   delVisitedView({
@@ -115,7 +102,6 @@ const actions = {
     state
   }, view) {
     return new Promise(resolve => {
-      commit('DEL_CACHED_VIEW', view)
       resolve([...state.cachedViews])
     })
   },
@@ -127,10 +113,6 @@ const actions = {
     return new Promise(resolve => {
       dispatch('delOthersVisitedViews', view)
       dispatch('delOthersCachedViews', view)
-      resolve({
-        visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews]
-      })
     })
   },
   delOthersVisitedViews({
@@ -159,10 +141,6 @@ const actions = {
     return new Promise(resolve => {
       dispatch('delAllVisitedViews', view)
       dispatch('delAllCachedViews', view)
-      resolve({
-        visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews]
-      })
     })
   },
   delAllVisitedViews({

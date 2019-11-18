@@ -41,7 +41,6 @@ export default {
       device: state => state.app.device
     }),
     classObj() {
-      // console.log(this.sidebar)
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,

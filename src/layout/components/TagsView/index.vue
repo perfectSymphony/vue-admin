@@ -76,8 +76,8 @@ export default {
     }
   },
   mounted() {
-    this.addTags()
     this.initTags()
+    this.addTags()
   },
   methods: {
     generateTitle,
@@ -183,13 +183,11 @@ export default {
     // https://vuejs.org/v2/guide/events.html
     openMenu(tag, e) {
       const menuMinWidth = 105
-      // console.log(this)
       // getBoundingClientRect用于获取某个元素相对于视窗的位置集合。集合中有top, right, bottom, left等属性。
       // 语法：这个方法没有参数。
-      // offsetLeft --> 元素左边到视窗左边的距离
       const offsetLeft = this.$el.getBoundingClientRect().left
       const offsetWidth = this.$el.offsetWidth // 该容器的宽度
-      const maxLeft = offsetWidth - menuMinWidth // left boundary
+      const maxLeft = offsetWidth - menuMinWidth
       const left = e.clientX - offsetLeft + 15 // 15: margin right
 
       if (left > maxLeft) {
@@ -211,7 +209,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-// https://vue-loader-v14.vuejs.org/zh-cn/features/scoped-css.html
 .tags-view-container {
 	height: 34px;
 	width: 100%;
