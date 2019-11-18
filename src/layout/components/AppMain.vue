@@ -22,7 +22,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@/styles/variables.scss";
 
 .app-main {
     // 50 = navBar 50
@@ -39,7 +38,7 @@ export default {
 
 .hasTagsView {
     .app-main {
-        height: 100vh;
+         min-height: calc(100vh - 84px);
     }
 
     .fixed-header + .app-main {

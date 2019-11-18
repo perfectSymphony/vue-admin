@@ -117,7 +117,7 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 3px 5px rgba(0,21,41,.08);
+  border-bottom: 1px solid rgba(0,21,41,.08);
 
   .hamburger-container {
     height: 100%;

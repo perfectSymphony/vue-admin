@@ -76,7 +76,7 @@
           min-width: $sideBarWidth !important;
           background-color: $subMenuBg !important;
           &:hover {
-              background-color: $subMenuHover !important;
+              color: $subMenuHover !important;
           }
       }
     }
