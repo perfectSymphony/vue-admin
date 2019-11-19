@@ -14,7 +14,7 @@ module.exports = {
   /**
    * 是否固定头部
    */
-  fixedHeader: true,
+  fixedHeader: false,
 
   /**
    * 是否在侧导航显示项目logo
