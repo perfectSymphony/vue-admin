@@ -9,7 +9,7 @@
       remote
       default-first-option
       class="header-search-select"
-      placeholder="search"
+      placeholder="搜索页面"
       @change="change"
     >
       <el-option
@@ -184,6 +184,7 @@ export default {
         border: 0;
         padding-left: 0;
         padding-right: 0;
+        width: 650px;
         box-shadow: none !important;
         border-bottom: 1px solid #d9d9d9;
         vertical-align: middle;
@@ -192,7 +193,7 @@ export default {
 
     &.show {
       .header-search-select {
-        width: 750px;
+        width: 650px;
         margin-left: 10px;
       }
     }
