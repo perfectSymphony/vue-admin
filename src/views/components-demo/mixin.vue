@@ -60,47 +60,12 @@
       <el-col :span="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>图片hover效果</span>
-          </div>
-          <div class="component-item">
-            <liu-thumb width="100px" height="100px" image="https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191">
-              vue-element-admin
-            </liu-thumb>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
             <span>水波纹 waves v-directive</span>
           </div>
           <div class="component-item">
             <el-button v-waves type="primary">
               水波纹效果
             </el-button>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>hover text</span>
-          </div>
-          <div class="component-item">
-            <mallki class-name="mallki-text" text="vue-element-admin" />
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="20" style="margin-top: 50px;">
-      <el-col :span="8">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>Sharing</span>
-          </div>
-          <div class="component-item" style="height: 580px;">
-            <dropdown-menu :items="ProjectList" style="margin: 0 auto" title="技术栈" />
           </div>
         </el-card>
       </el-col>
@@ -111,18 +76,12 @@
 <script>
 
 import MdInput from '@/components/MDinput'
-import liuThumb from '@/components/liuThumb'
 import waves from '@/directive/waves/index.js' // 水波纹指令
-import Mallki from '@/components/TextHoverEffect/Mallki'
-import DropdownMenu from '@/components/Share/DropdownMenu'
 
 export default {
   name: 'ComponentMixinDemo',
   components: {
-    MdInput,
-    liuThumb,
-    Mallki,
-    DropdownMenu
+    MdInput
   },
   directives: {
     waves

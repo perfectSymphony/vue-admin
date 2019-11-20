@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      imgDataUrl: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191',
+      imgDataUrl: 'https://raw.githubusercontent.com/perfectSymphony/vue-admin/vue-cli3.0-Mockjs/src/assets/logo.png',
       show: false,
       // 传附带其他数据，格式"{k:v}"
       params: {

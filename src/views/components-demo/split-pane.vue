@@ -1,11 +1,9 @@
 <template>
   <div class="components-container">
-    <aside><strong>SplitPane</strong> If you've used
-      <a href="https://codepen.io/" target="_blank"> codepen</a>,
-      <a href="https://jsfiddle.net/" target="_blank"> jsfiddle </a>will not be unfamiliar.
+    <aside><strong>SplitPane</strong>
       <a href="https://github.com/PanJiaChen/vue-split-pane" target="_blank"> Github repository</a>
     </aside>
-    <split-pane split="vertical" @resize="resize">
+    <split-pane split="vertical">
       <template slot="paneL">
         <div class="left-container" />
       </template>
@@ -27,12 +25,7 @@ import splitPane from 'vue-splitpane'
 
 export default {
   name: 'SplitpaneDemo',
-  components: { splitPane },
-  methods: {
-    resize() {
-      console.log('resize')
-    }
-  }
+  components: { splitPane }
 }
 </script>
 <style lang="scss" scoped>
