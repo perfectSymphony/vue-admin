@@ -21,10 +21,10 @@ import { AppMain, Navbar, Sidebar, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
-// 引导分布引导
+// 页面分布引导
 import Driver from 'driver.js'
 import 'driver.js/dist/driver.min.css'
-import steps from '@/views/guide/steps'
+import steps from './steps'
 
 export default {
   name: 'Layout',
@@ -60,7 +60,6 @@ export default {
     }
   },
   mounted() {
-    this.dirver = new Driver()
     this.guide()
   },
   methods: {
@@ -68,6 +67,7 @@ export default {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
     guide() {
+      this.dirver = new Driver()
       this.dirver.defineSteps(steps)
       this.dirver.start()
     }
@@ -101,6 +101,7 @@ export default {
   }
 
   .fixed-header {
+    border: 1px solid red;
     position: fixed;
     top: 0;
     right: 0;

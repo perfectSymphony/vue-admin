@@ -1,7 +1,7 @@
 export default {
   route: {
     dashboard: 'Dashboard',
-    documentation: 'Documentation',
+    TechnologyList: 'Technology-list',
     guide: 'Guide',
     permission: 'Permission',
     pagePermission: 'Page Permission',

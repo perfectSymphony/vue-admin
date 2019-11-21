@@ -1,45 +1,5 @@
 <template>
   <div class="mixin-components-container">
-    <el-row>
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>按钮</span>
-        </div>
-        <div style="margin-bottom: 50px;">
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn blue-btn" to="/documentation/index">
-              Documentation
-            </router-link>
-          </el-col>
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn light-blue-btn" to="/icon/index">
-              icons
-            </router-link>
-          </el-col>
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn pink-btn" to="/components/mixin">
-              Excel
-            </router-link>
-          </el-col>
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn green-btn" to="/components/mixin">
-              Table
-            </router-link>
-          </el-col>
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn tiffany-btn" to="/components/mixin">
-              Form
-            </router-link>
-          </el-col>
-          <el-col :span="4" class="text-center">
-            <router-link class="liu-btn yellow-btn" to="/components/mixin">
-              Theme
-            </router-link>
-          </el-col>
-        </div>
-      </el-card>
-    </el-row>
-
     <el-row :gutter="20" style="margin-top: 50px;">
       <el-col :span="6">
         <el-card class="box-card">
@@ -104,18 +64,7 @@ export default {
           trigger: 'change',
           validator: validate
         }]
-      },
-      ProjectList: [
-        { title: 'HTML5', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: 'CSS3', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: 'JavaScript', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: 'NodeJS', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: 'Vue.js', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: 'electron', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '性能优化篇', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '数据结构和算法篇', href: 'https://www.cnblogs.com/myprogramer/' },
-        { title: '设计模式篇', href: 'https://www.cnblogs.com/myprogramer/' }
-      ]
+      }
     }
   }
 }

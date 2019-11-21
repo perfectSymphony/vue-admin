@@ -68,15 +68,15 @@ export const constantRoutes = [{
   }]
 },
 {
-  path: '/documentation',
+  path: '/Technology-list',
   component: Layout,
   children: [{
     path: 'index',
-    component: () => import('@/views/documentation/index'),
-    name: 'Documentation',
+    component: () => import('@/views/Technology-list/index'),
+    name: 'Technology-list',
     meta: {
-      title: 'documentation',
-      icon: 'documentation',
+      title: 'TechnologyList',
+      icon: 'Technology-list',
       affix: true
     }
   }]

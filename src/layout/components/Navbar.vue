@@ -24,7 +24,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <span class="avatar-wrapper">
           <img :src="avatar" alt="" class="user-avatar">
-          <span v-for="role in roles" :key="role" class="role">{{ role }}</span>
+          <span v-for="role in roles" id="avatar-wrapper" :key="role" class="role">{{ role }}</span>
           <i class="el-icon-caret-bottom" />
         </span>
         <el-dropdown-menu slot="dropdown">

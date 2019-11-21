@@ -10,7 +10,7 @@
       :set-data="setData"
     >
       <div v-for="element in list " :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
+        {{ element.id }}[{{ element.author }}]{{ element.title }}
       </div>
     </draggable>
   </div>
@@ -47,7 +47,7 @@ export default {
 
 <style lang='scss' scoped>
 .board-column {
-    min-width: 300px;
+    max-width: calc(100%/3 - 5px);
     min-height: 100px;
     height: auto;
     overflow: hidden;

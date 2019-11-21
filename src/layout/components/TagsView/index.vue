@@ -195,7 +195,6 @@ export default {
       } else {
         this.left = left
       }
-
       this.top = e.clientY
       this.visible = true
       this.selectedTag = tag
@@ -229,6 +228,7 @@ export default {
 			font-size: 12px;
 			margin-left: 5px;
 			margin-top: 4px;
+      border-radius: 5px;
 			&:first-of-type {
 				margin-left: 15px;
 			}

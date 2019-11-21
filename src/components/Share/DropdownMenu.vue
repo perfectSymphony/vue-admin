@@ -1,8 +1,8 @@
 <template>
   <div :class="{active:isActive}" class="share-dropdown-menu">
     <div class="share-dropdown-menu-wrapper">
-      <span class="share-dropdown-menu-title" @click.self="clickTitle">{{ title }}</span>
-      <div v-for="(item,index) of items" :key="index" class="share-dropdown-menu-item">
+      <span class="share-dropdown-menu-title liu-btn light-red" @click.self="clickTitle">{{ title }}</span>
+      <div v-for="(item,index) of items" :key="index" class="share-dropdown-menu-item liu-btn" :class="item.color">
         <a v-if="item.href" :href="item.href" target="_blank">{{ item.title }}</a>
         <span v-else>{{ item.title }}</span>
       </div>
@@ -47,7 +47,6 @@ $t: .1s;
 		width: 100%;
 		display: block;
 		cursor: pointer;
-		background-color: #F85959;
 		color:#fff;
 		height:60px;
 		line-height:60px;
@@ -63,21 +62,17 @@ $t: .1s;
 		text-align: center;
 		position: absolute;
 		width: 100%;
-		background: #e0e0e0;
 		height:60px;
-		line-height: 60px;
+    line-height: 60px;
 		cursor: pointer;
-		font-size: 20px;
+    font-size: 20px;
 		opacity: 1;
 		transition: transform 0.28s ease;
-		&:hover {
-			background: #ff8282;
-			color:#fff;
-		}
 		@for $i from 1 through $n {
 			&:nth-of-type(#{$i}){
 				z-index: -1;
-				transition-delay: $i*$t;
+        transition-delay: $i*$t;
+        margin-top: 0px;
 				transform: translate3d(0, -60px, 0);
 			}
 		}
@@ -89,7 +84,8 @@ $t: .1s;
 		.share-dropdown-menu-item {
 			@for $i from 1 through $n {
 				&:nth-of-type(#{$i}) {
-					transition-delay: ($n - $i)*$t;
+          transition-delay: ($n - $i)*$t;
+          margin-top: $i*10px;
 					transform: translate3d(0, ($i - 1)*60px, 0)
 				}
 			}

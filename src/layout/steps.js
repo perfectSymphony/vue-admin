@@ -40,6 +40,14 @@ const steps = [
     }
   },
   {
+    element: '#avatar-wrapper',
+    popover: {
+      title: 'account',
+      description: '您当前的用户名',
+      position: 'left'
+    }
+  },
+  {
     element: '#tags-view-container',
     popover: {
       title: 'Tags view',

@@ -67,14 +67,6 @@ const componentsRouter = {
       }
     },
     {
-      path: 'count-to',
-      component: () => import('@/views/components-demo/count-to'),
-      name: 'countTo',
-      meta: {
-        title: 'count-to'
-      }
-    },
-    {
       path: 'mixin',
       component: () => import('@/views/components-demo/mixin'),
       name: 'ComponentMixinDemo',
@@ -104,14 +96,6 @@ const componentsRouter = {
       name: 'drag-select',
       meta: {
         title: 'dragSelect'
-      }
-    },
-    {
-      path: 'dnd-list',
-      component: () => import('@/views/components-demo/dnd-list'),
-      name: 'dnd-list',
-      meta: {
-        title: 'dndList'
       }
     },
     {
