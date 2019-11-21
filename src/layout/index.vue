@@ -3,14 +3,19 @@
     <div v-if="device === 'mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
-        <tags-view v-if="needTagsView" />
-      </div>
+      <Sticky :z-index="10">
+        <div :class="{'fixed-header':fixedHeader}">
+          <navbar />
+          <tags-view v-if="needTagsView" />
+        </div>
+      </Sticky>
       <app-main />
       <right-panel v-if="showSetting">
         <settings />
       </right-panel>
+      <el-tooltip placement="top" content="tooltip">
+        <back-to-top :custom-style="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -20,6 +25,8 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Sidebar, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
+import Sticky from '@/components/Sticky'
+import BackToTop from '@/components/BackToTop'
 
 // 页面分布引导
 import Driver from 'driver.js'
@@ -34,12 +41,23 @@ export default {
     AppMain,
     TagsView,
     Settings,
-    RightPanel
+    RightPanel,
+    Sticky,
+    BackToTop
   },
   mixins: [ResizeMixin],
   data() {
     return {
-      dirver: null
+      dirver: null,
+      myBackToTopStyle: {
+        right: '50px',
+        bottom: '50px',
+        width: '80px',
+        height: '80px',
+        'border-radius': '4px',
+        'line-height': '45px', // 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
+        background: 'transparent'
+      }
     }
   },
   computed: {
