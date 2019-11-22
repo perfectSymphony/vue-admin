@@ -4,7 +4,7 @@ module.exports = {
   /**
    * 是否需要设置右侧面板
    */
-  showSetting: false,
+  showSetting: true,
 
   /**
    * 是否需要标签

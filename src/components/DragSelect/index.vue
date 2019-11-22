@@ -47,7 +47,7 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         // Element dragging ended
-        onEnd: function(/** Event*/evt) {
+        onEnd: evt => {
           const targetRow = this.value.splice(evt.oldIndex, 1)[0]
           this.value.splice(evt.newIndex, 0, targetRow)
         }
@@ -56,3 +56,14 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .drag-select >>> .sortable-ghost {
+    opacity: .8;
+    color: #fff!important;
+    background: #42b983!important;
+  }
+
+  .drag-select >>> .el-tag {
+    cursor: pointer;
+  }
+</style>

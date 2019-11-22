@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// showRightPanel
 import { addClass, removeClass } from '@/utils'
 
 export default {
