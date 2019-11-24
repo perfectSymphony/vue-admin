@@ -51,7 +51,7 @@ export default {
   },
   watch: {
     checkboxVal(valArr) {
-      this.formThead = valArr
+      this.formThead = this.fruits.filter(i => valArr.indexOf(i) >= 0)
       this.key = this.key + 1// 为了保证table 每次都会重渲
     }
   }

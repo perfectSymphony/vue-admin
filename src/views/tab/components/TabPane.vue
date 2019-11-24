@@ -106,7 +106,6 @@ export default {
         draft: 'info',
         deleted: 'danger'
       }
-      // console.log(statusMap[status])
       return statusMap[status]
     }
   },
@@ -138,7 +137,6 @@ export default {
       this.$emit('create')
       const { data } = await fetchList(this.listQuery)
       this.list = data.items
-      // console.log(this.list)
       this.total = data.total
       this.listLoading = false
       this.$nextTick(() => {

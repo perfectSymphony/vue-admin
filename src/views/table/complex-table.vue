@@ -62,8 +62,8 @@
         min-width="150"
       >
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <el-tag>{{ row.type | typeFilter }}</el-tag>
+          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -146,7 +146,7 @@
     <Pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- 每条数据的详情弹框 -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog v-el-drag-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :model="temp" :rules="rules" label-position="left" label-width="70px" style="width: 400px; margin-left: 50px;">
         <el-form-item :label="$t('table.type')" prop="type">
           <el-select v-model="temp.type" placeholder="Please select">
@@ -199,6 +199,7 @@ import waves from '@/directive/waves'
 import { parseTime } from '@/utils'
 import Pagination from '@/components/pagination'
 import Sortable from 'sortablejs'
+import elDragDialog from '@/directive/el-drag-dialog'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -208,7 +209,7 @@ const calendarTypeOptions = [
 ]
 
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  console.log(acc, cur)
+  // console.log(acc, cur)
   acc[cur.key] = cur.display_name
   return acc
 }, {})
@@ -216,7 +217,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 export default {
   name: 'ComplexTable',
   directives: {
-    waves
+    waves,
+    elDragDialog
   },
   filters: {
     statusFilter(status) {
@@ -434,7 +436,7 @@ export default {
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         this.pvData = response.data.pvData
         this.dialogPvVisible = true
       })

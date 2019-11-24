@@ -59,22 +59,6 @@ const componentsRouter = {
       }
     },
     {
-      path: 'mixin',
-      component: () => import('@/views/components-demo/mixin'),
-      name: 'ComponentMixinDemo',
-      meta: {
-        title: 'componentMixin'
-      }
-    },
-    {
-      path: 'drag-dialog',
-      component: () => import('@/views/components-demo/drag-dialog'),
-      name: 'drag-dialog',
-      meta: {
-        title: 'dragDialog'
-      }
-    },
-    {
       path: 'drag-select',
       component: () => import('@/views/components-demo/drag-select'),
       name: 'drag-select',

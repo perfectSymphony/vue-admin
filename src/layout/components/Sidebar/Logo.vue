@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse': collapse}">
+  <div v-waves class="sidebar-logo-container" :class="{'collapse': collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo">
@@ -14,8 +14,14 @@
 </template>
 
 <script>
+
+import waves from '@/directive/waves/index.js' // 水波纹指令
+
 export default {
   name: 'SidebarLogo',
+  directives: {
+    waves
+  },
   props: {
     collapse: {
       type: Boolean,

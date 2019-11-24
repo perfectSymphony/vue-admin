@@ -1,7 +1,6 @@
 <template>
   <div class="tab-container">
     <el-tag>mounted times ：{{ createdTimes }}</el-tag>
-    <el-alert :closable="false" style="width:200px;display:inline-block;vertical-align: middle;margin-left:30px;" title="Tab with keep-alive" type="success" />
     <el-tabs v-model="activeName" type="border-card" style="margin-top:20px;">
       <el-tab-pane v-for="item in tabMapOptions" :key="item.key" :label="item.label" :name="item.key">
         <tab-pane v-if="activeName == item.key" :type="item.key" @create="showCreatedTimes" />

@@ -91,6 +91,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
+    <!-- http://kazupon.github.io/vue-i18n/zh/api/#vue-%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95 -->
+    <div class="show-d">
+      <el-tag style="margin-right:12px;">{{ $t('table.dragTips1') }} :</el-tag> {{ oldList }}
+    </div>
+    <div class="show-d">
+      <el-tag>{{ $t('table.dragTips2') }} :</el-tag> {{ newList }}
+    </div>
   </div>
 </template>
 
@@ -120,6 +128,8 @@ export default {
         page: 1,
         limit: 10
       },
+      oldList: [],
+      newList: [],
       sortable: null
     }
   },
@@ -132,29 +142,35 @@ export default {
       const { data } = await fetchList(this.listQuery)
       const items = data.items
       this.list = items.map(v => {
+        console.log(v)
         this.$set(v, 'edit', false)
         v.originalTitle = v.title
         return v
       })
-      //   console.log(items)
+      this.oldList = items.map(v => v.id)
+      this.newList = this.oldList.slice()
       this.listLoading = false
       this.$nextTick(() => {
         this.setSort()
       })
     },
     setSort() {
-      //   console.log(this.$refs.dragTable.$el)
       const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-      //   console.log(el)
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost',
         setData: function(dataTransfer) {
           dataTransfer.setData('Text', '')
+        },
+        onEnd: evt => {
+          const targetRow = this.list.splice(evt.oldIndex, 1)[0]
+          this.list.splice(evt.newIndex, 0, targetRow)
+
+          const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
+          this.newList.splice(evt.newIndex, 0, tempIndex)
         }
       })
     },
     cancelEdit(row) {
-      // console.log(row)
       row.title = row.originalTitle
       row.edit = false
       this.$message({
@@ -193,4 +209,7 @@ export default {
   top: 10px;
 }
 
+.show-d {
+  margin-top: 15px;
+}
 </style>
