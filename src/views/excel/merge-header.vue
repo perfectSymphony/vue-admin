@@ -1,8 +1,11 @@
 <template>
   <div class="app-container">
     <div>
+      <FilenameOption v-model="filename" />
+      <AutoWidthOption v-model="autoWidth" />
+      <BookTypeOption v-model="bookType" />
       <el-button v-loading="listLoading" style="margin: 0 0 20px 20px;" type="primary" icon="document" @click="handleDownload">
-        Export
+        {{ $t('excel.selectedExport') }}
       </el-button>
     </div>
     <el-table
@@ -12,7 +15,13 @@
       :data="list"
       border
       style="width: 100%"
+      @selection-change="handleSelectionChange"
     >
+      <el-table-column
+        type="selection"
+        align="center"
+        width="55"
+      />
       <el-table-column
         align="center"
         prop="id"
@@ -108,8 +117,17 @@ import { fetchList } from '@/api/article'
 import Sortable from 'sortablejs'
 import { parseTime } from '@/utils'
 
+import FilenameOption from './components/FilenameOption'
+import AutoWidthOption from './components/AutoWidthOption'
+import BookTypeOption from './components/BookTypeOption'
+
 export default {
   name: 'MergeHeader',
+  components: {
+    FilenameOption,
+    AutoWidthOption,
+    BookTypeOption
+  },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -129,7 +147,11 @@ export default {
         page: 1,
         limit: 10
       },
-      sortable: null
+      sortable: null,
+      multipleSelection: [],
+      filename: '',
+      autoWidth: true,
+      bookType: 'xlsx'
     }
   },
   created() {
@@ -140,7 +162,6 @@ export default {
       this.listLoading = true
       const { data } = await fetchList(this.listQuery)
       this.list = data.items
-      // console.log(this.list)
       this.total = data.total
       this.listLoading = false
       this.$nextTick(() => {
@@ -158,25 +179,41 @@ export default {
         }
       })
     },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
     handleDownload() {
-      this.listLoading = true
-            // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据。
-            // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader。
-            // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
-            import('@/vendor/Export2Excel').then(excel => {
-              const multiHeader = [['Id', 'Main Information', '', '', '', '', '']]
-              const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
-              const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
-              const data = this.formatJson(filterVal, this.list)
-              const merges = ['A1:A2', 'B1:G1', 'H1:H2']
-              excel.export_json_to_excel({
-                multiHeader,
-                header: tHeader,
-                merges,
-                data
-              })
-              this.listLoading = false
+      if (this.multipleSelection.length) {
+        this.listLoading = true
+          // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据
+          // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader
+          // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
+          import('@/vendor/Export2Excel').then(excel => {
+            const multiHeader = [['Id', 'Main Information', '', '', '', '', '']]
+            const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
+            const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
+            const list = this.multipleSelection
+            const data = this.formatJson(filterVal, list)
+            // 删除这个变量能够实现单行导出
+            const merges = ['A1:A2', 'B1:G1', 'H1:H2']
+            excel.export_json_to_excel({
+              multiHeader,
+              header: tHeader,
+              merges,
+              data,
+              filename: this.filename,
+              autoWidth: this.autoWidth,
+              bookType: this.bookType
             })
+            this.$refs.dragTable.clearSelection()
+            this.listLoading = false
+          })
+      } else {
+        this.$message({
+          message: '请确保至少选择一项',
+          type: 'warning'
+        })
+      }
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {

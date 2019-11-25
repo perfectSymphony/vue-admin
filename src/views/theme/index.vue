@@ -1,17 +1,9 @@
 <template>
   <div class="app-container">
-    <el-card class="box-card">
-      <div slot="header">
-        <a class="link-type link-title" target="_blank" href="https://elementui.github.io/theme-preview/#/zh-CN">
-          {{ $t('theme.documentation') }}
-        </a>
-      </div>
-      <div class="box-item">
-        <span class="field-label">{{ $t('theme.change') }} : </span>
-        <el-switch v-model="theme" />
-        <aside style="margin-top:15px;">{{ $t('theme.tips') }}</aside>
-      </div>
-    </el-card>
+    <!-- <el-switch v-model="theme" />     -->
+    <div class="block">
+      <el-color-picker v-model="theme" />
+    </div>
 
     <div class="block">
       <el-button type="primary">
@@ -74,13 +66,12 @@
 <script>
 
 import { toggleClass } from '@/utils'
-import '@/assets/custom-theme/index.css'
+// import '@/assets/custom-theme/index.css'
 
 export default {
   name: 'Theme',
   data() {
     return {
-      theme: false,
       tags: [
         { name: 'Tag One', type: '' },
         { name: 'Tag Two', type: 'info' },
@@ -89,7 +80,8 @@ export default {
         { name: 'Tag Five', type: 'danger' }
       ],
       radio: 3,
-      slideValue: 50
+      slideValue: 50,
+      theme: '#ff8282'
     }
   },
   watch: {

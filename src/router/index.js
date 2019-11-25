@@ -281,22 +281,6 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: {
-          title: 'exportExcel'
-        }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: {
-          title: 'selectExcel'
-        }
-      },
-      {
         path: 'export-merge-header',
         component: () => import('@/views/excel/merge-header'),
         name: 'MergeHeader',
