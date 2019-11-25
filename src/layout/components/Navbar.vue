@@ -19,6 +19,8 @@
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
         <!-- 国际化 -->
         <lang-select class="right-menu-item hover-effect" />
+        <!-- 颜色选择器 -->
+        <el-color-picker v-model="theme" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" />
       </template>
       <!-- 下拉菜单 -->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -85,6 +87,11 @@ export default {
     SizeSelect,
     ErrorLog,
     Search
+  },
+  data() {
+    return {
+      theme: '#ff8282'
+    }
   },
   computed: {
     ...mapGetters([
@@ -216,6 +223,10 @@ export default {
   .svg-container {
     padding-right: 3px;
   }
+}
+
+/deep/ .el-color-picker__trigger {
+  border: none;
 }
 </style>
 
