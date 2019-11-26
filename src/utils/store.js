@@ -7,8 +7,7 @@ export const setStore = (params) => {
   const {
     name,
     content,
-    type,
-    datetime
+    type
   } = params
   const obj = {
     dataType: typeof (content),
@@ -24,8 +23,7 @@ export const setStore = (params) => {
  */
 export const getStore = (params) => {
   const {
-    name,
-    type
+    name
   } = params
   let obj = {}
   let content
@@ -38,7 +36,7 @@ export const getStore = (params) => {
   } else if (obj.dataType === 'number') {
     content = Number(obj.content)
   } else if (obj.dataType === 'boolean') {
-    content = eval(obj.content)
+    content = !!(obj.content)
   } else if (obj.dataType === 'object') {
     content = obj.content
   }

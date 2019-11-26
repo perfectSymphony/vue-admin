@@ -90,11 +90,11 @@ export default {
     Search
   },
   mixins: [theme],
-  // data(){
-  //   return {
-  //     theme: '#f00'
-  //   }
-  // },
+  data() {
+    return {
+      chalk: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
