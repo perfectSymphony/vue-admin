@@ -20,7 +20,8 @@
         <!-- 国际化 -->
         <lang-select class="right-menu-item hover-effect" />
         <!-- 颜色选择器 -->
-        <el-color-picker v-model="themeVal" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" />
+        <!-- <el-color-picker v-model="themeVal" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" /> -->
+        <theme-picker class="drawer-switch" @change="themeChange" />
       </template>
       <!-- 下拉菜单 -->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -76,7 +77,8 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import ErrorLog from '@/components/ErrorLog'
 import Search from '@/components/HeaderSearch'
-import theme from '@/layout/mixin/theme'
+import ThemePicker from '@/components/ThemePicker'
+// import theme from '@/layout/mixin/theme'
 
 export default {
   name: 'Navbar',
@@ -87,14 +89,15 @@ export default {
     Screenfull,
     SizeSelect,
     ErrorLog,
-    Search
+    Search,
+    ThemePicker
   },
-  mixins: [theme],
-  data() {
-    return {
-      chalk: ''
-    }
-  },
+  // mixins: [theme],
+  // data() {
+  //   return {
+  //     chalk: ''
+  //   }
+  // },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -113,8 +116,13 @@ export default {
       } catch (err) {
         console.log(err)
       }
-      // location.reload()
       this.$router.push(`login?redirect=${this.$route.fullPath}`)
+    },
+    themeChange(val) {
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'theme',
+        value: val
+      })
     }
   }
 }

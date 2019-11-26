@@ -9,8 +9,8 @@
 
 <script>
 
-const version = require('element-ui/package.json').version // 从node_modules中获取element-ui的版本号
-const ORIGINAL_THEME = '#409EFF' // 默认颜色
+const version = require('element-ui/package.json').version
+const ORIGINAL_THEME = '#409EFF'
 
 export default {
   name: 'ThemePicker',
@@ -174,15 +174,4 @@ export default {
 .theme-picker-dropdown {
     z-index: 99999 !important;
 }
-/*
-.theme-picker .el-color-picker__trigger {
-    height: 26px !important;
-    width: 26px !important;
-    padding: 2px;
-}
-
-.theme-picker-dropdown .el-color-dropdown__link-btn {
-  display: none;
-} */
-
 </style>
