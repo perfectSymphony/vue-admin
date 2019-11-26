@@ -20,7 +20,7 @@
         <!-- 国际化 -->
         <lang-select class="right-menu-item hover-effect" />
         <!-- 颜色选择器 -->
-        <el-color-picker v-model="theme" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" />
+        <el-color-picker v-model="themeVal" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" />
       </template>
       <!-- 下拉菜单 -->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -76,6 +76,7 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import ErrorLog from '@/components/ErrorLog'
 import Search from '@/components/HeaderSearch'
+import theme from '@/layout/mixin/theme'
 
 export default {
   name: 'Navbar',
@@ -88,11 +89,12 @@ export default {
     ErrorLog,
     Search
   },
-  data() {
-    return {
-      theme: '#ff8282'
-    }
-  },
+  mixins: [theme],
+  // data(){
+  //   return {
+  //     theme: '#f00'
+  //   }
+  // },
   computed: {
     ...mapGetters([
       'sidebar',

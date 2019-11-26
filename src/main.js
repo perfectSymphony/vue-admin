@@ -36,7 +36,6 @@ Vue.use(Element, {
 
 // 注册全局过滤器
 Object.keys(filters).forEach(key => {
-  // console.log(key)
   Vue.filter(key, filters[key])
 })
 
