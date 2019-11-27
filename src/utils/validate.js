@@ -50,9 +50,10 @@ export function isArray(arg) {
 }
 
 /**
+ * @param {String} val
  * @returns {Boolean}
- * @param {*} val
  */
+
 export function validatenull(val) {
   if (val instanceof Array) {
     if (val.length === 0) return true

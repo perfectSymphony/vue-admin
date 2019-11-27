@@ -20,7 +20,6 @@
         <!-- 国际化 -->
         <lang-select class="right-menu-item hover-effect" />
         <!-- 颜色选择器 -->
-        <!-- <el-color-picker v-model="themeVal" class="right-menu-item hover-effect" size="mini" show-alpha style="padding: 11px 0;" /> -->
         <theme-picker class="drawer-switch" @change="themeChange" />
       </template>
       <!-- 下拉菜单 -->
@@ -78,7 +77,6 @@ import SizeSelect from '@/components/SizeSelect'
 import ErrorLog from '@/components/ErrorLog'
 import Search from '@/components/HeaderSearch'
 import ThemePicker from '@/components/ThemePicker'
-// import theme from '@/layout/mixin/theme'
 
 export default {
   name: 'Navbar',
@@ -92,12 +90,6 @@ export default {
     Search,
     ThemePicker
   },
-  // mixins: [theme],
-  // data() {
-  //   return {
-  //     chalk: ''
-  //   }
-  // },
   computed: {
     ...mapGetters([
       'sidebar',

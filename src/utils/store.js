@@ -6,18 +6,19 @@ import { validatenull } from '@/utils/validate'
 export const setStore = (params) => {
   const {
     name,
-    content,
+    value,
     type
   } = params
   const obj = {
-    dataType: typeof (content),
-    content: content,
+    dataType: typeof (value),
+    value: value,
     type: type,
     datetime: new Date().getTime()
   }
   if (type) window.sessionStorage.setItem(name, JSON.stringify(obj))
   else window.localStorage.setItem(name, JSON.stringify(obj))
 }
+
 /**
  * 获取localStorage
  */
@@ -26,19 +27,29 @@ export const getStore = (params) => {
     name
   } = params
   let obj = {}
-  let content
+  let value
   obj = window.localStorage.getItem(name)
   if (validatenull(obj)) obj = window.sessionStorage.getItem(name)
   if (validatenull(obj)) return
   obj = JSON.parse(obj)
   if (obj.dataType === 'string') {
-    content = obj.content
+    value = obj.value
   } else if (obj.dataType === 'number') {
-    content = Number(obj.content)
+    value = Number(obj.value)
   } else if (obj.dataType === 'boolean') {
-    content = !!(obj.content)
+    value = !!(obj.value)
   } else if (obj.dataType === 'object') {
-    content = obj.content
+    value = obj.value
   }
-  return content
+  return value
+}
+/**
+ * 删除localStorage
+ */
+export const removeStore = params => {
+  const {
+    name
+  } = params
+  window.localStorage.removeItem(name)
+  window.sessionStorage.removeItem(name)
 }

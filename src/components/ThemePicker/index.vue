@@ -32,6 +32,7 @@ export default {
   },
   computed: {
     defaultTheme() {
+      console.log(this.$store.state.settings.theme)
       return this.$store.state.settings.theme
     }
   },
@@ -48,7 +49,6 @@ export default {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
-      // console.log(themeCluster, originalCluster)
 
       const $message = this.$message({
         message: 'Compiling the theme',
@@ -64,6 +64,7 @@ export default {
           const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)
 
           let styleTag = document.getElementById(id)
+          console.log(styleTag)
           if (!styleTag) {
             styleTag = document.createElement('style')
             styleTag.setAttribute('id', id)

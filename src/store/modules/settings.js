@@ -1,11 +1,13 @@
-import variables from '@/styles/element-variables.scss'
-
+// import variables from '@/styles/element-variables.scss'
 import defaultSettings from '@/settings'
+import { setStore, getStore } from '@/utils/store'
 
 const { showSetting, tagsView, fixedHeader, sidebarLogo } = defaultSettings
 
 const state = {
-  theme: variables.theme,
+  theme: getStore({
+    name: 'theme'
+  }) || '#ff8282',
   showSetting: showSetting,
   tagsView: tagsView,
   fixedHeader: fixedHeader,
@@ -14,16 +16,18 @@ const state = {
 
 const mutations = {
   CHANGE_SETTING: (state, { key, value }) => {
-    console.log(key, value)
     if (state.hasOwnProperty(key)) {
       state[key] = value
+      setStore({
+        name: 'theme',
+        value: value
+      })
     }
   }
 }
 
 const actions = {
   changeSetting({ commit }, data) {
-    // console.log(data)
     commit('CHANGE_SETTING', data)
   }
 }
