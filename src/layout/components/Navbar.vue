@@ -121,6 +121,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$login-btn: #F85959;
+
 .navbar {
   height: 50px;
   overflow: hidden;
