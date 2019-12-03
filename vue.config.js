@@ -15,7 +15,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: false, //不需要生产环境的source Map, 可以加速生产环境构建
+  productionSourceMap: false, 
   devServer: {
     port: port,
     open: true,
