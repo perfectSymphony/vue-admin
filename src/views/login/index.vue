@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="logo-wrap">
-      <span>你的头条</span>
+      <span>今日头条</span>
     </div>
     <div class="slogan-wrap">
       <img src="../../assets/slogan_c6bab2f.png" alt="slogan">
