@@ -9,7 +9,7 @@ cache:
 script: 
   - npm run build:prod
 
-deploy:
+after_script:
   - git checkout gh-pages
   - git add -f dist
   - git commit -m 'deploy'
