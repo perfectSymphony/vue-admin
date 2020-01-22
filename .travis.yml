@@ -2,7 +2,13 @@ language: node_js
 node_js: 
     - 'node'
 
-cache: npm
+branches:
+  only:
+  - master    
+
+cache:
+  directories:
+  - node_modules
 
 script: npm run build:prod
 
@@ -11,6 +17,8 @@ provider: pages
 skip_cleanup: true
 github_token: $GITHUB_TOKEN
 local_dir: dist
+target-branch: gh-pages
+verbose: true
 on:
   branch: master
 
