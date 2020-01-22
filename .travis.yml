@@ -2,25 +2,22 @@ language: node_js
 node_js: 
     - 'node'
 
-branches:
-  only:
-  - master    
-
 cache:
   directories:
   - node_modules
 
-script: npm run build:prod
+script: 
+  - npm run build:prod
 
-deploy:
-provider: pages
-skip_cleanup: true
-github_token: $GITHUB_TOKEN
-local_dir: dist
-target-branch: gh-pages
-verbose: true
-on:
-  branch: master
+after_script:
+  - git checkout gh-pages
+  - git add -f dist
+  - git commit -m 'deploy'
+  - git subtree push --prefix dist origin gh-pages
+
+branches:
+  only:
+  - master    
 
 notifications:
   email: true
