@@ -74,7 +74,7 @@ export function debounce(func, wait, immediate) {
 export function deepClone(source) {
   if (!source && typeof source !== 'object') throw new Error('error arguments', 'deepClone')
 
-  const targetObj = source.constructor === Array ? [] : {}
+  const targetObj = source.constructor === Array ? [] : {} // 判断复制的目标是数组还是对象
   Object.keys(source).forEach(keys => {
     if (source[keys] && typeof source[keys] === 'object') {
       targetObj[keys] = deepClone(source[keys])
