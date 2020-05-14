@@ -22,7 +22,6 @@
   </div>
 </template>
 <script>
-import 'babel-polyfill'
 import ImageCropper from '@/components/ImageCropper'
 import liuThumb from '@/components/liuThumb'
 
