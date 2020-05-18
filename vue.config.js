@@ -18,7 +18,7 @@ module.exports = {
   productionSourceMap: false, 
   devServer: {
     port: port,
-    open: true,
+    open: 'Google Chrome',
     overlay: {
       warnings: false,
       errors: true
