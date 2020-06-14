@@ -58,6 +58,7 @@ export default {
       this.emitInput('')
     },
     emitInput(val) {
+      console.log('走了')
       this.$emit('input', val)
     },
     handleImageSuccess(file) {
