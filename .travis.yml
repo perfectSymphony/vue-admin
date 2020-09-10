@@ -6,15 +6,23 @@ cache: npm
 
 script: npm run build:prod
 
-after_script:
-  - git checkout gh-pages
-  - git add -f dist
-  - git commit -m 'deploy'
-  - git subtree push --prefix dist origin gh-pages
+deploy:
+provider: pages
+skip_cleanup: true
+github_token: $GITHUB_TOKEN
+local_dir: dist
+on:
+  branch: master
+  
+#after_script:
+  #- git checkout gh-pages
+  #- git add -f dist
+  #- git commit -m 'deploy'
+  #- git subtree push --prefix dist origin gh-pages
 
-branches:
-  only:
-  - master
+#branches:
+ # only:
+ # - master
 
 notifications:
   email: true
