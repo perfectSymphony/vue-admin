@@ -15,7 +15,7 @@ NameList.push({ name: 'perfectSymphony' })
 export default [
     // transaction list
     {
-        url: '/transaction/list',
+        url: '/vue-admin/transaction/list',
         type: 'get',
         response: _ => { 
             // console.log(_);
@@ -36,7 +36,7 @@ export default [
     },
 
     {
-        url: '/search/user',
+        url: '/vue-admin/search/user',
         type: 'get',
         response: config => {
             const { name } = config.query

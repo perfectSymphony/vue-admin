@@ -29,7 +29,7 @@ for (let i = 0; i < count; i++) {
 
 export default [
     {
-        url: '/article/list',
+        url: '/vue-admin/article/list',
         type: 'get',
         response: config => {
             const { importance, type, title, page = 1, limit = 20, sort } = config.query
@@ -58,7 +58,7 @@ export default [
         }
     },
     {
-        url: '/article/create',
+        url: '/vue-admin/article/create',
         type: 'post',
         response: _ => {
             return {
@@ -68,7 +68,7 @@ export default [
         }
     },
     {
-        url: '/article/update',
+        url: '/vue-admin/article/update',
         type: 'post',
         response: _ => {
             return {
@@ -78,7 +78,7 @@ export default [
         }
     },
     {
-        url: '/article/pv',
+        url: '/vue-admin/article/pv',
         type: 'get',
         response: _ => {
             return {
@@ -95,7 +95,7 @@ export default [
         }
     },
     {
-        url: '/article/detail',
+        url: '/vue-admin/article/detail',
         type: 'get',
         response: config => {
             const { id } = config.query

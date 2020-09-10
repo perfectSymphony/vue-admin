@@ -25,7 +25,7 @@ const users = {
 export default [
     // 用户登录
     {
-        url: '/user/login',
+        url: '/vue-admin/user/login',
         type: 'post',
         response: config => {
             const { username } = config.body
@@ -48,7 +48,7 @@ export default [
 
     // 获取用户信息
     {
-        url: '/user/info\.*',
+        url: '/vue-admin/user/info\.*',
         type: 'get',
         response: config => {
             const { token } = config.query
@@ -71,7 +71,7 @@ export default [
 
     // 退出登录成功
     {
-        url: '/user/logout',
+        url: '/vue-admin/user/logout',
         type: 'post',
         response: _ => {
             return {

@@ -39,7 +39,7 @@ const roles = [
 export default [
     // mock get all routes form server
     {
-        url: '/routes',
+        url: '/vue-admin/routes',
         type: 'get',
         response: _ => {
             return {
@@ -50,7 +50,7 @@ export default [
     },
     // mock get all roles from server
     {
-        url: '/roles',
+        url: '/vue-admin/roles',
         type: 'get',
         response: _ => {
             return {
@@ -61,7 +61,7 @@ export default [
     },
     //delete role
     {
-        url: '/role/[A-Za-z0-9]',
+        url: '/vue-admin/role/[A-Za-z0-9]',
         type: 'delete',
         response: {
             code: 20000,
@@ -72,7 +72,7 @@ export default [
     },
     // update role 
     {
-        url: '/role/[A-Za-z0-9]',
+        url: '/vue-admin/role/[A-Za-z0-9]',
         type: 'put',
         response: {
             code: 20000,
@@ -83,7 +83,7 @@ export default [
     },
     // add Role
     {
-        url: '/role',
+        url: '/vue-admin/role',
         type: 'post',
         response: {
             code: 20000,

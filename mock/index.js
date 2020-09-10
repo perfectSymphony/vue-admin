@@ -62,9 +62,10 @@ export function mockXHR() {
 //后台模拟数据
 const responseFake = (url, type, respond) => {
     return {
-        url: new RegExp(`/mock${url}`),
+        url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
         type: type || 'GET',
         response(req, res) {
+            console.log('请求路径:' + req.path)
             res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
         }
     }
