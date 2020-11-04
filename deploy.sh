@@ -1,4 +1,5 @@
 # deploy.sh
+#!/usr/bin/env sh
 # 错误时停止
 set -e
 
