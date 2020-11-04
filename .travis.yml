@@ -14,7 +14,9 @@ local_dir: dist
 on:
   branch: gh-pages
   
-#after_script:
+after_script:
+  - git config user.name "${U_NAME}"
+  - git config user.email "${U_EMAIL}"
   #- git checkout gh-pages
   #- git add -f dist
   #- git commit -m 'deploy'
