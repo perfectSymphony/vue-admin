@@ -2,6 +2,7 @@ const chokidar = require('chokidar') //nodejs文件监控 是一个基于node.JS
 const badyParser = require('body-parser')
 const chalk = require('chalk')
 const path = require('path')
+const Mock = require('mockjs')
 
 // process.cwd() 返回的是当前Node.js进程执行时的工作目录
 // __dirname  当前模块的目录名 / 不是一个全局变量，而是每个模块内部的
@@ -9,17 +10,32 @@ const mockDir = path.join(process.cwd(), 'mock')
 
 function registerRoutes(app) {
     let mockLastIndex
-    const { default: mocks } = require('./index.js')
-    for (const mock of mocks) {
+    const { mocks } = require('./index.js')
+    const mocksForServer = mocks.map(route => {
+        return responseFake(route.url, route.type, route.response)
+      })
+    for (const mock of mocksForServer) {
         app[mock.type](mock.url, mock.response)
         mockLastIndex = app._router.stack.length
     }
     // 知道对象的所有属性，for...in...也可以
     //  keys 方法仅返回可枚举属性和方法的名称；若要返回可枚举和不可枚举属性和方法的名称，可以使用 Object.getOwnPropertyNames()函数。
-    const mockRoutesLength = Object.keys(mocks).length
+    const mockRoutesLength = Object.keys(mocksForServer).length
     return {
         mockRoutesLength: mockRoutesLength,
         mockStartIndex: mockLastIndex - mockRoutesLength
+    }
+}
+
+//后台模拟数据
+const responseFake = (url, type, respond) => {
+    return {
+        url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
+        type: type || 'GET',
+        response(req, res) {
+            console.log('请求路径:' + req.path)
+            res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+        }
     }
 }
 

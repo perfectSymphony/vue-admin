@@ -22,7 +22,7 @@ const users = {
     }
 }
 
-export default [
+module.exports = [
     // 用户登录
     {
         url: '/vue-admin/user/login',

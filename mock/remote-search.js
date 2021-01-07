@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+const Mock = require('mockjs')
 
 const NameList = []
 
@@ -12,7 +12,7 @@ for (let i = 0; i < count; i++) {
 NameList.push({ name: 'perfectSymphony' })
 
 
-export default [
+module.exports = [
     // transaction list
     {
         url: '/vue-admin/transaction/list',

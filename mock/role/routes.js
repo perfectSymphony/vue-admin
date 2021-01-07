@@ -1,6 +1,6 @@
 // 仅仅是模拟数据
 
-export const constantRoutes = [
+const constantRoutes = [
     {
         path: '/redirect',
         component: 'layout/Layout',
@@ -80,7 +80,7 @@ export const constantRoutes = [
     }
 ]
 
-export const asyncRoutes = [
+const asyncRoutes = [
     {
         path: '/permission',
         component: 'layout/Layout',
@@ -121,3 +121,8 @@ export const asyncRoutes = [
         ]
     }
 ]
+
+module.exports = {
+    constantRoutes,
+    asyncRoutes
+}

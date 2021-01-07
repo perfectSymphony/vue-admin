@@ -29,9 +29,10 @@ import * as filters from './filters'
 
 Vue.config.productionTip = false
 
-// import { mockXHR } from '../mock'
-// mockXHR()
-
+if (process.env.NODE_ENV === 'production') {
+  const { mockXHR } = require('../mock')
+  mockXHR()
+}
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // 设置element-ui默认字体大小
   i18n: (key, value) => i18n.t(key, value)
