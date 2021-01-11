@@ -9,7 +9,7 @@ skip_cleanup: true
 github_token: $GITHUB_TOKEN
 local_dir: dist
 on:
-  branch: master
+  branch: gh-pages
 
 #after_script:
   #- git checkout gh-pages
