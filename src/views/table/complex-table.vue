@@ -443,20 +443,20 @@ export default {
     },
     handleDownload() {
       this.downloadLoading = true
-          import('@/vendor/Export2Excel').then(excel => {
-            // tHeader是表头，filterVal 中的数据是表格的字段
-            const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-            // 上面设置Excel的表格第一行的标题
-            const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-            // 上面的timestamp、title、type、importance、status是list里对象的属性
-            const data = this.formatJson(filterVal, this.list)
-            excel.export_json_to_excel({
-              header: tHeader,
-              data,
-              filename: 'table-list'
-            })
-            this.downloadLoading = false
-          })
+      import('@/vendor/Export2Excel').then(excel => {
+        // tHeader是表头，filterVal 中的数据是表格的字段
+        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
+        // 上面设置Excel的表格第一行的标题
+        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        // 上面的timestamp、title、type、importance、status是list里对象的属性
+        const data = this.formatJson(filterVal, this.list)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: 'table-list'
+        })
+        this.downloadLoading = false
+      })
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {

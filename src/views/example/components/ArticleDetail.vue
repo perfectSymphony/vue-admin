@@ -290,13 +290,13 @@ export default {
     }
 }
 
-// .article-textarea /deep/ {
+// .article-textarea ::v-deep {
 //    textarea {
 //   }
 // }
 
 .article-textarea {
-  /deep/ textarea {
+  ::v-deep textarea {
       resize: none;
       border: none;
       border-radius: 0px;

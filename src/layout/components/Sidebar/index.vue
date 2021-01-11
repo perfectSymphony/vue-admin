@@ -58,7 +58,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
- /deep/ .el-scrollbar__bar {
+ ::v-deep .el-scrollbar__bar {
           .el-scrollbar__thumb {
             background: #ff8282;
             &:hover {

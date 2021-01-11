@@ -56,7 +56,6 @@ module.exports = app => {
     // Polyfill是一个js库，主要抚平不同浏览器之间对js实现的差异
     // polyfill 是 shim的一种。 
     // shim是将不同 api封装成一种，比如 jQuery的 $.ajax 封装了 XMLHttpRequest和 IE用ActiveXObject方式创建xhr对象。它将一个新的API引入到一个旧的环境中,而且仅靠旧环境中已有的手段实现。
-    require('@babel/register')
     app.use(badyParser.json()) // for parsing application/json
     app.use(badyParser.urlencoded({
             extended: true
@@ -72,6 +71,7 @@ module.exports = app => {
         ignoreInitial: true,
     }).on('all', (event, path) => {
         if (event === 'change' || event === 'add') {
+          try{
             // remove mock routes stack
             app._router.stack.splice(mockStartIndex, mockRoutesLength)
 
@@ -83,6 +83,9 @@ module.exports = app => {
             mockStartIndex = mockRoutes.mockStartIndex
 
             console.log(chalk.magentaBright(`\n > Mock Server hot reload success! changed  ${path}`))
+          }catch(error){
+            console.log(chalk.redBright(error))
+          }
         }
     })
 }

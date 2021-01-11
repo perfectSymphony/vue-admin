@@ -185,29 +185,29 @@ export default {
     handleDownload() {
       if (this.multipleSelection.length) {
         this.listLoading = true
-          // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据
-          // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader
-          // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
-          import('@/vendor/Export2Excel').then(excel => {
-            const multiHeader = [['Id', 'Main Information', '', '', '', '', '']]
-            const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
-            const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
-            const list = this.multipleSelection
-            const data = this.formatJson(filterVal, list)
-            // 删除这个变量能够实现单行导出
-            const merges = ['A1:A2', 'B1:G1', 'H1:H2']
-            excel.export_json_to_excel({
-              multiHeader,
-              header: tHeader,
-              merges,
-              data,
-              filename: this.filename,
-              autoWidth: this.autoWidth,
-              bookType: this.bookType
-            })
-            this.$refs.dragTable.clearSelection()
-            this.listLoading = false
+        // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据
+        // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader
+        // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
+        import('@/vendor/Export2Excel').then(excel => {
+          const multiHeader = [['Id', 'Main Information', '', '', '', '', '']]
+          const tHeader = ['', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
+          const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
+          const list = this.multipleSelection
+          const data = this.formatJson(filterVal, list)
+          // 删除这个变量能够实现单行导出
+          const merges = ['A1:A2', 'B1:G1', 'H1:H2']
+          excel.export_json_to_excel({
+            multiHeader,
+            header: tHeader,
+            merges,
+            data,
+            filename: this.filename,
+            autoWidth: this.autoWidth,
+            bookType: this.bookType
           })
+          this.$refs.dragTable.clearSelection()
+          this.listLoading = false
+        })
       } else {
         this.$message({
           message: '请确保至少选择一项',

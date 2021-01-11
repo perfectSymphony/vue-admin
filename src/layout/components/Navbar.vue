@@ -229,7 +229,7 @@ $login-btn: #F85959;
   }
 }
 
-/deep/ .el-color-picker__trigger {
+::v-deep .el-color-picker__trigger {
   border: none;
 }
 </style>

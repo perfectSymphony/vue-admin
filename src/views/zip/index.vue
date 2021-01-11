@@ -158,22 +158,22 @@ export default {
     },
     handleDownload() {
       this.listLoading = true
-            // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据。
-            // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader。
-            // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
-            import('@/vendor/Export2Zip').then(zip => {
-              const tHeader = ['Id', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
-              const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
-              const data = this.formatJson(filterVal, this.list)
-              zip.export_txt_to_zip(
-                tHeader,
-                data,
-                this.filename,
-                this.filename
-              )
-              this.$refs.dragTable.clearSelection()
-              this.listLoading = false
-            })
+      // Excel 的导入导出都是依赖于js-xlsx来实现的。在 js-xlsx的基础上又封装了Export2Excel.js来方便导出数据。
+      // 由于 Export2Excel不仅依赖js-xlsx还依赖file-saver和script-loader。
+      // 由于js-xlsx体积还是很大的，导出功能也不是一个非常常用的功能，所以使用的时候建议使用懒加载
+      import('@/vendor/Export2Zip').then(zip => {
+        const tHeader = ['Id', 'Date', 'Title', 'Author', 'importance', 'Readings', 'status']
+        const filterVal = ['id', 'display_time', 'title', 'author', 'importance', 'pageviews', 'status']
+        const data = this.formatJson(filterVal, this.list)
+        zip.export_txt_to_zip(
+          tHeader,
+          data,
+          this.filename,
+          this.filename
+        )
+        this.$refs.dragTable.clearSelection()
+        this.listLoading = false
+      })
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
