@@ -22,7 +22,7 @@ script:
 #   branch: gh-pages
 
 after_script:
-  - git checkout gh-pages
+  - git checkout -b gh-pages
   - git add -f dist
   - git commit -m 'deploy'
   - git subtree push --prefix dist origin gh-pages
