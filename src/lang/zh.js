@@ -74,7 +74,7 @@ export default {
     size: '布局大小'
   },
   login: {
-    title: '你的头条',
+    title: '我的头条',
     logIn: '登录',
     username: '账号',
     password: '密码',
