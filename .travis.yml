@@ -21,11 +21,11 @@ local_dir: dist
 on:
   branch: gh-pages
 
-# after_script:
-#   - git checkout -b gh-pages
-#   - git add -f dist
-#   - git commit -m 'deploy'
-#   - git subtree push --prefix dist origin gh-pages
+after_script:
+  - git checkout -b gh-pages
+  - git add -f dist
+  - git commit -m 'deploy'
+  - git subtree push --prefix dist origin gh-pages
 
 # 只有指定的分支提交时才会运行脚本
 branches:
