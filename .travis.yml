@@ -22,11 +22,11 @@ on:
   branch: gh-pages
 
 after_script:
-  - git config user.name "perfectSymphony"
-  - git config user.email "2066309334@qq.com"
   - git checkout -b gh-pages
   - git add -f dist
   - git commit -m 'deploy'
+  - git remote remove origin 
+  - git remote add origin git@github.com:perfectSymphony/vue-admin.git
   - git subtree push --prefix dist origin gh-pages
 
 # 只有指定的分支提交时才会运行脚本
