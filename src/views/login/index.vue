@@ -1,11 +1,5 @@
 <template>
   <div class="login-container">
-    <div class="logo-wrap">
-      <span>你的头条</span>
-    </div>
-    <div class="slogan-wrap">
-      <img src="../../assets/slogan_c6bab2f.png" alt="slogan">
-    </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="100px" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
@@ -213,7 +207,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  $bg: #eee;
+  $bg: rgb(239, 248, 215);
   $form_bg: #fff;
   $light_gray: #000 !important;
   $login-btn: #F85959;
@@ -222,43 +216,17 @@ export default {
     min-height:100%;
     width:100%;
     background-color: $bg;
-    background-image: url('../../assets/login_bg_7584f6a.png');
     background-repeat: no-repeat;
     background-position: top center;
     overflow:hidden;
     position: relative;
-
-    .logo-wrap {
-      display: inline-block;
-      text-align: center;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-
-      span {
-        color: $login-btn;
-        font-size: 25px;
-        font-weight: 700;
-        padding: 5px 0;
-      }
-    }
-
-    .slogan-wrap {
-      text-align: center;
-      margin: 10px auto;
-
-      img {
-        width: 520px;
-        height: 360px;
-      }
-    }
 
     .login-form {
       position: relative;
       width: 375px;
       max-width: 100%;
       padding: 25px;
-      top: -320px;
+      top: 80px;
       margin: 160px auto;
       overflow: hidden;
       border-radius: 5px;

@@ -24,6 +24,8 @@ body {
     // 该属性值可以用于字距调整和连字
     text-rendering: optimizeLegibility;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    perspective: 500;
+    -webkit-perspective: 500
 }
 
 label {
