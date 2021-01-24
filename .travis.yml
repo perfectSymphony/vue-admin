@@ -1,6 +1,14 @@
 language: node_js
 node_js: '14.7.0' #设置语言版本
 
+# 只有指定的分支提交时才会运行脚本
+branches:
+ only:
+ - master
+
+before_install:
+  - export TZ='Asia/Beijing'   # 配置时区为东八区 UTC+8
+
 cache:
   directories:
     - node_modules #缓存依赖
@@ -14,25 +22,24 @@ script:
 
 # script: npm run build:prod
 deploy:
-provider: pages
-skip_cleanup: true
-github_token: $GITHUB_TOKEN
-local_dir: dist
 on:
-  branch: gh-pages
+  branch: master
+strategy: git
+provider: pages
+# 跳过清理
+skip_cleanup: true
+token: $GH_TOKEN              # GitHub Token 变量
+keep_history: true            # 保持推送记录，以增量提交的方式
+local_dir: dist             # 需要推送到 gh-pages 分支的静态文件目录
+target_branch: gh-pages       # 推送的目标文件夹 local_dir(public) -> gh-pages 分支
 
-after_script:
-  - git checkout -b gh-pages
-  - git add -f dist
-  - git commit -m 'deploy'
-  - git remote remove origin 
-  - git remote add origin git@github.com:perfectSymphony/vue-admin.git
-  - git subtree push --prefix dist origin gh-pages
-
-# 只有指定的分支提交时才会运行脚本
-branches:
- only:
- - master
+# after_script:
+#   - git checkout -b gh-pages
+#   - git add -f dist
+#   - git commit -m 'deploy'
+#   - git remote remove origin 
+#   -git remote add origin https://github.com/XXX/xxx.git
+#   - git subtree push --prefix dist origin gh-pages
 
 notifications:
   email: true
