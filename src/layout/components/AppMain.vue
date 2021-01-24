@@ -24,26 +24,26 @@ export default {
 <style lang="scss" scoped>
 
 .app-main {
-    // 50 = navBar 50
-    // 34 = tagView
-    min-height: calc(100vh - 50px);
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  // 50 = navBar 50
+  // 34 = tagView
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .fixed-header + .app-main {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 .hasTagsView {
-    .app-main {
-         min-height: calc(100vh - 84px);
-    }
+  .app-main {
+    min-height: calc(100vh - 84px);
+  }
 
-    .fixed-header + .app-main {
-        padding-top: 84px;
-    }
+  .fixed-header + .app-main {
+    padding-top: 84px;
+  }
 }
 
 </style>

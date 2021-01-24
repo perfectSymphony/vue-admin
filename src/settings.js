@@ -4,7 +4,7 @@ module.exports = {
   /**
    * 是否需要设置右侧面板
    */
-  showSetting: true,
+  showSetting: false,
 
   /**
    * 是否需要标签
@@ -14,7 +14,7 @@ module.exports = {
   /**
    * 是否固定头部
    */
-  fixedHeader: true,
+  fixedHeader: false,
 
   /**
    * 是否在侧导航显示项目logo
