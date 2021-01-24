@@ -33,13 +33,13 @@ keep_history: true            # 保持推送记录，以增量提交的方式
 local_dir: dist             # 需要推送到 gh-pages 分支的静态文件目录
 target_branch: gh-pages       # 推送的目标文件夹 local_dir(public) -> gh-pages 分支
 
-# after_script:
-#   - git checkout -b gh-pages
-#   - git add -f dist
-#   - git commit -m 'deploy'
-#   - git remote remove origin 
-#   -git remote add origin https://github.com/XXX/xxx.git
-#   - git subtree push --prefix dist origin gh-pages
+after_script:
+  - git checkout -b gh-pages
+  - git add -f dist
+  - git commit -m 'deploy'
+  - git remote remove origin 
+  - git remote add origin https://github.com/perfectSymphony/vue-admin.git
+  - git subtree push --prefix dist origin gh-pages
 
 notifications:
   email: true
