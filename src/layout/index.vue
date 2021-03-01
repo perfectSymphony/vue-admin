@@ -3,12 +3,12 @@
     <div v-if="device === 'mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
-      <Sticky :z-index="10">
+      <!-- <Sticky :z-index="10"> -->
         <div :class="{'fixed-header':fixedHeader}">
           <navbar />
           <tags-view v-if="needTagsView" />
         </div>
-      </Sticky>
+      <!-- </Sticky> -->
       <app-main />
       <right-panel v-if="showSetting">
         <settings />
@@ -25,7 +25,7 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Sidebar, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
-import Sticky from '@/components/Sticky'
+// import Sticky from '@/components/Sticky'
 import BackToTop from '@/components/BackToTop'
 
 // 页面分布引导
@@ -42,7 +42,7 @@ export default {
     TagsView,
     Settings,
     RightPanel,
-    Sticky,
+    // Sticky,
     BackToTop
   },
   mixins: [ResizeMixin],
