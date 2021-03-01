@@ -4,10 +4,10 @@
     <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView:needTagsView }" class="main-container">
       <!-- <Sticky :z-index="10"> -->
-        <div :class="{'fixed-header':fixedHeader}">
-          <navbar />
-          <tags-view v-if="needTagsView" />
-        </div>
+      <div :class="{'fixed-header':fixedHeader}">
+        <navbar />
+        <tags-view v-if="needTagsView" />
+      </div>
       <!-- </Sticky> -->
       <app-main />
       <right-panel v-if="showSetting">
