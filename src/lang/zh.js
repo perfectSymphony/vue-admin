@@ -57,6 +57,7 @@ export default {
     uploadExcel: '上传 Excel',
     zip: 'Zip',
     printPDF: '打印 PDF',
+    sku: 'sku管理',
     exportZip: 'Export Zip',
     theme: '换肤',
     clipboardDemo: 'Clipboard',
