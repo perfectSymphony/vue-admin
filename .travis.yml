@@ -28,9 +28,9 @@ strategy: git
 provider: pages
 # 跳过清理
 skip_cleanup: true
-name: $GIT_NAME # 用户名变量
+# name: $GIT_NAME # 用户名变量
 email: $GIT_EMAIL # 用户邮箱变量
-password: $GIT_password #用户密码
+# password: $GIT_password #用户密码
 token: $GH_TOKEN              # GitHub Token 变量
 keep_history: true            # 保持推送记录，以增量提交的方式
 local_dir: dist             # 需要推送到 gh-pages 分支的静态文件目录
