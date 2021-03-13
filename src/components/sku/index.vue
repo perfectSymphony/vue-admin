@@ -7,23 +7,22 @@
           <Draggable v-for="(item, index) in specification" :key="index">
             <li class="item">
               <div class="name">
-                <el-input size="default" style="width:300px; float: left;" v-model="item.name" placeholder="输入产品规格"></el-input>
-                
-                <i class="el-icon-circle-close" @click="delSpec(index)"></i>
+                <el-input v-model="item.name" size="default" style="width:300px; float: left;" placeholder="输入产品规格" />
+
+                <i class="el-icon-circle-close" @click="delSpec(index)" />
                 <!-- <a-icon class="icon" type="close-circle" @click="delSpec(index)"></a-icon> -->
               </div>
               <div class="values">
-                <Container @drop="onInnerDrop(item, $event)" orientation="horizontal" tag="span" style="display:inline-block;">
+                <Container orientation="horizontal" tag="span" style="display:inline-block;" @drop="onInnerDrop(item, $event)">
                   <Draggable v-for="(tag, num) in item.items" :key="num" tag="span" style="display:inline-block;">
                     <span class="tag">
                       <span class="select__tags-text">{{ tag.name }}</span>
-                      <a-icon type="close" @click="delSpecTag(index, num)"></a-icon>
+                      <a-icon type="close" @click="delSpecTag(index, num)" />
                     </span>
                   </Draggable>
                 </Container>
                 <div class="add-attr">
-                  <el-input size="small" v-model="specValue[index]" placeholder="回车添加商品属性" @pressEnter="e => addSpecTag(e, index, item.items.length)">
-                  </el-input>
+                  <el-input v-model="specValue[index]" size="small" placeholder="回车添加商品属性" @pressEnter="e => addSpecTag(e, index, item.items.length)" />
                 </div>
               </div>
             </li>
@@ -40,7 +39,8 @@
           <tr>
             <th
               v-for="(item, index) in specification"
-              :key="index">
+              :key="index"
+            >
               {{ item.name }}
             </th>
             <th>图片</th>
@@ -58,7 +58,8 @@
               <td
                 v-if="showTd(specIndex, index)"
                 :key="n"
-                :rowspan="countSum(n)">
+                :rowspan="countSum(n)"
+              >
                 {{ getSpecAttr(specIndex, index, 'name') }}
               </td>
             </template>
@@ -74,57 +75,57 @@
             </td>
             <td>
               <el-input
-                size="small"
-                type="text"
                 v-model.number="item.goodsPrice"
-                placeholder="输入销售价">
-              </el-input>
+                size="small"
+                type="text"
+                placeholder="输入销售价"
+              />
             </td>
             <td>
               <el-input
-                size="small"
-                type="text"
                 v-model.number="item.marketPrice"
-                placeholder="建议零售价">
-              </el-input>
+                size="small"
+                type="text"
+                placeholder="建议零售价"
+              />
             </td>
             <td>
               <el-input
-                size="small"
-                type="text"
                 v-model.number="item.goodsNumber"
-                placeholder="输入库存">
-              </el-input>
+                size="small"
+                type="text"
+                placeholder="输入库存"
+              />
             </td>
             <td>
               <el-input
-                size="small"
-                type="text"
                 v-model.number="item.goodsUpc"
-                placeholder="输入UPC码">
-              </el-input>
+                size="small"
+                type="text"
+                placeholder="输入UPC码"
+              />
             </td>
             <td>
               <el-input
-                size="small"
-                type="text"
                 v-model.number="item.goodsCode"
-                placeholder="输入69码">
-              </el-input>
+                size="small"
+                type="text"
+                placeholder="输入69码"
+              />
             </td>
             <td>
               <el-input
+                v-model.number="item.goodsWeight"
                 size="small"
                 type="text"
-                v-model.number="item.goodsWeight"
-                placeholder="输入重量">
-              </el-input>
+                placeholder="输入重量"
+              />
             </td>
           </tr>
           <tr>
             <td colspan="8" class="wh-foot">
               <span class="label">批量设置：</span>
-              <ul class="set-list" v-if="isSetListShow">
+              <ul v-if="isSetListShow" class="set-list">
                 <li class="set-item" @click="openBatch('goodsPrice')">销售价</li>
                 <li class="set-item" @click="openBatch('marketPrice')">建议零售价</li>
                 <li class="set-item" @click="openBatch('goodsNumber')">库存</li>
@@ -132,11 +133,11 @@
                 <li class="set-item" @click="openBatch('goodsCode')">69码</li>
                 <li class="set-item" @click="openBatch('goodsWeight')">重量(克)</li>
               </ul>
-              <div class="set-form" v-else>
-                <el-input size="small" v-model.number="batchValue" placeholder="输入要设置的数量"></el-input>
-                
-                <i class="el-icon-check" :style="{ color: '#0088ee' }" @click="setBatch"></i>
-                <i class="el-icon-close" :style="{ color: '#cc0000' }" @click="cancelBatch"></i>
+              <div v-else class="set-form">
+                <el-input v-model.number="batchValue" size="small" placeholder="输入要设置的数量" />
+
+                <i class="el-icon-check" :style="{ color: '#0088ee' }" @click="setBatch" />
+                <i class="el-icon-close" :style="{ color: '#cc0000' }" @click="cancelBatch" />
                 <!-- <el-icon type="check" class="set-btn" :style="{ color: '#0088ee' }" @click="setBatch"/>
                 <el-icon type="close" class="set-btn" :style="{ color: '#cc0000' }" @click="cancelBatch"/> -->
               </div>
@@ -154,412 +155,413 @@ import { Container, Draggable } from 'vue-smooth-dnd'
 import { applyDrag } from '@/utils/util'
 // import Uploader from '@/components/Uploader'
 
-  export default {
-    name: 'newSku',
-    props: {
-      spec: {
-        type: [Array, Object],
-        default: () => {}
-      },
-      inheritAttrs: {
-        type: Boolean,
-        default: false
-      }
-    },
-    components: {
-      Container,
-      Draggable,
+export default {
+  name: 'NewSku',
+  components: {
+    Container,
+    Draggable
     //   Uploader
+  },
+  props: {
+    spec: {
+      type: [Array, Object],
+      default: () => {}
     },
-    data () {
+    inheritAttrs: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      // list : [
+      //   {name:'颜色',items:['red','yellow']},
+      //   {name:'内存',items:["4G","8G"]}
+      // ],
+      specification: [],
+      specValue: [],
+      newList: [],
+      newData: [],
+      childProductArray: [],
+      oldTableData: [],
+      // 批量设置相关
+      isSetListShow: true,
+      batchValue: '', // 批量设置所绑定的值
+      currentType: '' // 要批量设置的类型
+    }
+  },
+
+  computed: {
+    // stockSpecArr () {
+    //   return this.childProductArray.map(item => item.childProductSpec)
+    // },
+    value() {
+      const { specification, childProductArray } = this
       return {
-        // list : [
-        //   {name:'颜色',items:['red','yellow']},
-        //   {name:'内存',items:["4G","8G"]}
-        // ],
-        specification: [],
-        specValue: [],
-        newList: [],
-        newData: [],
-        childProductArray: [],
-        oldTableData: [],
-        // 批量设置相关
-        isSetListShow: true,
-        batchValue: '', // 批量设置所绑定的值
-        currentType: '', // 要批量设置的类型
+        specification,
+        childProductArray
+      }
+    }
+  },
+  watch: {
+    value(newValue, oldValue) {
+      this.$emit('change', newValue)
+    }
+  },
+  created() {
+    // this.processing()
+  },
+  mounted() {
+    // 回显规格项目
+    if (this.spec.length === 0) return
+    const goodsSpec = this.spec.goodsSpec
+    const spec = this.spec.goodsSpec.spec
+    console.log(spec)
+    this.specification = spec
+
+    const option = this.spec.goodsSpec.option
+    const selectSkuList = []
+    for (const key in option) {
+      const item = option[key]
+      const subItem = item.name.split('+')
+      const specs = item.specs.split('_')
+      const items = []
+      subItem.map((item, i) => {
+        items.push({
+          id: specs[i] - 0,
+          name: (goodsSpec.spec[i] && goodsSpec.spec[i].name) || '',
+          items: item
+        })
+      })
+      selectSkuList.push({
+        isShow: true,
+        id: item.skuId,
+        skuInfo: item,
+        items
+      })
+    }
+    const tmpSkuList = []
+    selectSkuList.map(item => {
+      tmpSkuList.push(item.skuInfo)
+    })
+
+    const displayArr = []
+    let key = ''
+    let value = ''
+    tmpSkuList.map((items, i) => {
+      const childProductSpec = {}
+      const tmpDisplayObj = {}
+      items.specInfo.map(item => {
+        key = item.name
+        value = item.value
+        childProductSpec[key] = value
+      })
+      tmpDisplayObj.childProductSpec = childProductSpec
+      displayArr.push(Object.assign({}, items, tmpDisplayObj))
+    })
+    this.childProductArray = displayArr
+    this.childProductArray.forEach((item, index) => {
+      let name = item.picUnique
+      name = name.slice(name.lastIndexOf('.cn/') + 4, name.length)
+      item.uploadObj = {
+        url: item.picUnique,
+        thumbUrl: item.picUnique,
+        name: name,
+        uid: item.picUnique,
+        picUrl: item.picUnique,
+        status: 'done'
+      }
+    })
+  },
+  methods: {
+    // 添加规格项目
+    addSpec() {
+      if (this.specification.length < 15) {
+        this.specification.push({
+          name: '',
+          specId: '' + uuid(8, 8),
+          items: []
+        })
       }
     },
-    created () {
-      // this.processing()
+    delSpec(index) {
+      this.specification.splice(index, 1)
+      this.processing()
     },
-
-    computed: {
-      // stockSpecArr () {
-      //   return this.childProductArray.map(item => item.childProductSpec)
-      // },
-      value () {
-        const { specification, childProductArray } = this
-        return {
-          specification,
-          childProductArray
-        }
+    // 添加子规格
+    addSpecTag(e, index, num) {
+      if (e.target.value === '') {
+        this.$message.error('请输入内容')
+        return false
       }
-    },
-    watch: {
-      value (newValue, oldValue) {
-        this.$emit('change', newValue)
-      },
-    },
-    mounted () {
-      // 回显规格项目
-      if (this.spec.length === 0) return
-      const goodsSpec = this.spec.goodsSpec
-      const spec = this.spec.goodsSpec.spec
-      console.log(spec)
-      this.specification = spec
-
-      const option = this.spec.goodsSpec.option
-      const selectSkuList = []
-      for (const key in option) {
-        const item = option[key]
-        const subItem = item.name.split('+')
-        const specs = item.specs.split('_')
-        const items = []
-        subItem.map((item, i) => {
-          items.push({
-            id: specs[i] - 0,
-            name: (goodsSpec.spec[i] && goodsSpec.spec[i].name) || '',
-            items: item
-          })
-        })
-        selectSkuList.push({
-          isShow: true,
-          id: item.skuId,
-          skuInfo: item,
-          items
-        })
+      const obj = {
+        itemId: '' + uuid(16, 16),
+        name: ''
       }
-      const tmpSkuList = []
-      selectSkuList.map(item => {
-        tmpSkuList.push(item.skuInfo)
-      })
-
-      const displayArr = []
-      let key = ''
-      let value = ''
-      tmpSkuList.map((items, i) => {
-        const childProductSpec = {}
-        const tmpDisplayObj = {}
-        items.specInfo.map(item => {
-          key = item.name
-          value = item.value
-          childProductSpec[key] = value
-        })
-        tmpDisplayObj.childProductSpec = childProductSpec
-        displayArr.push(Object.assign({}, items, tmpDisplayObj))
-      })
-      this.childProductArray = displayArr
-      this.childProductArray.forEach((item, index) => {
-        let name = item.picUnique
-        name = name.slice(name.lastIndexOf('.cn/') + 4, name.length)
-        item.uploadObj = {
-          url: item.picUnique,
-          thumbUrl: item.picUnique,
-          name: name,
-          uid: item.picUnique,
-          picUrl: item.picUnique,
-          status: 'done'
+      obj.name = e.target.value
+      let status = false
+      this.specification[index].items.forEach((item) => {
+        if (item.name === obj.name) {
+          status = true
         }
       })
-    },
-    methods: {
-      // 添加规格项目
-      addSpec () {
-        if (this.specification.length < 15) {
-          this.specification.push({
-            name: '',
-            specId: '' + uuid(8, 8),
-            items: []
-          })
-        }
-      },
-      delSpec (index) {
-        this.specification.splice(index, 1)
+      if (status) {
+        this.$message.error('请勿添加重复子规格')
+      } else {
+        this.specification[index].items.push(obj)
+        this.specValue[index] = ''
         this.processing()
-      },
-      // 添加子规格
-      addSpecTag (e, index, num) {
-        if (e.target.value === '') {
-          this.$message.error('请输入内容')
+      }
+    },
+    // 删除子规格
+    delSpecTag(index, num) {
+      this.specification[index].items.splice(num, 1)
+      this.processing()
+    },
+    // 处理数据
+    processing() {
+      this.newData = []
+      console.log(this.specification)
+      for (let i = 0; i < this.specification.length; i++) {
+        const newlist = []
+        console.log(this.specification[i].items)
+        this.specification[i].items.forEach((item, index) => {
+          const obj = {}
+          obj[this.specification[i].name] = this.specification[i].items[index].name
+          newlist.push(obj)
+        })
+        this.newData.push(newlist)
+      }
+      console.log(this.newData)
+      this.getList()
+    },
+    // 转换数据
+    getList() {
+      this.oldTableData = this.childProductArray.length ? this.childProductArray : []
+      this.childProductArray = []
+      this.newList = this.descartes(this.newData)
+      console.log(this.newList)
+      for (let index = 0; index < this.newList.length; index++) {
+        const arr = []
+        if (Array.isArray(this.newList[index])) {
+          this.newList[index].forEach((item, i) => {
+            const spec = {}
+            // spec['id'] = this.specification[i].items[index].itemId
+            spec['id'] = this.getSpecAttr(i, i, 'id')
+            spec['typeName'] = this.getKey(item)
+            spec['name'] = item[this.getKey(item)]
+            arr.push(spec)
+          })
+        } else {
+          const spec = {}
+          spec['id'] = this.specification[0].items[index].itemId
+          spec['typeName'] = this.getKey(this.newList[index])
+          spec['value'] = this.newList[index][this.getKey(this.newList[index])]
+          arr.push(spec)
+        }
+        const obj = {}
+        obj['specInfo'] = arr
+        obj['name'] = this.setName(this.newList[index])
+        obj['goodsPrice'] = ''
+        obj['goodsNumber'] = ''
+        obj['picUnique'] = ''
+        obj['marketPrice'] = ''
+        obj['goodsUpc'] = ''
+        obj['goodsCode'] = ''
+        obj['goodsWeight'] = ''
+        obj['uploadObj'] = {}
+        obj['childProductId'] = '' + uuid(16, 16)
+        obj['childProductSpec'] = this.getChildProductSpec(index)
+
+        this.childProductArray.push(obj)
+      }
+      console.log(this.oldTableData)
+      if (this.oldTableData.length) {
+        this.verification()
+      }
+      console.log(this.childProductArray)
+    },
+    // 获取childProductArray的childProductSpec属性
+    getChildProductSpec(index) {
+      const obj = {}
+      const that = this
+      this.specification.forEach((item, specIndex) => {
+        obj[item.name] = that.getSpecAttr(specIndex, index, 'name')
+      })
+      return obj
+    },
+    // 新旧数据校验
+    verification() {
+      this.childProductArray.forEach((item, index) => {
+        this.oldTableData.forEach((ele) => {
+          if (item.name === ele.name) {
+            // if (this.verificationName(item.name, ele)) {
+            this.childProductArray.splice(index, 1, ele)
+          }
+        })
+      })
+    },
+    // 校验name相同的数据
+    verificationName(name, arr) {
+      const nameArr = name.split('+')
+      const status = true
+      if (nameArr.length !== arr.length) return false
+      arr.forEach(item => {
+        if (item.items.indexOf(name) < 0) {
           return false
         }
-        const obj = {
-          itemId: '' + uuid(16, 16),
-          name: ''
-        }
-        obj.name = e.target.value
-        let status = false
-        this.specification[index].items.forEach((item) => {
-          if (item.name === obj.name) {
-            status = true
-          }
-        })
-        if (status) {
-          this.$message.error('请勿添加重复子规格')
-        } else {
-          this.specification[index].items.push(obj)
-          this.specValue[index] = ''
-          this.processing()
-        }
-      },
-      // 删除子规格
-      delSpecTag (index, num) {
-        this.specification[index].items.splice(num, 1)
-        this.processing()
-      },
-      //处理数据
-      processing() {
-        this.newData = [];
-        console.log(this.specification)
-        for (let i = 0; i < this.specification.length; i++) {
-          let newlist = []
-          console.log(this.specification[i].items)
-          this.specification[i].items.forEach((item,index) => {
-            let obj = {}
-            obj[this.specification[i].name] = this.specification[i].items[index].name
-            newlist.push(obj)
-          })
-          this.newData.push(newlist)
-        }
-        console.log(this.newData)
-        this.getList()
-      },
-      //转换数据
-      getList() {
-        this.oldTableData = this.childProductArray.length ? this.childProductArray : []
-        this.childProductArray = []
-        this.newList = this.descartes(this.newData)
-        console.log(this.newList)
-        for (let index = 0; index < this.newList.length; index++) {
-          let arr = []
-          if (Array.isArray(this.newList[index])) {
-            this.newList[index].forEach((item, i) => {
-              let spec = {}
-              // spec['id'] = this.specification[i].items[index].itemId
-              spec['id'] = this.getSpecAttr(i, i, 'id')
-              spec['typeName'] = this.getKey(item)
-              spec['name'] = item[this.getKey(item)]
-              arr.push(spec)
-            })
+      })
+      return status
+    },
+    // 获取对象的key
+    getKey(item) {
+      return Object.keys(item)[0]
+    },
+    // 设置后台需要的skun，Name字段方法
+    setName(item) {
+      let name = ''
+      if (Array.isArray(item)) {
+        item.forEach((ele, index) => {
+          if (index < item.length - 1) {
+            name += ele[this.getKey(ele)] + '+'
           } else {
-            let spec = {}
-            spec['id'] = this.specification[0].items[index].itemId
-            spec['typeName'] = this.getKey(this.newList[index])
-            spec['value'] = this.newList[index][this.getKey(this.newList[index])]
-            arr.push(spec)
-          }
-          let obj = {}
-          obj['specInfo'] = arr
-          obj['name'] = this.setName(this.newList[index])
-          obj['goodsPrice'] = ''
-          obj['goodsNumber'] = ''
-          obj['picUnique'] = ''
-          obj['marketPrice'] = ''
-          obj['goodsUpc'] = ''
-          obj['goodsCode'] = ''
-          obj['goodsWeight'] = ''
-          obj['uploadObj'] = {}
-          obj['childProductId'] = '' + uuid(16, 16)
-          obj['childProductSpec'] = this.getChildProductSpec(index)
-
-          this.childProductArray.push(obj)
-        }
-        console.log(this.oldTableData)
-        if (this.oldTableData.length) {
-          this.verification()
-        }
-        console.log(this.childProductArray)
-      },
-      // 获取childProductArray的childProductSpec属性
-      getChildProductSpec (index) {
-        const obj = {}
-        const that = this
-        this.specification.forEach((item, specIndex) => {
-          obj[item.name] = that.getSpecAttr(specIndex, index, 'name')
-        })
-        return obj
-      },
-      // 新旧数据校验
-      verification () {
-        this.childProductArray.forEach((item, index) => {
-          this.oldTableData.forEach((ele) => {
-            if (item.name === ele.name) {
-            // if (this.verificationName(item.name, ele)) {
-              this.childProductArray.splice(index, 1, ele)
-            }
-          })
-        })
-      },
-      // 校验name相同的数据
-      verificationName (name, arr) {
-        let nameArr = name.split('+')
-        let status = true
-        if (nameArr.length !== arr.length) return false
-        arr.forEach(item => {
-          if(item.items.indexOf(name) < 0){
-            return false
+            name += ele[this.getKey(ele)]
           }
         })
-        return status
-      },
-      // 获取对象的key
-      getKey (item) {
-        return Object.keys(item)[0]
-      },
-      // 设置后台需要的skun，Name字段方法
-      setName (item) {
-        let name = ''
-        if (Array.isArray(item)) {
-          item.forEach((ele, index) => {
-            if (index < item.length - 1) {
-              name += ele[this.getKey(ele)] + '+'
-            } else {
-              name += ele[this.getKey(ele)]
-            }
+        return name
+      } else {
+        return item[this.getKey(item)]
+      }
+    },
+    // 笛卡尔积算法
+    descartes(array) {
+      console.log(array)
+      if (array.length < 2 || (array.length === 2 && array[1].length === 0)) {
+        return array[0] || []
+      }
+      return [].reduce.call(array, function(col, set) {
+        const res = []
+        col.forEach(function(c) {
+          set.forEach(function(s) {
+            var t = [].concat(Array.isArray(c) ? c : [c])
+            t.push(s)
+            res.push(t)
           })
-          return name
-        } else {
-          return item[this.getKey(item)]
-        }
-      },
-      //笛卡尔积算法
-      descartes(array){
-        console.log(array)
-        if( array.length < 2 || (array.length === 2 && array[1].length === 0) ) {
-          return array[0] || []
-        }
-        return [].reduce.call(array, function(col, set) {
-          let res = []
-          col.forEach(function(c) {
-            set.forEach(function(s) {
-              var t = [].concat( Array.isArray(c) ? c : [c] )
-              t.push(s)
-              res.push(t)
-          })})
-          console.log(res)
-          return res
         })
-      },
-      // 拖拽
-      onDrop (dropResult) {
-        this.specification = applyDrag(this.specification, dropResult)
-        this.processing()
-      },
-      onInnerDrop (item, dropResult) {
-        const newItems = [...this.specification]
-        const index = newItems.indexOf(item)
-        newItems[index].items = applyDrag(newItems[index].items, dropResult)
-        this.specification = newItems
-        this.processing()
-      },
-      /*
+        console.log(res)
+        return res
+      })
+    },
+    // 拖拽
+    onDrop(dropResult) {
+      this.specification = applyDrag(this.specification, dropResult)
+      this.processing()
+    },
+    onInnerDrop(item, dropResult) {
+      const newItems = [...this.specification]
+      const index = newItems.indexOf(item)
+      newItems[index].items = applyDrag(newItems[index].items, dropResult)
+      this.specification = newItems
+      this.processing()
+    },
+    /*
         计算属性的乘积
         @params
           specIndex 规格项目在 advancedSpecification 中的序号
       */
-      countSum (specIndex) {
-        let num = 1
-        this.specification.forEach((item, index) => {
-          if (index >= specIndex && item.items.length) {
-            num *= item.items.length
-          }
-        })
-        return num
-      },
+    countSum(specIndex) {
+      let num = 1
+      this.specification.forEach((item, index) => {
+        if (index >= specIndex && item.items.length) {
+          num *= item.items.length
+        }
+      })
+      return num
+    },
 
-      // 根据传入的条件，来判断是否显示该td
-      showTd (specIndex, index) {
-        // 如果当前项目下没有属性，则不显示
-        if (!this.specification[specIndex]) {
-          return false
-        } else if (index % this.countSum(specIndex + 1) === 0) {
-          return true
-        } else {
-          return false
-        }
-      },
-      normFile (e) {
-        if (Array.isArray(e)) {
-          return e
-        }
-        return e && e.fileList
-      },
-      childByValue (data, index) {
-        if (data.length === 0 || data.length === undefined) return
-        if (!data[0].name) return
-        this.childProductArray[index].picUnique = data[0].name
-        this.childProductArray[index].url = data[0].thumbUrl
-        this.childProductArray[index].uploadObj = data[0]
-      },
-      /*
+    // 根据传入的条件，来判断是否显示该td
+    showTd(specIndex, index) {
+      // 如果当前项目下没有属性，则不显示
+      if (!this.specification[specIndex]) {
+        return false
+      } else if (index % this.countSum(specIndex + 1) === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    normFile(e) {
+      if (Array.isArray(e)) {
+        return e
+      }
+      return e && e.fileList
+    },
+    childByValue(data, index) {
+      if (data.length === 0 || data.length === undefined) return
+      if (!data[0].name) return
+      this.childProductArray[index].picUnique = data[0].name
+      this.childProductArray[index].url = data[0].thumbUrl
+      this.childProductArray[index].uploadObj = data[0]
+    },
+    /*
         根据传入的属性值，拿到相应规格的属性
         @params
           specIndex 规格项目在 advancedSpecification 中的序号
           index 所有属性在遍历时的序号
       */
-      getSpecAttr (specIndex, index, type) {
-        if (type == 'id') {
-          console.log(specIndex)
-        }
-        // 获取当前规格项目下的属性值
-        const currentValues = this.specification[specIndex].items
-        let indexCopy
+    getSpecAttr(specIndex, index, type) {
+      if (type === 'id') {
+        console.log(specIndex)
+      }
+      // 获取当前规格项目下的属性值
+      const currentValues = this.specification[specIndex].items
+      let indexCopy
 
-        // 判断是否是最后一个规格项目
-        if (this.specification[specIndex + 1] && this.specification[specIndex + 1].items.length) {
-          indexCopy = index / this.countSum(specIndex + 1)
+      // 判断是否是最后一个规格项目
+      if (this.specification[specIndex + 1] && this.specification[specIndex + 1].items.length) {
+        indexCopy = index / this.countSum(specIndex + 1)
+      } else {
+        indexCopy = index
+      }
+
+      const i = Math.floor(indexCopy % currentValues.length)
+
+      if (i.toString() !== 'NaN') {
+        if (type === 'name') {
+          return currentValues[i].name
         } else {
-          indexCopy = index
+          return currentValues[i].itemId
         }
+        // return this.specification[specIndex].items[i][type]
+      } else {
+        return ''
+      }
+    },
+    // 打开批量设置
+    openBatch(type) {
+      this.currentType = type
+      this.isSetListShow = false
+    },
+    // 批量设置
+    setBatch() {
+      if (typeof this.batchValue === 'string') {
+        this.$message.warning('请输入正确的值')
+        return
+      }
+      this.childProductArray.forEach(item => {
+        item[this.currentType] = this.batchValue
+      })
 
-        const i = Math.floor(indexCopy % currentValues.length)
-
-        if (i.toString() !== 'NaN') {
-          if (type === 'name') {
-            return currentValues[i].name
-          } else {
-            return currentValues[i].itemId
-          }
-          // return this.specification[specIndex].items[i][type]
-        } else {
-          return ''
-        }
-      },
-      // 打开批量设置
-      openBatch (type) {
-        this.currentType = type
-        this.isSetListShow = false
-      },
-      // 批量设置
-      setBatch () {
-        if (typeof this.batchValue === 'string') {
-          this.$message.warning('请输入正确的值')
-          return
-        }
-        this.childProductArray.forEach(item => {
-          item[this.currentType] = this.batchValue
-        })
-
-        this.cancelBatch()
-      },
-      // 取消批量设置
-      cancelBatch () {
-        this.batchValue = ''
-        this.currentType = ''
-        this.isSetListShow = true
-      },
+      this.cancelBatch()
+    },
+    // 取消批量设置
+    cancelBatch() {
+      this.batchValue = ''
+      this.currentType = ''
+      this.isSetListShow = true
     }
   }
+}
 </script>
 
 <style lang="scss">

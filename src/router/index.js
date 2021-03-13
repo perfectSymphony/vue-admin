@@ -337,20 +337,20 @@ export const asyncRoutes = [
     hidden: true
   },
   {
-  path: '/sku',
-  component: Layout,
-  children: [
-    {
-      path: 'sku',
-      component: () => import('@/views/sku/index'),
-      name: 'SKU',
-      meta: {
-        title: 'sku',
-        icon: 'sku'
+    path: '/sku',
+    component: Layout,
+    children: [
+      {
+        path: 'sku',
+        component: () => import('@/views/sku/index'),
+        name: 'SKU',
+        meta: {
+          title: 'sku',
+          icon: 'sku'
+        }
       }
-    }
-  ]
-},
+    ]
+  },
   {
     path: '/clipboard',
     component: Layout,

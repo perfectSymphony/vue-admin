@@ -6,8 +6,19 @@ branches:
  only:
  - master
 
+env:
+  global:
+  - secure:
+  KTI6h29sdhGvfbJvmIqeb9HyokbFScIwY+0Mr3L4NpYM0bBeKAgBPv6gkyvBJCsBJv02I4pchtHX8CvcbPc3yTZrXflWctnPP2g3CwOP8NT/OhHSRpglK3KoitzM4LBDjUgrsKaV58fC0Yw8uipbOXDC+mHWmxxyTNZVI+4VHQHtx27DOXb0WMaAdpONRvvcieOA+N+jjSGrsGKFWWHXk3tdrwvvTafpw08fVsHcgTiX+hI32Jm5TZD8qS1Jb/huFHkDJa+xcgLfDIB+ei4mrGjgEkzWfW+pjKHBDh64336P5q9ywTAr+vXfV4ugUFeILrRTurMbtdmMbYKpoMyyr6A4coTtsIRku74szE+ogLawEj/17S6Pk7GPw+LNjlwr3oJNKR0pRCnoehGnb85f4WzPYQBjGIHfGnKcHA0RAd5WQLB32orVlgILKk2uKkm36500gEZ6bjdkkGUyhQGoMiRQGLb8lCuBtB6E8IGAOMIpV5ps5UB2qOj0+2yXvl+uFHTU7TJeii+fon9D5NQy8iCfmSgD68hdEZttGwwg9TJUzLey1ISXGRYWl08o82CxL5FFSYyO4Ap/AGH/F9N7N4mCaOt+T8Se4/kGWtAFf0ee+1TiTfhz/+wVTaIzuQBn/SC2gJHV0fwnQwS1OfxNTF1PyyyScUc8qfjzrSHJ/wc=
+
 before_install:
   - export TZ='Asia/Beijing'   # 配置时区为东八区 UTC+8
+
+before_script:
+  - git config --global user.name "perfectSymphony"
+  - git config --global user.email 2066309334@qq.com
+  - sed -i'' "s~git@github.com:perfectSymphony/vue-admin.git~https://${GH_Token}:x-oauth-basic@github.com/perfectSymphony/vue-admin.git~"
+
 
 cache:
   directories:
@@ -22,15 +33,12 @@ script:
 
 # script: npm run build:prod
 deploy:
-on:
-  branch: master
-strategy: git
+# on:
+#   branch: master
+# strategy: git
 provider: pages
 # 跳过清理
 skip_cleanup: true
-# name: $GIT_NAME # 用户名变量
-email: $GIT_EMAIL # 用户邮箱变量
-# password: $GIT_password #用户密码
 token: $GH_TOKEN              # GitHub Token 变量
 keep_history: true            # 保持推送记录，以增量提交的方式
 local_dir: dist             # 需要推送到 gh-pages 分支的静态文件目录
