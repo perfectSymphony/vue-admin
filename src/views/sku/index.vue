@@ -14,8 +14,20 @@ export default {
   },
   data() {
     return {
-
+      a: 1,
+      b: 1
     }
+  },
+  watch: {
+    a() {
+      console.log('执行了')
+      this.b = 2
+    }
+  },
+  mounted() {
+    this.a = 2
+    console.log(this.a)
+    console.log(this.b)
   }
 }
 </script>

@@ -7,107 +7,107 @@ const baseContent = '<p>I am testing data, I am testing data.</p><p><img src="ht
 const image_uri = 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
 
 for (let i = 0; i < count; i++) {
-    List.push(Mock.mock({
-        id: '@increment',
-        timestamp: +Mock.Random.date('T'),
-        author: '@first',
-        reviewer: '@first',
-        title: '@title(5, 10)',
-        content_short: 'mock data',
-        content: baseContent,
-        forecast: '@float(0, 100, 2, 2)',
-        importance: '@integer(1, 3)',
-        'type|1': ['CN', 'US', 'JP', 'EU'],
-        'status|1': ['published', 'draft', 'deleted'],
-        display_time: '@datetime',
-        comment_disabled: true,
-        pageviews: '@integer(300, 5000)',
-        image_uri,
-        platforms: ['a-platform']
-    }))    
+  List.push(Mock.mock({
+    id: '@increment',
+    timestamp: +Mock.Random.date('T'),
+    author: '@first',
+    reviewer: '@first',
+    title: '@title(5, 10)',
+    content_short: 'mock data',
+    content: baseContent,
+    forecast: '@float(0, 100, 2, 2)',
+    importance: '@integer(1, 3)',
+    'type|1': ['CN', 'US', 'JP', 'EU'],
+    'status|1': ['published', 'draft', 'deleted'],
+    display_time: '@datetime',
+    comment_disabled: true,
+    pageviews: '@integer(300, 5000)',
+    image_uri,
+    platforms: ['a-platform']
+  }))
 }
 
 module.exports = [
-    {
-        url: '/vue-admin/article/list',
-        type: 'get',
-        response: config => {
-            const { importance, type, title, page = 1, limit = 20, sort } = config.query
+  {
+    url: '/vue-admin/article/list',
+    type: 'get',
+    response: config => {
+      const { importance, type, title, page = 1, limit = 20, sort } = config.query
 
-            let mockList = List.filter(item => {
-                if(importance && item.importance !== +importance) return false
-                if(type && item.type !== type) return false
-                if(title && item.title.indexOf(title) < 0) return false
+      let mockList = List.filter(item => {
+        if (importance && item.importance !== +importance) return false
+        if (type && item.type !== type) return false
+        if (title && item.title.indexOf(title) < 0) return false
 
-                return true
-            })
+        return true
+      })
 
-            if(sort === '-id' ){
-                mockList = mockList.reverse()
-            }
+      if (sort === '-id') {
+        mockList = mockList.reverse()
+      }
 
-            const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
-            return {
-                code: 20000,
-                data: {
-                    total: mockList.length,
-                    items: pageList
-                }
-            }
+      return {
+        code: 20000,
+        data: {
+          total: mockList.length,
+          items: pageList
         }
-    },
-    {
-        url: '/vue-admin/article/create',
-        type: 'post',
-        response: _ => {
-            return {
-                code: 20000,
-                data: 'success'
-            }
-        }
-    },
-    {
-        url: '/vue-admin/article/update',
-        type: 'post',
-        response: _ => {
-            return {
-                code: 20000,
-                data: 'success'
-            }
-        }
-    },
-    {
-        url: '/vue-admin/article/pv',
-        type: 'get',
-        response: _ => {
-            return {
-                code: 20000,
-                data: {
-                    pvData: [
-                        { key: 'pc', pv: 1024 },
-                        { key: 'mobile', pv: 2048 },
-                        { key: 'ios', pv: 1024 },
-                        { key: 'android', pv: 6666 }
-                    ]
-                }
-            }
-        }
-    },
-    {
-        url: '/vue-admin/article/detail',
-        type: 'get',
-        response: config => {
-            const { id } = config.query
-
-            for(const article of List){
-                if(article.id === +id){
-                    return {
-                        code: 20000,
-                        data: article
-                    }
-                }
-            }
-        }
+      }
     }
+  },
+  {
+    url: '/vue-admin/article/create',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+  {
+    url: '/vue-admin/article/update',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+  {
+    url: '/vue-admin/article/pv',
+    type: 'get',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          pvData: [
+            { key: 'pc', pv: 1024 },
+            { key: 'mobile', pv: 2048 },
+            { key: 'ios', pv: 1024 },
+            { key: 'android', pv: 6666 }
+          ]
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-admin/article/detail',
+    type: 'get',
+    response: config => {
+      const { id } = config.query
+
+      for (const article of List) {
+        if (article.id === +id) {
+          return {
+            code: 20000,
+            data: article
+          }
+        }
+      }
+    }
+  }
 ]
