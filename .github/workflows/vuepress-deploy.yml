@@ -1,0 +1,17 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Build and Deploy
+      uses: jenkey2011/vuepress-deploy@v1.8.1
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        TARGET_REPO: perfectSymphony/vue-admin
+        TARGET_BRANCH: gh_pages
+        BUILD_SCRIPT: git config --global url."https://".insteadOf git:// && npm install && npm run build:prod
+        BUILD_DIR: dist
