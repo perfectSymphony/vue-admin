@@ -13,5 +13,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: perfectSymphony/vue-admin
         TARGET_BRANCH: master
-        BUILD_SCRIPT: npm install && npm run build:prod
+        BUILD_SCRIPT: git config --global url."https://".insteadOf git:// && npm install && npm run build:prod
         BUILD_DIR: dist
