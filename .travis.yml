@@ -43,5 +43,5 @@ after_script:
   - git remote add origin https://github.com/perfectSymphony/vue-admin.git
   - git subtree push --prefix dist origin gh-pages
 
-notifications:
-  email: true
+#notifications:
+#  email: true
