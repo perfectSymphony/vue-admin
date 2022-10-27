@@ -30,9 +30,9 @@ provider: pages
 skip_cleanup: true
 name: $GIT_NAME # 用户名变量
 email: $GIT_EMAIL # 用户邮箱变量
-token: $GH_TOKEN              # GitHub Token 变量
+token: $ACCESS_TOKEN          # GitHub Token 变量
 keep_history: true            # 保持推送记录，以增量提交的方式
-local_dir: dist             # 需要推送到 gh-pages 分支的静态文件目录
+local_dir: dist               # 需要推送到 gh-pages 分支的静态文件目录
 target_branch: gh-pages       # 推送的目标文件夹 local_dir(public) -> gh-pages 分支
 
 after_script:
