@@ -14,7 +14,6 @@ export default {
   },
   mounted() {
     this.src = `${location?.origin}/vue-admin/static/demo/animal.html`
-    console.log('-----',`${location?.origin}/vue-admin/static/demo/animal.html`);
   }
 }
 
