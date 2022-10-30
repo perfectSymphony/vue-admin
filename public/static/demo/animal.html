@@ -1,0 +1,132 @@
+<!DOCTYPE html >
+<html lang="en" onselectstart="return false;">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #000;
+    }
+    #box{
+      width:133px;
+      height: 200px;
+      margin: 240px auto;
+      position:relative;
+      /* border: 1px solid #fff; 测试用到*/
+      transform-style: preserve-3d;
+      /*2.transform–style属性指定嵌套元素是在三维空间中呈现。(使用此属性必须先使用transform 属性)*/
+      /*perspective:800px;*/
+      /*3.设置透视距离*/
+      transform:perspective(800px) rotateX(-15deg) rotateY(0deg) ;                                                   }
+    #box img{
+      position: absolute;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 3px;
+      box-shadow: 0px 0px 5px #fff;
+      /*4.设置图片阴影*/
+      -webkit-box-reflect:below 10px -webkit-linear-gradient(transparent,transparent 50%,rgba(0,0,0,.6));
+      /*方法2-webkit-box-reflect:below 8px -webkit-linear-gradient(top,rgba(0,0,0,0)40%,rgba(0,0,0,.5)100%);*/
+      /*5.设置图片倒影:直接记住吧(3个值。1. direction 定义方向，取值包括 above 、 below 、 left 、 right。);2. offset定义反射偏移的距离;3.mask-box-image定义遮罩图像，该图像将覆盖投影区域。如果省略该参数值，则默认为无遮罩图像。*/
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <img src="./img/1.jpg" >
+  <img src="./img/2.jpg" >
+  <img src="./img/3.jpg" >
+  <img src="./img/4.jpg" >
+  <img src="./img/5.jpg" >
+  <img src="./img/6.jpg" >
+  <img src="./img/7.jpg" >
+  <img src="./img/8.jpg" >
+  <img src="./img/9.jpg" >
+  <img src="./img/10.jpg" >
+  <img src="./img/11.jpg" >
+  <img src="./img/12.jpg" >
+</div>
+  <script>
+  //   //js动态添加11个img标签
+  //  //创建11个img标签的办法
+  //   var box=document.getElementById('box');
+  //   for(var i=1;i<=11;i++){//有多少张图就循环多少次
+  //  var imgs= document.createElement('img');
+  //  imgs.setAttribute("src", "img/"+i+".jpg");
+  //  box.appendChild(imgs);}
+        //当页面加载完毕后再执行代码
+        window.onload=function ( ) {
+          //1.获取元素
+          var oWrap=document.getElementById('box');
+          var oImg=oWrap.children;
+          // var oImgLen=oImg.length;
+          var deg=360/oImg.length;//3.每个需要旋转的度数
+          // 定义一个开始的度数
+          var roX=-10;
+          var roY=0;
+          var x,y,x_,y_,xN,yN,time=null;
+         //2.遍历所有的img标签
+          for(var i=0;i<oImg.length;i++){
+          // oImg[i].style.cssText='transform:rotateY('+i*deg+'deg ) translateZ(350px);transition:1s'+ (oImgLen-i)*0.1 +'s;';
+            oImg[i].style.transform = 'rotateY('+ i*deg + 'deg) translateZ(350px)';
+            oImg[i].style.transition =' all 1s '+ (oImg.length-i-1)*0.1 +'s';
+            //transition:设置过渡
+            oImg[i].ondragstart=function ( ) {
+            return false;
+          }
+          }
+          //3.事件处理
+          document.onmousedown=function ( e ) {
+            clearInterval(time);
+            e=e||window.event;
+            x_=e.clientX;
+            y_=e.clientY;
+           // console.log ( "鼠标按下了" )
+            this.onmousemove=function ( e ) {
+            e=e||window.event;
+            //获取滚动的X和Y轴
+              //client:鼠标触发点相对于页面可视区域左上角距离
+             x=e.clientX;
+             y=e.clientY;
+              //两点之间的差值:第一次走的时候两值相等,第二次走的时候x已经更新,但x_没更新,所以两个差值就是xN;
+              xN=x-x_;
+              yN=y-y_;
+              //差值拼接到旋转的Y里面去
+              roY+=xN*0.2;//水平拖影响Y轴;
+              roX-=yN*0.2;
+              oWrap.style.transform='perspective(800px) rotateX('+roX+'deg) rotateY('+roY+'deg)';
+              // var oDiv =document.createElement('div');
+              // this.body.appendChild(oDiv);
+              // oDiv.style.cssText='width:5px;height:5px; background:red;position:absolute;left:'+x+"px;top:"+y+"px";这三行是测试用的
+              x_=e.clientX;
+              y_=e.clientY;
+            }
+            this.onmouseup=function ( ) {
+             // console.log ( "鼠标抬起了" )
+              this.onmousemove= null;
+              //设置一个定时器,实现后面惯性效果8
+             time=setInterval(function ( ) {
+          //无限乘以零点95它会接近0的状态
+            xN*=0.95;
+            yN*=0.95;
+            //当它小到0.1时停止计时器
+            if(Math.abs(xN)<0.1 && Math.abs(yN)<0.1){//Math.abs()是返回绝对值
+              clearInterval(time);
+            }
+          //差值拼接到旋转的Y里面去
+          roY+=xN*0.2;//水平拖影响Y轴;
+          roX-=yN*0.2;
+          oWrap.style.transform='perspective(800px) rotateX('+roX+'deg) rotateY('+roY+'deg)';
+        },30)
+            }
+          }
+        }
+  </script>
+</body>
+</html>

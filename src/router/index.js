@@ -106,6 +106,22 @@ export const constantRoutes = [{
       noCache: true
     }
   }]
+},
+{
+  path: '/demo',
+  component: Layout,
+  redirect: '/demo/index',
+  hidden: true,
+  children: [{
+    path: 'index',
+    component: () => import('@/views/demo/index'),
+    name: 'demo',
+    meta: {
+      title: 'demo',
+      icon: 'user',
+      noCache: true
+    }
+  }]
 }
 ]
 

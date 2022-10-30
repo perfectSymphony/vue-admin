@@ -1,6 +1,19 @@
 <template>
   <div class="app-container documentation-container">
-    <dropdown-menu :items="ProjectList" style="margin-left:50px;" title="技术清单" />
+    <el-row>
+      <el-col :span="8">
+        <dropdown-menu :items="ProjectList" style="margin-left:50px;" title="技术清单" />
+      </el-col>
+      <el-col :span="8">
+        <router-link to="/demo/index">
+          <dropdown-menu style="margin-left:50px;" title="动画" />
+        </router-link>
+      </el-col>
+      <el-col :span="8">
+        <dropdown-menu style="margin-left:50px;" title="..." />
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 <script>
