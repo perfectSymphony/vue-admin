@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    this.src = `${location?.origin}/static/demo/animal.html`
+    this.src = `${location?.origin}${location?.pathname}`
   }
 }
 
