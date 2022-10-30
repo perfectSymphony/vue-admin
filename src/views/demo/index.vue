@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    this.src = `${location?.origin}${location?.pathname}`
+    this.src = `${location?.origin}/vue-admin/static/demo/animal.html`
   }
 }
 
