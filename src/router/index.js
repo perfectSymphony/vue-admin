@@ -122,6 +122,22 @@ export const constantRoutes = [{
       noCache: true
     }
   }]
+},
+{
+  path: '/map',
+  component: Layout,
+  redirect: '/map/index',
+  hidden: true,
+  children: [{
+    path: 'index',
+    component: () => import('@/views/map/index'),
+    name: 'map',
+    meta: {
+      title: 'map',
+      icon: 'user',
+      noCache: true
+    }
+  }]
 }
 ]
 

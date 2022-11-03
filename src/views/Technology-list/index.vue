@@ -10,7 +10,9 @@
         </router-link>
       </el-col>
       <el-col :span="8">
-        <dropdown-menu style="margin-left:50px;" title="..." />
+        <router-link to="/map/index">
+           <dropdown-menu style="margin-left:50px;" title="海淀地图" />
+        </router-link>
       </el-col>
     </el-row>
 
