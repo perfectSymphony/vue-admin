@@ -1,6 +1,6 @@
 export default {
   route: {
-    dashboard: '首页',
+    dashboard: '首页1',
     TechnologyList: '技术清单',
     guide: '引导页',
     permission: '权限管理',
